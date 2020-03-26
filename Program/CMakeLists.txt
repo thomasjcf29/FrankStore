@@ -3,4 +3,4 @@ project(Encode)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Encode main.cpp)
+add_executable(Encode main.cpp Image.h)
