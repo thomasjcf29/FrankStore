@@ -2,8 +2,8 @@
 // Created by Thomas on 26/03/2020.
 //
 
-#ifndef FRANKSTORE_FRANKSIMAGE_H
-#define FRANKSTORE_FRANKSIMAGE_H
+#ifndef FRANKSTORE_COVERIMAGE_H
+#define FRANKSTORE_COVERIMAGE_H
 
 #include <iostream>
 #include <Magick++.h>
@@ -12,20 +12,20 @@
 using namespace std;
 using namespace Magick;
 
-class FranksImage{
+class CoverImage{
 private:
     string location;
     Magick::Image img;
     bool valid = false;
 public:
-    FranksImage(string file);
+    CoverImage(string file);
     string getHexColour(int x, int y);
     void close();
     int getWidth();
     int getHeight();
 };
 
-FranksImage::FranksImage(string file){
+CoverImage::CoverImage(string file){
     location = file;
     try{
         img.read(file);
@@ -38,19 +38,19 @@ FranksImage::FranksImage(string file){
     }
 };
 
-int FranksImage::getWidth(){
+int CoverImage::getWidth(){
     if(!valid)
         return -1;
     return img.columns();
 }
 
-int FranksImage::getHeight(){
+int CoverImage::getHeight(){
     if(!valid)
         return -1;
     return img.rows();
 }
 
-string FranksImage::getHexColour(int x, int y){
+string CoverImage::getHexColour(int x, int y){
     if(!valid)
         return "-1";
     if(x > (getWidth() - 1))
@@ -66,8 +66,8 @@ string FranksImage::getHexColour(int x, int y){
     return Converter::rgb2hex(red, green, blue, true);
 }
 
-void FranksImage::close(){
+void CoverImage::close(){
     location.clear();
 }
 
-#endif //FRANKSTORE_FRANKSIMAGE_H
+#endif //FRANKSTORE_COVERIMAGE_H
