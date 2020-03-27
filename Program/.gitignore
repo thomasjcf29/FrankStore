@@ -1,4 +1,9 @@
 .idea/
 .idea/*
-cmake-build-debug/
-cmake-build-debug/*
+.vscode/
+.vscode/*
+CMakeFiles/
+CMakeFiles/*
+Makefile
+CMakeCache.txt
+cmake_install.cmake
