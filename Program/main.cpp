@@ -8,5 +8,6 @@ int main() {
     cout << "Width: " << test.getWidth() << endl;
     cout << "Height: " << test.getHeight() << endl;
     cout << "Pixel Colour: " << test.getHexColour(0, 0) << endl;
+    test.close();
     return 0;
 }
