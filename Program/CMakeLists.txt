@@ -1,6 +1,20 @@
-cmake_minimum_required(VERSION 3.15)
-project(Encode)
+cmake_minimum_required(VERSION 3.10)
+project(FrankStore)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
+add_definitions( -DMAGICKCORE_QUANTUM_DEPTH=16 )
+add_definitions( -DMAGICKCORE_HDRI_ENABLE=0 )
+find_package(ImageMagick COMPONENTS Magick++)
+include_directories(${ImageMagick_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Encode main.cpp)
+file(GLOB FrankStore_SRC
+        "*.h"
+        "*.cpp"
+)
+
+add_executable(FrankStore ${FrankStore_SRC})
+
+target_link_libraries(FrankStore ${ImageMagick_LIBRARIES})
