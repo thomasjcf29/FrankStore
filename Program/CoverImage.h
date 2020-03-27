@@ -7,17 +7,15 @@
 
 #include <Magick++.h>
 
-using namespace std;
-
 class CoverImage{
 private:
-    string location;
+    std::string location;
     Magick::Image img;
     bool valid = false;
     int maxPixels;
 public:
-    CoverImage(string file);
-    string getHexColour(int x, int y);
+    CoverImage(std::string file);
+    std::string getHexColour(int x, int y);
     void close();
     int getWidth();
     int getHeight();
