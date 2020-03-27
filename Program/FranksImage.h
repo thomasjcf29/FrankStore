@@ -53,6 +53,11 @@ int FranksImage::getHeight(){
 string FranksImage::getHexColour(int x, int y){
     if(!valid)
         return "-1";
+    if(x > (getWidth() - 1))
+        return "ERROR: The requested width is too large."
+    if(y > (getHeight() - 1))
+        return "ERROR: The requested height is too large."
+        
     ColorRGB px = img.pixelColor(x, y);
     int red = px.red() * 255;
     int green = px.green() * 255;
