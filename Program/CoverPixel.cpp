@@ -11,7 +11,7 @@
 using namespace std;
 
 CoverPixel::CoverPixel(){
-    
+
 }
 
 CoverPixel::CoverPixel(int lx, int ly, string lcolour){
@@ -40,7 +40,10 @@ int CoverPixel::getLetterCount(string letter){
 int CoverPixel::getLetter(string letter){
     int arrayPos = Converter::hex2int(letter);
     int location = randombytes_uniform(letters[arrayPos].size());
-    return letters[arrayPos].at(location);
+    int hashLocation = letters[arrayPos].at(location);
+    letters[arrayPos].erase(location);
+
+    return hashLocation;
 }
 
 string CoverPixel::getHash(){
