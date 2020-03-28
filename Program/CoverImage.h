@@ -15,6 +15,7 @@ private:
     Magick::Image img;
     bool valid = false;
     int maxPixels;
+    int availablePixels;
 public:
     CoverImage(std::string file);
     CoverImage();
@@ -25,6 +26,8 @@ public:
     int getMaxPixels();
     int* getRandomLocation();
     bool isValid();
+    void claimUsedPixel();
+    int getPixelsLeft();
 };
 
 #endif //FRANKSTORE_COVERIMAGE_H
