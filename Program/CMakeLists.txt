@@ -17,3 +17,4 @@ file(GLOB FrankStore_SRC
 add_executable(FrankStore ${FrankStore_SRC})
 
 target_link_libraries(FrankStore ${ImageMagick_LIBRARIES})
+target_link_libraries(FrankStore sodium)

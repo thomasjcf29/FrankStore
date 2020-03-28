@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Magick++.h>
 #include "Converter.h"
+#include <sodium.h>
 
 using namespace std;
 using namespace Magick;
@@ -50,6 +51,18 @@ string CoverImage::getHexColour(int x, int y){
     int blue = px.blue() * 255;
 
     return Converter::rgb2hex(red, green, blue, true);
+}
+
+int * CoverImage::getRandomLocation(){
+    int * location = new int[2];
+    char myString[32];
+
+    randombytes_buf(myString, 32);
+
+    location[0] = randombytes_uniform(getWidth());
+    location[1] = randombytes_uniform(getHeight());
+
+    return location;
 }
 
 void CoverImage::close(){

@@ -6,6 +6,7 @@
 #define FRANKSTORE_COVERIMAGE_H
 
 #include <Magick++.h>
+#include <sodium.h>
 
 class CoverImage{
 private:
@@ -20,6 +21,7 @@ public:
     int getWidth();
     int getHeight();
     int getMaxPixels();
+    int* getRandomLocation();
 };
 
 #endif //FRANKSTORE_COVERIMAGE_H
