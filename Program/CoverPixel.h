@@ -11,6 +11,7 @@
 class CoverPixel{
 private:
     std::string x, y, hash, colour;
+    int intX, intY;
     std::vector<int> letters[16];
 public:
     CoverPixel();
@@ -18,6 +19,8 @@ public:
     int getLetter(std::string letter);
     std::string getHash();
     int getLetterCount(std::string letter);
+    int getX();
+    int getY();
 };
 
 #endif //FRANKSTORE_COVERPIXEL_H

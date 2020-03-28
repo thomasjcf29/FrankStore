@@ -15,6 +15,9 @@ CoverPixel::CoverPixel(){
 }
 
 CoverPixel::CoverPixel(int lx, int ly, string lcolour){
+    intX = lx;
+    intY = ly;
+
     string sx = to_string(lx);
     string sy = to_string(ly);
     x = sx;
@@ -49,4 +52,12 @@ int CoverPixel::getLetter(string letter){
 
 string CoverPixel::getHash(){
     return hash;
+}
+
+int CoverPixel::getX(){
+    return intX;
+}
+
+int CoverPixel::getY(){
+    return intY;
 }
