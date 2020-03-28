@@ -11,6 +11,7 @@ class Converter{
 public:
     static std::string rgb2hex(int r, int g, int b, bool with_head);
     static int hex2int(std::string hex);
+    static std::string int2hex(int);
 private:
     Converter() {}
 };

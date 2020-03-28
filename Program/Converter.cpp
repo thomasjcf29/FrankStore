@@ -16,3 +16,9 @@ string Converter::rgb2hex(int r, int g, int b, bool with_head){
 int Converter::hex2int(string hex){
     return stoul(hex, nullptr, 16);
 }
+
+string Converter::int2hex(int number){
+    stringstream stream;
+    stream << std::hex << number;
+    return stream.str();
+}
