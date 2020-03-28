@@ -1,8 +1,9 @@
 #include "CoverImage.h"
+#include "CoverPixel.h"
+#include "Converter.h"
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
-#include "sha512.h"
 
 using namespace std;
 
@@ -29,33 +30,24 @@ bool check(int argc, char **argv) {
 
 int main(int argc, char **argv) {
 
-	cout << "Argument Count: " << argc << endl;
-
-    for(int i = 0; i < argc; i++){
-      cout << "Argument (" << (i + 1) << "): " << argv[i] << endl;
-    }
-
-	if(!check(argc, argv))
+	if(!check(argc, argv)){
 		cout << "Exiting Program" << endl;
 		exit(2);
+	}
 
     CoverImage test = CoverImage("/home/thomasjcf21/download.jpg");
     cout << "Width: " << test.getWidth() << endl;
     cout << "Height: " << test.getHeight() << endl;
-    cout << "Pixel Colour: " << test.getHexColour(0, 0) << endl;
     cout << "Max Pixels: " << test.getMaxPixels() << endl;
+
+	int * loc = test.getRandomLocation();
+	string colour = test.getHexColour(loc[0], loc[1]);
+
+	CoverPixel f = CoverPixel(loc[0], loc[1], colour);
+	cout << "X: " << loc[0] << ", Y: " << loc[1] << endl;
+	cout << "Colour: " << colour << endl;
+	cout << "Hash: " << f.getHash() << endl;
+
     test.close();
-
-    for(int i = 0; i < 10; i++){
-      int * hmm = test.getRandomLocation();
-      cout << "X: " << hmm[0] << ", Y:" << hmm[1] << endl;
-    }
-
-    cout << "Argument Count: " << argc << endl;
-
-    for(int i = 0; i < argc; i++){
-      cout << "Argument (" << (i + 1) << "): " << argv[i] << endl;
-    }
-
   	return 0;
 }
