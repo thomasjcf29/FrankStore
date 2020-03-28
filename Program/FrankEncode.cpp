@@ -1,14 +1,9 @@
+#include "FrankEncode.h"
 #include "CoverImage.h"
 #include "CoverPixel.h"
-#include "Converter.h"
 #include <iostream>
 #include <string.h>
-#include <stdlib.h>
 #include <vector>
-#include <algorithm>
-#include <iostream>
-
-#include "FrankEncode.h"
 
 using namespace std;
 
