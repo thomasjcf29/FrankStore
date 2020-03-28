@@ -16,6 +16,7 @@ CoverImage::CoverImage(string file){
     try{
         img.read(file);
         maxPixels = img.columns() * img.rows();
+        availablePixels = maxPixels;
         valid = true;
     }
     catch( exception &error_ )
@@ -71,6 +72,14 @@ int * CoverImage::getRandomLocation(){
 
 bool CoverImage::isValid(){
     return valid;
+}
+
+void CoverImage::claimUsedPixel(){
+    availablePixels--;
+}
+
+int CoverImage::getPixelsLeft(){
+    return availablePixels;
 }
 
 void CoverImage::close(){
