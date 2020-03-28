@@ -13,6 +13,7 @@ private:
     std::string x, y, hash, colour;
     std::vector<int> letters[16];
 public:
+    CoverPixel();
     CoverPixel(int x, int y, std::string colour);
     int getLetter(std::string letter);
     std::string getHash();

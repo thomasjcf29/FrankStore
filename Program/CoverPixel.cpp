@@ -10,6 +10,10 @@
 
 using namespace std;
 
+CoverPixel::CoverPixel(){
+    
+}
+
 CoverPixel::CoverPixel(int lx, int ly, string lcolour){
     string sx = to_string(lx);
     string sy = to_string(ly);
