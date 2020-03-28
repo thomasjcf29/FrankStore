@@ -7,6 +7,10 @@
 using namespace std;
 using namespace Magick;
 
+CoverImage::CoverImage(){
+    
+}
+
 CoverImage::CoverImage(string file){
     location = file;
     try{

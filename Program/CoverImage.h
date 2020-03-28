@@ -17,6 +17,7 @@ private:
     int maxPixels;
 public:
     CoverImage(std::string file);
+    CoverImage();
     std::string getHexColour(int x, int y);
     void close();
     int getWidth();
