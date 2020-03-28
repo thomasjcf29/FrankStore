@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
+#include <vector>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -28,6 +31,17 @@ bool check(int argc, char **argv) {
     }
 }
 
+struct compare
+{
+	string key;
+	compare(string const &i): key(i) { }
+
+	bool operator()(string const &i)
+	{
+		return (i == key);
+	}
+};
+
 int main(int argc, char **argv) {
 
 	if(!check(argc, argv)){
@@ -40,13 +54,31 @@ int main(int argc, char **argv) {
     cout << "Height: " << test.getHeight() << endl;
     cout << "Max Pixels: " << test.getMaxPixels() << endl;
 
-	int * loc = test.getRandomLocation();
-	string colour = test.getHexColour(loc[0], loc[1]);
+    vector<string> pixelsUsed;
+    CoverPixel pixels[1000];
 
-	CoverPixel f = CoverPixel(loc[0], loc[1], colour);
-	cout << "X: " << loc[0] << ", Y: " << loc[1] << endl;
-	cout << "Colour: " << colour << endl;
-	cout << "Hash: " << f.getHash() << endl;
+    for(int i = 0; i < 1000; i++){
+        bool invalid = true;
+        do{
+            int * loc = test.getRandomLocation();
+            string x,y,key;
+            x = to_string(loc[0]);
+            y = to_string(loc[1]);
+            key = x + "-" + y;
+
+            if(any_of(pixelsUsed.begin(), pixelsUsed.end(), compare(key))){
+                invalid = true;
+                cout << "Element Found" << endl;
+            }
+            else{
+                invalid = false;
+                pixelsUsed.push_back(key);
+                string colour = test.getHexColour(loc[0], loc[1]);
+                pixels[i] = CoverPixel(loc[0], loc[1], colour);
+            }
+
+        } while(invalid);
+    }
 
     test.close();
   	return 0;
