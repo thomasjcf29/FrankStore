@@ -6,6 +6,10 @@
 #include <vector>
 #include <string>
 
+struct Location{
+    int x, y, hash;
+};
+
 class FrankEncode{
 private:
     CoverImage image;
