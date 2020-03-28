@@ -7,6 +7,7 @@
 
 #include <Magick++.h>
 #include <sodium.h>
+#include <string>
 
 class CoverImage{
 private:
