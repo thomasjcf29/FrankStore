@@ -24,6 +24,7 @@ public:
     int getHeight();
     int getMaxPixels();
     int* getRandomLocation();
+    bool isValid();
 };
 
 #endif //FRANKSTORE_COVERIMAGE_H

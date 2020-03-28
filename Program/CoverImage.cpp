@@ -8,7 +8,7 @@ using namespace std;
 using namespace Magick;
 
 CoverImage::CoverImage(){
-    
+
 }
 
 CoverImage::CoverImage(string file){
@@ -20,7 +20,7 @@ CoverImage::CoverImage(string file){
     }
     catch( exception &error_ )
     {
-        cout << "Problem opening file: " << error_.what() << endl;
+        cout << "Problem opening file: " << "Does the file exist?" << endl;
         valid = false;
     }
 };
@@ -67,6 +67,10 @@ int * CoverImage::getRandomLocation(){
     location[1] = randombytes_uniform(getHeight());
 
     return location;
+}
+
+bool CoverImage::isValid(){
+    return valid;
 }
 
 void CoverImage::close(){
