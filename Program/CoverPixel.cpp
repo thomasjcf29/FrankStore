@@ -41,7 +41,8 @@ int CoverPixel::getLetter(string letter){
     int arrayPos = Converter::hex2int(letter);
     int location = randombytes_uniform(letters[arrayPos].size());
     int hashLocation = letters[arrayPos].at(location);
-    letters[arrayPos].erase(location);
+
+    letters[arrayPos].erase(letters[arrayPos].begin() + location);
 
     return hashLocation;
 }
