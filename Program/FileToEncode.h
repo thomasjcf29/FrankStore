@@ -12,6 +12,7 @@ private:
     char buffer[1024];
     size_t totalLength;
     size_t bufferSize;
+    size_t readSoFar = 0;
 public:
     FileToEncode();
     FileToEncode(std::string file);
@@ -20,6 +21,7 @@ public:
     bool isValid();
     size_t getBufferSize();
     size_t getTotalSize();
+    size_t getReadSoFar();
     void close();
 };
 

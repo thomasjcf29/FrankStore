@@ -41,6 +41,8 @@ char* FileToEncode::getNextBytes(){
         bufferSize = totalLength - currentLocation;
     }
 
+    readSoFar += bufferSize;
+
     inputFile.read(buffer, bufferSize);
 
     if(inputFile.tellg() >= totalLength){
@@ -56,6 +58,10 @@ size_t FileToEncode::getBufferSize(){
 
 size_t FileToEncode::getTotalSize(){
     return totalLength;
+}
+
+size_t FileToEncode::getReadSoFar(){
+    return readSoFar;
 }
 
 bool FileToEncode::isFileRead(){
