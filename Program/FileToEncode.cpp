@@ -54,6 +54,10 @@ size_t FileToEncode::getBufferSize(){
     return bufferSize;
 }
 
+size_t FileToEncode::getTotalSize(){
+    return totalLength;
+}
+
 bool FileToEncode::isFileRead(){
     return isRead;
 }

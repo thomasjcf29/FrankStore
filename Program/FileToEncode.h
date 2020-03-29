@@ -19,6 +19,7 @@ public:
     bool isFileRead();
     bool isValid();
     size_t getBufferSize();
+    size_t getTotalSize();
     void close();
 };
 
