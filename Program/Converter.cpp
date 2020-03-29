@@ -47,7 +47,8 @@ int Converter::hex2int(string hex){
 
 string Converter::int2hex(int number){
     stringstream stream;
-    stream << std::hex << number;
+    stream << "#";
+    stream << std::hex << std::setw(6) << std::setfill('0') << number;
     return stream.str();
 }
 
