@@ -5,6 +5,8 @@
 
 using namespace std;
 
+char const hexHolder[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B','C','D','E','F'};
+
 string Converter::rgb2hex(int r, int g, int b, bool with_head){
   stringstream ss;
   if (with_head)
@@ -21,4 +23,14 @@ string Converter::int2hex(int number){
     stringstream stream;
     stream << std::hex << number;
     return stream.str();
+}
+
+string Converter::char2hex(char* bytes, size_t size){
+    string result;
+    for(int i = 0; i < size; i++){
+        const char ch = bytes[i];
+        result.append(&hexHolder[(ch  & 0xF0) >> 4], 1);
+        result.append(&hexHolder[ch & 0xF], 1);
+    }
+    return result;
 }
