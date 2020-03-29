@@ -42,10 +42,13 @@ int CoverPixel::getLetterCount(string letter){
 
 int CoverPixel::getLetter(string letter){
     int arrayPos = Converter::hex2int(letter);
-    int location = randombytes_uniform(letters[arrayPos].size());
-    int hashLocation = letters[arrayPos].at(location);
+    vector<int> locations = letters[arrayPos];
+    int location = randombytes_uniform(locations.size());
+    int hashLocation = locations[location];
 
-    letters[arrayPos].erase(letters[arrayPos].begin() + location);
+    locations.erase(locations.begin() + location);
+
+    letters[arrayPos] = locations;
 
     return hashLocation;
 }
