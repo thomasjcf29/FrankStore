@@ -1,13 +1,16 @@
 #include "FrankEncode.h"
 #include "FileToEncode.h"
+#include "ImageToOutput.h"
 #include "CoverImage.h"
 #include "CoverPixel.h"
 #include "sha512.h"
 #include "Converter.h"
+#include <Magick++.h>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sodium.h>
+#include <math.h>
 
 using namespace std;
 
@@ -22,7 +25,10 @@ struct compare{
 };
 
 FrankEncode::FrankEncode(char **argv){
+	cout << "[INFO]: Opening cover image." << endl;
     image = CoverImage(argv[2]);
+
+	cout << "[INFO]: Opening file to encode." << endl;
 	plainFile = FileToEncode(argv[3]);
 
     char myString[32];
@@ -44,22 +50,17 @@ FrankEncode::FrankEncode(char **argv){
 		exit(6);
 	}
 
+	size_t recommendedSize = calculateBestImageSize(plainFile.getTotalSize());
+
+	cout << "[INFO]: Creating output image." << endl;
+	outputFile = ImageToOutput(argv[4], recommendedSize, recommendedSize);
+
+	if(!outputFile.isValid()){
+		cout << "[ERROR]: Program exiting" << endl;
+		exit(7);
+	}
+
 	getPixels(1000);
-
-	bool moreToRead = true;
-
-	do{
-		char* test = plainFile.getNextBytes();
-		size_t read = plainFile.getBufferSize();
-		string hex = Converter::char2hex(test, read);
-
-		moreToRead = !(plainFile.isFileRead());
-
-		cout << hex;
-
-	} while(moreToRead);
-
-	cout << endl;
 }
 
 CoverPixel FrankEncode::findPixel(){
@@ -139,6 +140,59 @@ Location FrankEncode::encodeLetter(string hashLetter){
     pixels[pixelToUse] = pixel;
 
     return Location{x, y, hashLocation};
+}
+
+size_t FrankEncode::calculateBestImageSize(size_t fileSize){
+	size_t withHex = fileSize * 2;
+	size_t withPixels = withHex * 3;
+	return ceil(sqrt(withPixels));
+}
+
+void FrankEncode::encode(){
+	bool moreToRead = true;
+
+	do{
+		char* fileBytes = plainFile.getNextBytes();
+
+		cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
+
+		size_t bytesRead = plainFile.getBufferSize();
+		string hex = Converter::char2hex(fileBytes, bytesRead);
+
+		for(int i = 0; i < hex.length(); i++){
+			string letter = hex.substr(i, 1);
+			Location loc = encodeLetter(letter);
+
+			double* xRGB = Converter::hex2rgb(Converter::int2hex(loc.x));
+			double* yRGB = Converter::hex2rgb(Converter::int2hex(loc.y));
+			double* hashRGB = Converter::hex2rgb(Converter::int2hex(loc.hash));
+
+			Magick::Color x = Magick::ColorRGB(xRGB[0], xRGB[1], xRGB[2]);
+			Magick::Color y = Magick::ColorRGB(yRGB[0], yRGB[1], yRGB[2]);
+			Magick::Color hash = Magick::ColorRGB(hashRGB[0], hashRGB[1], hashRGB[2]);
+
+			outputFile.updatePixel(x);
+			outputFile.updatePixel(y);
+			outputFile.updatePixel(hash);
+		}
+
+		moreToRead = !(plainFile.isFileRead());
+
+		//outputFile.write();
+
+	} while(moreToRead);
+
+	outputFile.updatePixel(Magick::ColorRGB(255, 255, 255));
+
+	while(!outputFile.isWritten()){
+		int random = randombytes_uniform(16777216);
+		double* rgb = Converter::hex2rgb(Converter::int2hex(random));
+
+		Magick::Color color = Magick::ColorRGB(rgb[0], rgb[1], rgb[2]);
+		outputFile.updatePixel(color);
+	}
+
+	outputFile.write();
 }
 
 void FrankEncode::close(){

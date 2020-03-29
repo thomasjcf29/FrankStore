@@ -4,6 +4,7 @@
 #include "CoverImage.h"
 #include "CoverPixel.h"
 #include "FileToEncode.h"
+#include "ImageToOutput.h"
 #include <vector>
 #include <set>
 #include <string>
@@ -18,14 +19,17 @@ private:
     FileToEncode plainFile;
     std::vector<CoverPixel> pixels;
     std::set<std::string> pixelsUsed;
-    
+    ImageToOutput outputFile;
+
     bool getPixels(int amount);
     void replacePixel(int location);
     CoverPixel findPixel();
     bool checkCount(int pixel, std::string letter);
     Location encodeLetter(std::string hashLetter);
+    size_t calculateBestImageSize(size_t fileSize);
 public:
     FrankEncode(char **argv);
+    void encode();
     void close();
 };
 

@@ -34,6 +34,8 @@ int main(int argc, char **argv) {
 
     if(strcmp(argv[1], "encode") == 0){
         FrankEncode encoder = FrankEncode(argv);
+        encoder.encode();
+        encoder.close();
     }
 
   	return 0;
