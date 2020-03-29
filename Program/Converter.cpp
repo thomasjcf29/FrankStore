@@ -15,8 +15,9 @@ string Converter::rgb2hex(int r, int g, int b, bool with_head){
   return ss.str();
 }
 
-int* Converter::hex2rgb(string hex){
+double* Converter::hex2rgb(string hex){
     int* rgb = new int[3];
+    double* dblRGB = new double[3];
     stringstream ss;
     string str;
 
@@ -35,10 +36,11 @@ int* Converter::hex2rgb(string hex){
 
     	ss << std::hex << str;
     	ss >> rgb[i];
+        dblRGB[i] = rgb[i] / 255.0;
     	ss.clear();
     }
 
-    return rgb;
+    return dblRGB;
 }
 
 int Converter::hex2int(string hex){
