@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 file(GLOB FrankStore_SRC
         "*.cpp"
+        "*.h"
 )
 
 add_executable(FrankStore ${FrankStore_SRC})
