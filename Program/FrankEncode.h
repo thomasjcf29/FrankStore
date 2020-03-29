@@ -3,6 +3,7 @@
 
 #include "CoverImage.h"
 #include "CoverPixel.h"
+#include "FileToEncode.h"
 #include <vector>
 #include <set>
 #include <string>
@@ -14,8 +15,10 @@ struct Location{
 class FrankEncode{
 private:
     CoverImage image;
+    FileToEncode plainFile;
     std::vector<CoverPixel> pixels;
     std::set<std::string> pixelsUsed;
+    
     bool getPixels(int amount);
     void replacePixel(int location);
     CoverPixel findPixel();
@@ -23,6 +26,7 @@ private:
     Location encodeLetter(std::string hashLetter);
 public:
     FrankEncode(char **argv);
+    void close();
 };
 
 #endif //FRANKSTORE_FRANKENCODE_H

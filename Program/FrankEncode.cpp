@@ -1,9 +1,11 @@
 #include "FrankEncode.h"
+#include "FileToEncode.h"
 #include "CoverImage.h"
 #include "CoverPixel.h"
-#include <iostream>
-#include <string.h>
 #include "sha512.h"
+#include "Converter.h"
+#include <iostream>
+#include <string>
 #include <vector>
 #include <sodium.h>
 
@@ -21,6 +23,7 @@ struct compare{
 
 FrankEncode::FrankEncode(char **argv){
     image = CoverImage(argv[2]);
+	plainFile = FileToEncode(argv[3]);
 
     char myString[32];
     randombytes_buf(myString, 32);
@@ -36,14 +39,27 @@ FrankEncode::FrankEncode(char **argv){
         exit(4);
     }
 
-    getPixels(1000);
+	if(!plainFile.isValid()){
+		cout << "[ERROR]: Program exiting" << endl;
+		exit(6);
+	}
 
-    for(int i = 0; i < 100000; i++){
-        //cout << endl;
-        Location test = encodeLetter("a");
-    }
+	getPixels(1000);
 
-    image.close();
+	bool moreToRead = true;
+
+	do{
+		char* test = plainFile.getNextBytes();
+		size_t read = plainFile.getBufferSize();
+		string hex = Converter::char2hex(test, read);
+
+		moreToRead = !(plainFile.isFileRead());
+
+		cout << hex;
+
+	} while(moreToRead);
+
+	cout << endl;
 }
 
 CoverPixel FrankEncode::findPixel(){
@@ -123,4 +139,9 @@ Location FrankEncode::encodeLetter(string hashLetter){
     pixels[pixelToUse] = pixel;
 
     return Location{x, y, hashLocation};
+}
+
+void FrankEncode::close(){
+	image.close();
+	plainFile.close();
 }
