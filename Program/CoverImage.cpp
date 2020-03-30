@@ -34,6 +34,7 @@ CoverImage::CoverImage(string file){
 		incrementor = randombytes_uniform(getWidth());
 		if(incrementor >= halfWidth){
 			invalid = false;
+            cout << "Initial Incrementor: " << incrementor << endl;
 		}
 
 	} while(invalid);
@@ -78,9 +79,13 @@ string CoverImage::getHexColour(int x, int y){
 int * CoverImage::getNextLocation(){
     int * location = new int[2];
 
-    if((curX + 1) >= getWidth()){
+    if(curX  >= getWidth()){
+        // cout << "Out Of Bounds: " << curX << endl;
+        // cout << "Width: " << getWidth() << endl;
         int leftOver = curX - getWidth();
+        cout << "Left Over: " << leftOver << endl;
         curX = leftOver;
+        // cout << "X: " << curX << endl;
         curY++;
     }
 
@@ -109,6 +114,9 @@ int * CoverImage::getNextLocation(){
 
     location[0] = curX;
     location[1] = curY;
+
+    // cout << "X: " << curX << endl;
+    // cout << "Y: " << curY << endl;
 
     curX = curX + incrementor;
 
