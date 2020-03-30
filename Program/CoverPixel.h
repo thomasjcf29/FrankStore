@@ -14,6 +14,7 @@ private:
     int intX, intY;
     std::vector<int> letters[16];
 public:
+    ~CoverPixel();
     CoverPixel();
     CoverPixel(int x, int y, std::string colour);
     int getLetter(std::string letter);

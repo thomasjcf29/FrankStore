@@ -14,6 +14,13 @@ CoverPixel::CoverPixel(){
 
 }
 
+CoverPixel::~CoverPixel(){
+
+    for(int i = 0; i < 16; i++){
+        vector<int>().swap(letters[i]);
+    }
+}
+
 CoverPixel::CoverPixel(int lx, int ly, string lcolour){
     intX = lx;
     intY = ly;

@@ -40,6 +40,8 @@ double* Converter::hex2rgb(string hex){
     	ss.clear();
     }
 
+    delete [] rgb;
+
     return dblRGB;
 }
 
