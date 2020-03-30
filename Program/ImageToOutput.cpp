@@ -28,7 +28,6 @@ ImageToOutput::ImageToOutput(string fileToWrite, size_t imageX, size_t imageY){
     }
     catch(exception &error){
         cout << "[ERROR]: Can't write file, do you have permission?" << endl;
-        cout << "[ERROR]: " << error.what() << endl;
         valid = false;
         return;
     }
