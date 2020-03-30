@@ -20,6 +20,7 @@ private:
     std::vector<CoverPixel> pixels;
     std::set<std::string> pixelsUsed;
     ImageToOutput outputFile;
+    int counter = 0;
 
     bool getPixels(int amount);
     void replacePixel(int location);

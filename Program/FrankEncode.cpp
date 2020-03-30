@@ -66,22 +66,28 @@ FrankEncode::FrankEncode(char **argv){
 CoverPixel FrankEncode::findPixel(){
     bool invalid = true;
     do{
-        int * loc = image.getRandomLocation();
+        int * loc = image.getNextLocation();
+		int ix = loc[0];
+		int iy = loc[1];
+
+		delete [] loc;
         string x,y,key;
-        x = to_string(loc[0]);
-        y = to_string(loc[1]);
+        x = to_string(ix);
+        y = to_string(iy);
         key = sha512(x + "-" + y);
 
         pair<std::set<string>::iterator,bool> result = pixelsUsed.insert(key);
 
         if(result.second){
             invalid = false;
-            string colour = image.getHexColour(loc[0], loc[1]);
+            string colour = image.getHexColour(ix, iy);
             image.claimUsedPixel();
-            return CoverPixel(loc[0], loc[1], colour);
+            return CoverPixel(ix, iy, colour);
         }
 
     } while(invalid);
+
+	image.resetFailedAttempts();
 }
 
 bool FrankEncode::getPixels(int pixelAmount){
@@ -151,10 +157,10 @@ size_t FrankEncode::calculateBestImageSize(size_t fileSize){
 void FrankEncode::encode(){
 	bool moreToRead = true;
 
+	cout << "Encoding file." << endl;
+
 	do{
 		char* fileBytes = plainFile.getNextBytes();
-
-		cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
 
 		size_t bytesRead = plainFile.getBufferSize();
 		string hex = Converter::char2hex(fileBytes, bytesRead);
@@ -171,6 +177,10 @@ void FrankEncode::encode(){
 			Magick::Color y = Magick::ColorRGB(yRGB[0], yRGB[1], yRGB[2]);
 			Magick::Color hash = Magick::ColorRGB(hashRGB[0], hashRGB[1], hashRGB[2]);
 
+			delete [] xRGB;
+			delete [] yRGB;
+			delete [] hashRGB;
+
 			outputFile.updatePixel(x);
 			outputFile.updatePixel(y);
 			outputFile.updatePixel(hash);
@@ -178,9 +188,19 @@ void FrankEncode::encode(){
 
 		moreToRead = !(plainFile.isFileRead());
 
-		//outputFile.write();
+		counter++;
+
+		if(counter == 10000){
+			counter = 0;
+			cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
+			cout << "Flushing output file made so far" << endl;
+		 	outputFile.write();
+			cout << "Output file flushed, continuing." << endl;
+		}
 
 	} while(moreToRead);
+
+	cout << "File read." << endl;
 
 	outputFile.updatePixel(Magick::ColorRGB(255, 255, 255));
 
@@ -189,6 +209,8 @@ void FrankEncode::encode(){
 		double* rgb = Converter::hex2rgb(Converter::int2hex(random));
 
 		Magick::Color color = Magick::ColorRGB(rgb[0], rgb[1], rgb[2]);
+
+		delete [] rgb;
 		outputFile.updatePixel(color);
 	}
 
