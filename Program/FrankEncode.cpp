@@ -24,9 +24,11 @@ struct compare{
 	}
 };
 
-FrankEncode::FrankEncode(char **argv){
+FrankEncode::FrankEncode(char **argv, bool isImage){
 	cout << "[INFO]: Opening cover image." << endl;
     image = CoverImage(argv[2]);
+
+	outputImage = isImage;
 
 	cout << "[INFO]: Opening file to encode." << endl;
 	plainFile = FileToEncode(argv[3]);
@@ -50,14 +52,25 @@ FrankEncode::FrankEncode(char **argv){
 		exit(6);
 	}
 
-	size_t recommendedSize = calculateBestImageSize(plainFile.getTotalSize());
+	if(outputImage){
+		cout << "[INFO]: Creating output image." << endl;
+		size_t recommendedSize = calculateBestImageSize(plainFile.getTotalSize());
+		outputFileImage = ImageToOutput(argv[4], recommendedSize, recommendedSize);
 
-	cout << "[INFO]: Creating output image." << endl;
-	outputFile = ImageToOutput(argv[4], recommendedSize, recommendedSize);
+		if(!outputFileImage.isValid()){
+			cout << "[ERROR]: Program exiting" << endl;
+			exit(7);
+		}
+	}
 
-	if(!outputFile.isValid()){
-		cout << "[ERROR]: Program exiting" << endl;
-		exit(7);
+	else{
+		cout << "[INFO]: Creating output file." << endl;
+		outputFileFile = FileToOutput(argv[4]);
+
+		if(!outputFileFile.isValid()){
+			cout << "[ERROR]: Program exiting" << endl;
+			exit(7);
+		}
 	}
 
 	getPixels(1000);
@@ -143,6 +156,10 @@ Location FrankEncode::encodeLetter(string hashLetter){
     int y = pixel.getY();
     int hashLocation = pixel.getLetter(hashLetter);
 
+	// cout << "Pixel X: " << x << endl;
+	// cout << "Pixel Y: " << y << endl;
+	// cout << "Pixel Hash: " << hashLocation << endl;
+
     pixels[pixelToUse] = pixel;
 
     return Location{x, y, hashLocation};
@@ -154,10 +171,8 @@ size_t FrankEncode::calculateBestImageSize(size_t fileSize){
 	return ceil(sqrt(withPixels));
 }
 
-void FrankEncode::encode(){
+void FrankEncode::writeImage(){
 	bool moreToRead = true;
-
-	cout << "Encoding file." << endl;
 
 	do{
 		char* fileBytes = plainFile.getNextBytes();
@@ -181,9 +196,9 @@ void FrankEncode::encode(){
 			delete [] yRGB;
 			delete [] hashRGB;
 
-			outputFile.updatePixel(x);
-			outputFile.updatePixel(y);
-			outputFile.updatePixel(hash);
+			outputFileImage.updatePixel(x);
+			outputFileImage.updatePixel(y);
+			outputFileImage.updatePixel(hash);
 		}
 
 		moreToRead = !(plainFile.isFileRead());
@@ -194,7 +209,7 @@ void FrankEncode::encode(){
 			counter = 0;
 			cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
 			cout << "Flushing output file made so far" << endl;
-		 	outputFile.write();
+		 	outputFileImage.write();
 			cout << "Output file flushed, continuing." << endl;
 		}
 
@@ -202,22 +217,81 @@ void FrankEncode::encode(){
 
 	cout << "File read." << endl;
 
-	outputFile.updatePixel(Magick::ColorRGB(255, 255, 255));
+	outputFileImage.updatePixel(Magick::ColorRGB(255, 255, 255));
 
-	while(!outputFile.isWritten()){
+	while(!outputFileImage.isWritten()){
 		int random = randombytes_uniform(16777216);
 		double* rgb = Converter::hex2rgb(Converter::int2hex(random));
 
 		Magick::Color color = Magick::ColorRGB(rgb[0], rgb[1], rgb[2]);
 
 		delete [] rgb;
-		outputFile.updatePixel(color);
+		outputFileImage.updatePixel(color);
 	}
 
-	outputFile.write();
+	outputFileImage.write();
+}
+
+void FrankEncode::writeFile(){
+	bool moreToRead = true;
+
+	do{
+		char* fileBytes = plainFile.getNextBytes();
+
+		size_t bytesRead = plainFile.getBufferSize();
+		string hex = Converter::char2hex(fileBytes, bytesRead);
+
+		for(int i = 0; i < hex.length(); i++){
+			string letter = hex.substr(i, 1);
+			Location loc = encodeLetter(letter);
+
+			// cout << "X: " << loc.x << endl;
+			// cout << "Y: " << loc.y << endl;
+			// cout << "Hash: " << loc.hash << endl;
+
+			ushort x = (ushort) loc.x;
+			ushort y = (ushort)  loc.y;
+			ushort hash = (ushort) loc.hash;
+
+			outputFileFile.write(&x);
+			outputFileFile.write(&y);
+			outputFileFile.write(&hash);
+		}
+
+		moreToRead = !(plainFile.isFileRead());
+
+		counter++;
+
+		if(counter == 10000){
+			counter = 0;
+			cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
+			cout << "Flushing output file made so far" << endl;
+			outputFileImage.write();
+			cout << "Output file flushed, continuing." << endl;
+		}
+
+	} while(moreToRead);
+
+	cout << "File read." << endl;
+}
+
+void FrankEncode::encode(){
+
+	cout << "Encoding file." << endl;
+
+	if(outputImage){
+		writeImage();
+	}
+	else{
+		writeFile();
+	}
 }
 
 void FrankEncode::close(){
 	image.close();
 	plainFile.close();
+
+	if(!outputImage){
+		outputFileFile.close();
+	}
 }

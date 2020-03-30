@@ -35,7 +35,28 @@ int main(int argc, char **argv) {
 	}
 
     if(strcmp(argv[1], "encode") == 0){
-        FrankEncode encoder = FrankEncode(argv);
+        bool invalid = true;
+        bool image = true;
+        do{
+            cout << "Would you like the output as an (i)mage or a (f)ile? Enter i or f:";
+            string input;
+            cin >> input;
+            cout << endl;
+
+            if(input == "f"){
+                image = false;
+                invalid = false;
+            }
+            else if(input == "i"){
+                image = true;
+                invalid = false;
+            }
+            else{
+                cout << "Invalid input." << endl;
+            }
+        } while(invalid);
+
+        FrankEncode encoder = FrankEncode(argv, image);
         encoder.encode();
         encoder.close();
     }
