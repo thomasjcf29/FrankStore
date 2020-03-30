@@ -14,8 +14,7 @@ private:
     std::string location;
     Magick::Image img;
     bool valid = false;
-    int maxPixels;
-    int availablePixels;
+    int maxPixels, availablePixels, curX, curY, incrementor, failedAttempts;
 public:
     CoverImage(std::string file);
     CoverImage();
@@ -24,9 +23,10 @@ public:
     int getWidth();
     int getHeight();
     int getMaxPixels();
-    int* getRandomLocation();
+    int* getNextLocation();
     bool isValid();
     void claimUsedPixel();
+    void resetFailedAttempts();
     int getPixelsLeft();
 };
 

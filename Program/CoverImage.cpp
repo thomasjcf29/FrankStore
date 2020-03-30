@@ -24,6 +24,23 @@ CoverImage::CoverImage(string file){
         cout << "Problem opening file: " << "Does the file exist?" << endl;
         valid = false;
     }
+
+    char myString[32];
+    randombytes_buf(myString, 32);
+
+    int halfWidth = ceil(getWidth() / 2);
+	bool invalid = true;
+	do{
+		incrementor = randombytes_uniform(getWidth());
+		if(incrementor >= halfWidth){
+			invalid = false;
+		}
+
+	} while(invalid);
+
+    int curX = 0;
+    int curY = 0;
+    int failedAttempts = 0;
 };
 
 int CoverImage::getWidth(){
@@ -58,14 +75,42 @@ string CoverImage::getHexColour(int x, int y){
     return Converter::rgb2hex(red, green, blue, true);
 }
 
-int * CoverImage::getRandomLocation(){
+int * CoverImage::getNextLocation(){
     int * location = new int[2];
-    char myString[32];
 
-    randombytes_buf(myString, 32);
+    if((curX + 1) >= getWidth()){
+        int leftOver = curX - getWidth();
+        curX = leftOver;
+        curY++;
+    }
 
-    location[0] = randombytes_uniform(getWidth());
-    location[1] = randombytes_uniform(getHeight());
+    if((curY + 1) >= getHeight()){
+        curY = 0;
+        failedAttempts++;
+    }
+
+    if(failedAttempts >= 10){
+        cout << "New Incrementor Requested: ";
+        int halfWidth = ceil(incrementor / 2);
+        int minHalfWidth = ceil(incrementor / 4);
+    	bool invalid = true;
+    	do{
+    		incrementor = (randombytes_uniform(halfWidth) + 1);
+    		if(incrementor >= minHalfWidth){
+    			invalid = false;
+    		}
+
+    	} while(invalid);
+
+        cout << incrementor << endl;
+
+        resetFailedAttempts();
+    }
+
+    location[0] = curX;
+    location[1] = curY;
+
+    curX = curX + incrementor;
 
     return location;
 }
@@ -76,6 +121,10 @@ bool CoverImage::isValid(){
 
 void CoverImage::claimUsedPixel(){
     availablePixels--;
+}
+
+void CoverImage::resetFailedAttempts(){
+    failedAttempts = 0;
 }
 
 int CoverImage::getPixelsLeft(){
