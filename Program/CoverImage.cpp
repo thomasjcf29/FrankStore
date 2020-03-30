@@ -39,9 +39,9 @@ CoverImage::CoverImage(string file){
 
 	} while(invalid);
 
-    int curX = 0;
-    int curY = 0;
-    int failedAttempts = 0;
+    curX = 0;
+    curY = 0;
+    failedAttempts = 0;
 };
 
 int CoverImage::getWidth(){
@@ -80,12 +80,8 @@ int * CoverImage::getNextLocation(){
     int * location = new int[2];
 
     if(curX  >= getWidth()){
-        // cout << "Out Of Bounds: " << curX << endl;
-        // cout << "Width: " << getWidth() << endl;
         int leftOver = curX - getWidth();
-        cout << "Left Over: " << leftOver << endl;
         curX = leftOver;
-        // cout << "X: " << curX << endl;
         curY++;
     }
 
@@ -114,9 +110,6 @@ int * CoverImage::getNextLocation(){
 
     location[0] = curX;
     location[1] = curY;
-
-    // cout << "X: " << curX << endl;
-    // cout << "Y: " << curY << endl;
 
     curX = curX + incrementor;
 
