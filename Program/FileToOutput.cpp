@@ -11,7 +11,7 @@ FileToOutput::FileToOutput(){
 
 FileToOutput::FileToOutput(string file){
     fileName = file;
-    outputFile.open(file, ifstream::binary);
+    outputFile.open(file);
 
     if(!outputFile){
         valid = false;
@@ -20,13 +20,16 @@ FileToOutput::FileToOutput(string file){
     }
 }
 
-void FileToOutput::write(ushort *data){
-    size_t size = sizeof(data);
-    outputFile.write((char*)data, size);
+void FileToOutput::write(unsigned short data){
+    outputFile.write(reinterpret_cast<const char*>(&data), sizeof(unsigned short));
 }
 
 bool FileToOutput::isValid(){
     return valid;
+}
+
+void FileToOutput::flush(){
+    outputFile.flush();
 }
 
 void FileToOutput::close(){

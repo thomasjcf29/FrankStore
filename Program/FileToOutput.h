@@ -13,8 +13,9 @@ public:
     FileToOutput();
     FileToOutput(std::string fileName);
     bool isValid();
-    void write(ushort *data);
+    void write(ushort data);
     void close();
+    void flush();
 };
 
 #endif //FRANKSTORE_FILETOOUTPUT_H

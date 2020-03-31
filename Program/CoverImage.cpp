@@ -34,7 +34,7 @@ CoverImage::CoverImage(string file){
 		incrementor = randombytes_uniform(getWidth());
 		if(incrementor >= halfWidth){
 			invalid = false;
-            cout << "Initial Incrementor: " << incrementor << endl;
+            cout << "[INFO]: Initial Incrementor: " << incrementor << endl;
 		}
 
 	} while(invalid);

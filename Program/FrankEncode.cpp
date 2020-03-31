@@ -73,6 +73,8 @@ FrankEncode::FrankEncode(char **argv, bool isImage){
 		}
 	}
 
+	cout << "Output: " << image.getHexColour(107, 101) << endl;
+
 	getPixels(1000);
 }
 
@@ -156,10 +158,6 @@ Location FrankEncode::encodeLetter(string hashLetter){
     int y = pixel.getY();
     int hashLocation = pixel.getLetter(hashLetter);
 
-	// cout << "Pixel X: " << x << endl;
-	// cout << "Pixel Y: " << y << endl;
-	// cout << "Pixel Hash: " << hashLocation << endl;
-
     pixels[pixelToUse] = pixel;
 
     return Location{x, y, hashLocation};
@@ -215,7 +213,7 @@ void FrankEncode::writeImage(){
 
 	} while(moreToRead);
 
-	cout << "File read." << endl;
+	cout << "[INFO]: File read." << endl;
 
 	outputFileImage.updatePixel(Magick::ColorRGB(255, 255, 255));
 
@@ -245,17 +243,13 @@ void FrankEncode::writeFile(){
 			string letter = hex.substr(i, 1);
 			Location loc = encodeLetter(letter);
 
-			// cout << "X: " << loc.x << endl;
-			// cout << "Y: " << loc.y << endl;
-			// cout << "Hash: " << loc.hash << endl;
-
 			ushort x = (ushort) loc.x;
 			ushort y = (ushort)  loc.y;
 			ushort hash = (ushort) loc.hash;
 
-			outputFileFile.write(&x);
-			outputFileFile.write(&y);
-			outputFileFile.write(&hash);
+			outputFileFile.write(x);
+			outputFileFile.write(y);
+			outputFileFile.write(hash);
 		}
 
 		moreToRead = !(plainFile.isFileRead());
@@ -266,18 +260,18 @@ void FrankEncode::writeFile(){
 			counter = 0;
 			cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
 			cout << "Flushing output file made so far" << endl;
-			outputFileImage.write();
+			outputFileFile.flush();
 			cout << "Output file flushed, continuing." << endl;
 		}
 
 	} while(moreToRead);
 
-	cout << "File read." << endl;
+	cout << "[INFO]: File read." << endl;
 }
 
 void FrankEncode::encode(){
 
-	cout << "Encoding file." << endl;
+	cout << "[INFO]: Encoding file." << endl;
 
 	if(outputImage){
 		writeImage();

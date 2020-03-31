@@ -11,7 +11,7 @@ string Converter::rgb2hex(int r, int g, int b, bool with_head){
   stringstream ss;
   if (with_head)
     ss << "#";
-  ss << std::hex << std::setw(6) << std::setfill('0') << (r << 16 | g << 8 | b );
+  ss << std::hex << std::uppercase << std::setw(6) << std::setfill('0') << (r << 16 | g << 8 | b );
   return ss.str();
 }
 
