@@ -70,6 +70,12 @@ FrankEncode::FrankEncode(char **argv, bool isImage){
 		}
 	}
 
+	pixelsUsed = new bool*[image.getWidth()];
+
+	for(int i = 0; i < image.getWidth(); i++){
+		pixelsUsed[i] = new bool[image.getHeight()];
+	}
+
 	getPixels(1000);
 }
 
@@ -85,15 +91,10 @@ CoverPixel FrankEncode::findPixel(){
 		int iy = loc[1];
 
 		delete [] loc;
-        string x,y,key;
-        x = to_string(ix);
-        y = to_string(iy);
-        key = sha512(x + "-" + y);
 
-        pair<std::set<string>::iterator,bool> result = pixelsUsed.insert(key);
-
-        if(result.second){
+        if(!pixelsUsed[ix][iy]){
             invalid = false;
+			pixelsUsed[ix][iy] = true;
             string colour = image.getHexColour(ix, iy);
             image.claimUsedPixel();
             return CoverPixel(ix, iy, colour);
@@ -326,6 +327,12 @@ void FrankEncode::encode(){
 Call this before destorying the object, it will close and destory all relevant children objects.
 */
 void FrankEncode::close(){
+	for(int i = 0; i < image.getWidth(); i++){
+		delete [] pixelsUsed[i];
+	}
+
+	delete [] pixelsUsed;
+
 	image.close();
 	plainFile.close();
 

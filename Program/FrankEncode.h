@@ -19,7 +19,7 @@ private:
     CoverImage image;
     FileToEncode plainFile;
     std::vector<CoverPixel> pixels;
-    std::set<std::string> pixelsUsed;
+    bool** pixelsUsed;
     ImageToOutput outputFileImage;
     FileToOutput outputFileFile;
     bool outputImage;
