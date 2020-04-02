@@ -4,10 +4,20 @@
 using namespace std;
 using namespace Magick;
 
+/**
+Blank constructor for the class, used to allow headers to point to it.
+Do not use the object if initialised with this constructor!
+*/
 ImageToOutput::ImageToOutput(){
 
 }
 
+/**
+Creates the image to output and sets up the relevant internal variables as required.
+@param string fileToWrite: The name of the file to write.
+@param size_t imageX: The width of the output image.
+@param size_t imageY: The height of the output image.
+*/
 ImageToOutput::ImageToOutput(string fileToWrite, size_t imageX, size_t imageY){
     cout << "[INFO]: Setting image parameters." << endl;
     setX = imageX;
@@ -35,18 +45,31 @@ ImageToOutput::ImageToOutput(string fileToWrite, size_t imageX, size_t imageY){
     cout << "[INFO]: Created image." << endl;
 }
 
+/**
+@return if the object is valid, true if it is, false if it is not.
+*/
 bool ImageToOutput::isValid(){
     return valid;
 }
 
+/**
+@return if the image has been completely written (all pixels have been changed).
+*/
 bool ImageToOutput::isWritten(){
     return written;
 }
 
+/**
+Writes the image buffer to the file, useful for managing memory during large images.
+*/
 void ImageToOutput::write(){
     file.write(fileName);
 }
 
+/**
+Updates the next pixel in the image with the colour requested.
+@param Magick::Color color: The color you would like of the pixel.
+*/
 void ImageToOutput::updatePixel(Color color){
 
     if(curX >= setX){

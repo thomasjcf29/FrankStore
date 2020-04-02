@@ -6,6 +6,10 @@
 
 using namespace std;
 
+/**
+Constructor which creates the output image, and initalises class variables.
+@param char **arv: The input parameters from the console.
+*/
 FrankGenerator::FrankGenerator(char **argv){
     width = stoi(argv[2]);
     height = stoi(argv[3]);
@@ -18,6 +22,11 @@ FrankGenerator::FrankGenerator(char **argv){
     valid = image.isValid();
 }
 
+/**
+Generates all the pixels in the image size that the end user requested, you should
+check the validity of the object before calling this method.
+This method will return once the image is generated, this could take a while!
+*/
 void FrankGenerator::generateData(){
     while(!image.isWritten()){
 		int random = randombytes_uniform(16777216);
@@ -32,6 +41,9 @@ void FrankGenerator::generateData(){
 	image.write();
 }
 
+/**
+@return if the object is valid, true if the output image could be created or false if it could not.
+*/
 bool FrankGenerator::isValid(){
     return valid;
 }

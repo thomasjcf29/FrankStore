@@ -14,16 +14,13 @@
 
 using namespace std;
 
-struct compare{
-	string key;
-	compare(string const &i): key(i) { }
-
-	bool operator()(string const &i)
-	{
-		return (i == key);
-	}
-};
-
+/**
+Creates the FrankEncode object, this sets the program up read for encoding.
+It will create the ouput file, read the input file and do error checking.
+This will exit if there are any errors.
+@param char **argv Array of parameters from command line.
+@pramr bool isImage would the user like the output to be an image?
+*/
 FrankEncode::FrankEncode(char **argv, bool isImage){
 	cout << "[INFO]: Opening cover image." << endl;
     image = CoverImage(argv[2]);
@@ -73,11 +70,13 @@ FrankEncode::FrankEncode(char **argv, bool isImage){
 		}
 	}
 
-	cout << "Output: " << image.getHexColour(107, 101) << endl;
-
 	getPixels(1000);
 }
 
+/**
+Finds the next available pixel in the cover image and returns it to the method that called it.
+@return the next available pixel in an image as a CoverPixel object.
+*/
 CoverPixel FrankEncode::findPixel(){
     bool invalid = true;
     do{
@@ -105,6 +104,13 @@ CoverPixel FrankEncode::findPixel(){
 	image.resetFailedAttempts();
 }
 
+/**
+Finds the specified amount of unique pixels and adds them to a vector holding
+all in use pixels.
+@param int pixelAmount: Amount of pixels you would like.
+@return true if added all the requested pixels, false if not enough
+pixels left for the requested amount.
+*/
 bool FrankEncode::getPixels(int pixelAmount){
     if(image.getPixelsLeft() < pixelAmount)
         return false;
@@ -116,6 +122,11 @@ bool FrankEncode::getPixels(int pixelAmount){
     return true;
 }
 
+/**
+Replaces the pixel at the specified location, this will either remove it if there
+are no more unique ones left, or replace it with the next unqiue pixel.
+@param int location: The location in the vector of the pixel you would like to replace.
+*/
 void FrankEncode::replacePixel(int location){
     if(pixels.size() <= 1){
         cout << "[ERROR]: Ran out of pixels, please try with a bigger image!" << endl;
@@ -132,6 +143,13 @@ void FrankEncode::replacePixel(int location){
     pixels[location] = findPixel();
 }
 
+/**
+Checks the count of the hex character in the specified pixel location.
+@param int pixelLoc: The location in the vector array to check.
+@param string letter: The hex character you would like to check.
+@return true if there is enough space for that letter or false if the pixel
+needs to be replaced.
+*/
 bool FrankEncode::checkCount(int pixelLoc, string letter){
     int amount = pixels[pixelLoc].getLetterCount(letter);
     if(amount < 1){
@@ -141,6 +159,11 @@ bool FrankEncode::checkCount(int pixelLoc, string letter){
     return true;
 }
 
+/**
+Encode the letter with a random pixel and location.
+@param string hashLetter: The hex letter you would like to encode.
+@return Location for the encoded result.
+*/
 Location FrankEncode::encodeLetter(string hashLetter){
 
     bool valid;
@@ -163,12 +186,22 @@ Location FrankEncode::encodeLetter(string hashLetter){
     return Location{x, y, hashLocation};
 }
 
+/**
+Calculate the best image size to use as an output image. This assumes you are
+creating a square output image. So it returns only width as height = width.
+@param size_t fileSize: The input filesize in bytes.
+@return size_t The width of the best image size to use.
+*/
 size_t FrankEncode::calculateBestImageSize(size_t fileSize){
 	size_t withHex = fileSize * 2;
 	size_t withPixels = withHex * 3;
 	return ceil(sqrt(withPixels));
 }
 
+/**
+Method incharge of writing the output image, once called it will loop through the input
+and create the output image.
+*/
 void FrankEncode::writeImage(){
 	bool moreToRead = true;
 
@@ -230,6 +263,10 @@ void FrankEncode::writeImage(){
 	outputFileImage.write();
 }
 
+/**
+Method incharge of writing the output file, once called it will loop through the input
+and create the output file.
+*/
 void FrankEncode::writeFile(){
 	bool moreToRead = true;
 
@@ -269,6 +306,10 @@ void FrankEncode::writeFile(){
 	cout << "[INFO]: File read." << endl;
 }
 
+/**
+Method incharge of encoding, once called it will call the relevant output method, will return
+once encoding is complete. This may take a while!
+*/
 void FrankEncode::encode(){
 
 	cout << "[INFO]: Encoding file." << endl;
@@ -281,6 +322,9 @@ void FrankEncode::encode(){
 	}
 }
 
+/**
+Call this before destorying the object, it will close and destory all relevant children objects.
+*/
 void FrankEncode::close(){
 	image.close();
 	plainFile.close();

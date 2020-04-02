@@ -10,10 +10,18 @@
 
 using namespace std;
 
+/**
+Blank constructor for the class, used to allow headers to point to it.
+Do not use the object if initialised with this constructor!
+*/
 CoverPixel::CoverPixel(){
 
 }
 
+/**
+Destructor for this class, when the object gets deleted it clears memory objects
+and closes resources.
+*/
 CoverPixel::~CoverPixel(){
 
     for(int i = 0; i < 16; i++){
@@ -21,6 +29,12 @@ CoverPixel::~CoverPixel(){
     }
 }
 
+/**
+Constructor for the CoverPixel class, returning back a valid object.
+@param int lx: The x location of the pixel.
+@param int ly: The y location of the pixel.
+@param string lcolour: The colour of the pixel.
+*/
 CoverPixel::CoverPixel(int lx, int ly, string lcolour){
     intX = lx;
     intY = ly;
@@ -42,11 +56,20 @@ CoverPixel::CoverPixel(int lx, int ly, string lcolour){
     }
 }
 
+/**
+@param The string hex character to be checked.
+@return the count left of the hex character provided.
+*/
 int CoverPixel::getLetterCount(string letter){
     int arrayPos = Converter::hex2int(letter);
     return letters[arrayPos].size();
 }
 
+/**
+Returns the position of the hex character you want to encode in the hash.
+@param string letter: The hex character you want to encode.
+@return int location of the hex character.
+*/
 int CoverPixel::getLetter(string letter){
     int arrayPos = Converter::hex2int(letter);
     vector<int> locations = letters[arrayPos];
@@ -60,14 +83,23 @@ int CoverPixel::getLetter(string letter){
     return hashLocation;
 }
 
+/**
+@return the overall hash of the object.
+*/
 string CoverPixel::getHash(){
     return hash;
 }
 
+/**
+@return the X coordinates of the object.
+*/
 int CoverPixel::getX(){
     return intX;
 }
 
+/**
+@return the Y coordinates of the object.
+*/
 int CoverPixel::getY(){
     return intY;
 }
