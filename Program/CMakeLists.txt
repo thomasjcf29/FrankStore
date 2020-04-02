@@ -11,10 +11,11 @@ include_directories(${ImageMagick_INCLUDE_DIRS})
 set(CMAKE_CXX_STANDARD 14)
 
 file(GLOB FrankStore_SRC
-        "*.h"
         "*.cpp"
+        "*.h"
 )
 
 add_executable(FrankStore ${FrankStore_SRC})
 
 target_link_libraries(FrankStore ${ImageMagick_LIBRARIES})
+target_link_libraries(FrankStore sodium)

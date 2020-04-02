@@ -5,24 +5,17 @@
 #ifndef FRANKSTORE_CONVERTER_H
 #define FRANKSTORE_CONVERTER_H
 
-#include <sstream> 
-#include <iomanip>
-
-using namespace std;
+#include <string>
 
 class Converter{
 public:
-    static string rgb2hex(int r, int g, int b, bool with_head);
+    static std::string rgb2hex(int r, int g, int b, bool with_head);
+    static double* hex2rgb(std::string hex);
+    static int hex2int(std::string hex);
+    static std::string int2hex(int);
+    static std::string char2hex(char* bytes, size_t size);
 private:
     Converter() {}
 };
-
-string Converter::rgb2hex(int r, int g, int b, bool with_head){
-  stringstream ss;
-  if (with_head)
-    ss << "#";
-  ss << std::hex << std::setw(6) << std::setfill('0') << (r << 16 | g << 8 | b );
-  return ss.str();
-}
 
 #endif //FRANKSTORE_CONVERTER_H
