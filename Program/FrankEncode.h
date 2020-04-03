@@ -7,12 +7,14 @@
 #include "ImageToOutput.h"
 #include "FileToOutput.h"
 #include <vector>
-#include <set>
 #include <string>
 
-struct Location{
-    int x, y, hash;
-};
+#ifndef FRANKSTORE_LOCATION
+#define FRANKSTORE_LOCATION
+    struct Location{
+        int x, y, hash;
+    };
+#endif //FRANKSTORE_LOCATION
 
 class FrankEncode{
 private:
@@ -23,7 +25,6 @@ private:
     ImageToOutput outputFileImage;
     FileToOutput outputFileFile;
     bool outputImage;
-
     int counter = 0;
 
     bool getPixels(int amount);
