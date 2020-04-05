@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ Creates the object and creates the output file.
 */
 FileToOutput::FileToOutput(string file){
     fileName = file;
-    outputFile.open(file);
+    outputFile.open(file, ios::binary);
 
     if(!outputFile){
         valid = false;
@@ -34,6 +35,21 @@ Writes the bytes passed in to the file.
 */
 void FileToOutput::write(unsigned short data){
     outputFile.write(reinterpret_cast<const char*>(&data), sizeof(unsigned short));
+}
+
+int FileToOutput::cal(char c)// cal the coresponding value in hex of ascii char c
+{
+    if (c<='9'&&c>='0') return (int)c-(int)'0';
+    if (c<='f'&&c>='a') return (int)c-(int)'a'+10;
+    if (c<='F'&&c>='A') return (int)c-(int)'A'+10;
+}
+
+void FileToOutput::writetest(const char* data){
+    size_t size = strlen(data);
+    for(int i = 0; i < size; i+=2){
+        char letters = cal(data[i])*16+cal(data[i+1]);
+        outputFile << letters;
+    }
 }
 
 /**
