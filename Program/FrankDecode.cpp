@@ -5,6 +5,7 @@
 #include "ImageToOutput.h"
 #include "FileToOutput.h"
 #include "ImageToRead.h"
+#include "FileToDecode.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -28,6 +29,12 @@ FrankDecode::FrankDecode(char **argv, bool isImage){
     }
     else{
         cout << "[INFO]: Opening file to decode." << endl;
+        inputFile = FileToDecode(argv[3]);
+
+        if(!inputFile.isValid()){
+            cout << "Could not read input file, exiting!" << endl;
+            exit(3);
+        }
     }
 
     if(!image.isValid()){
@@ -57,10 +64,21 @@ void FrankDecode::decodeImage(){
     outputFile.flush();
 }
 
+void FrankDecode::decodeFile(){
+    bool moreToRead = true;
+    do{
+        Location* locations = inputFile.getNextPixels();
+        moreToRead = !inputFile.isRead();
+    } while(moreToRead);
+}
+
 void FrankDecode::decode(){
     cout << "[INFO]: Writing decode file." << endl;
     if(isImageInput){
         decodeImage();
+    }
+    else{
+        decodeFile();
     }
     cout << "[INFO]: Decode file has been written." << endl;
 }

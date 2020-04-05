@@ -5,6 +5,7 @@
 #include "CoverPixel.h"
 #include "ImageToOutput.h"
 #include "FileToOutput.h"
+#include "FileToDecode.h"
 #include "ImageToRead.h"
 #include <string>
 
@@ -22,6 +23,7 @@ private:
     int counter = 0;
     FileToOutput outputFile;
     ImageToRead inputImage;
+    FileToDecode inputFile;
 
     void decodeImage();
     void decodeFile();
