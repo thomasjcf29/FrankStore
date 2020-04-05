@@ -1,4 +1,4 @@
-#include "ImageToOutput.h"
+#include "../header_files/ImageToOutput.h"
 #include <iostream>
 
 using namespace std;

@@ -1,10 +1,10 @@
-#include "FrankEncode.h"
-#include "FileToEncode.h"
-#include "ImageToOutput.h"
-#include "CoverImage.h"
-#include "CoverPixel.h"
-#include "sha512.h"
-#include "Converter.h"
+#include "../header_files/FrankEncode.h"
+#include "../header_files/FileToEncode.h"
+#include "../header_files/ImageToOutput.h"
+#include "../header_files/CoverImage.h"
+#include "../header_files/CoverPixel.h"
+#include "../header_files/sha512.h"
+#include "../header_files/Converter.h"
 #include <Magick++.h>
 #include <iostream>
 #include <string>
@@ -252,7 +252,8 @@ void FrankEncode::writeImage(){
 	outputFileImage.updatePixel(Magick::ColorRGB(255, 255, 255));
 
 	while(!outputFileImage.isWritten()){
-		int random = randombytes_uniform(16777216);
+		//Needs to be 16777215 so that it cannot generate #FFFFFF (used to determine stopping pixel).
+		int random = randombytes_uniform(16777215);
 		double* rgb = Converter::hex2rgb(Converter::int2hex(random));
 
 		Magick::Color color = Magick::ColorRGB(rgb[0], rgb[1], rgb[2]);

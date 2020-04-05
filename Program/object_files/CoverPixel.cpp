@@ -1,12 +1,11 @@
-#include "CoverPixel.h"
-#include "Converter.h"
-
+#include "../header_files/CoverPixel.h"
+#include "../header_files/Converter.h"
+#include "../header_files/sha512.h"
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
-#include "sha512.h"
 #include <sodium.h>
-#include "vector"
+#include <vector>
 
 using namespace std;
 
@@ -44,7 +43,7 @@ CoverPixel::CoverPixel(int lx, int ly, string lcolour){
     x = sx;
     y = sy;
     colour = lcolour;
-    hash = sha512(x + y + colour);
+    hash = sha512(x + "-" + y + "-" + colour);
 
     char myString[32];
     randombytes_buf(myString, 32);

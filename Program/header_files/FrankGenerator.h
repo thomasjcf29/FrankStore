@@ -1,9 +1,9 @@
 #ifndef FRANKSTORE_FRANKGENERATOR_H
 #define FRANKSTORE_FRANKGENERATOR_H
 
+#include "ImageToOutput.h"
 #include <string>
 #include <iostream>
-#include "ImageToOutput.h"
 
 class FrankGenerator{
 private:

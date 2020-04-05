@@ -1,5 +1,5 @@
-#include "ImageToRead.h"
-#include "Converter.h"
+#include "../header_files/ImageToRead.h"
+#include "../header_files/Converter.h"
 #include <string>
 #include <fstream>
 #include <iostream>
