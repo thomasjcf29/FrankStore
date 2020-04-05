@@ -20,6 +20,7 @@ public:
     int getLetter(std::string letter);
     std::string getHash();
     int getLetterCount(std::string letter);
+    std::string getLetterAt(int location);
     int getX();
     int getY();
 };
