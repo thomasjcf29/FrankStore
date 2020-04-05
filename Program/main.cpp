@@ -2,6 +2,7 @@
 #include <string.h>
 #include "FrankEncode.h"
 #include "FrankGenerator.h"
+#include "FrankDecode.h"
 
 using namespace std;
 
@@ -12,9 +13,10 @@ Should be called if there are wrong entries.
 void layout() {
   cout << "[ERROR]: Please provide arguments to this program." << endl;
   cout << "The correct arguments are:" << endl;
-  cout << "To   encode: FrankStore encode <coverImage> <fileToEncode> <outputFile>" << endl;
-  cout << "To   decode: FrankStore decode <coverImage> <fileToDecode> <outputFile>" << endl;
+  cout << "To   encode: FrankStore encode <coverImage> <fileToEncode> <outputFile> <image|file>" << endl;
+  cout << "To   decode: FrankStore decode <coverImage> <fileToDecode> <outputFile> <image|file>" << endl;
   cout << "To generate: FrankStore generate <width> <height> <outputFile>" << endl;
+  cout << "Image = output as an image, file = output as a file" << endl;
 }
 
 /**
@@ -25,11 +27,38 @@ if they are not.
 @return true if valid, false if not.
 */
 bool check(int argc, char **argv) {
-    if (argc == 5){
-        if(!strcmp(argv[1], "encode") == 0 && !strcmp(argv[1], "decode") == 0 && !strcmp(argv[1], "generate") == 0){
+    if (argc == 5 || argc == 6){
+        if(strcmp(argv[1], "encode") == 0 || strcmp(argv[1], "decode") == 0){
+            if(argc != 6){
+                layout();
+                return false;
+            }
+            if(!strcmp(argv[5], "file") == 0 && !strcmp(argv[5], "image") == 0){
+                cout << "[ERROR]: An invalid entry was submitted, file or image?" << endl;
+                layout();
+                return false;
+            }
+        }
+        else if(strcmp(argv[1], "generate") == 0){
+            try{
+                int i = stoi(argv[2]);
+                int x = stoi(argv[3]);
+            }
+            catch(invalid_argument e){
+                cout << "[ERROR]: An error was detected when trying to convert to an integer, please try again!" << endl;
+                layout();
+                return false;
+            }
+            catch(out_of_range e1){
+                cout << "[ERROR]: Number is too large to be an integer!" << endl;
+                layout();
+                return false;
+            }
+        }
+        else{
             layout();
             return false;
-		}
+        }
         return true;
     }
     else{
@@ -52,31 +81,25 @@ int main(int argc, char **argv) {
 		exit(2);
 	}
 
-    if(strcmp(argv[1], "encode") == 0){
-        bool invalid = true;
-        bool image = true;
-        do{
-            cout << "Would you like the output as an (i)mage or a (f)ile? Enter i or f:";
-            string input;
-            cin >> input;
-            cout << endl;
+    if(strcmp(argv[1], "encode") == 0 || strcmp(argv[1], "decode") == 0){
+        bool image;
 
-            if(input == "f"){
-                image = false;
-                invalid = false;
-            }
-            else if(input == "i"){
-                image = true;
-                invalid = false;
-            }
-            else{
-                cout << "Invalid input." << endl;
-            }
-        } while(invalid);
+        if(strcmp(argv[5], "file") == 0){
+            image = false;
+        }
+        else if(strcmp(argv[5], "image") == 0){
+            image = true;
+        }
 
-        FrankEncode encoder = FrankEncode(argv, image);
-        encoder.encode();
-        encoder.close();
+        if(strcmp(argv[1], "encode") == 0){
+            FrankEncode encoder = FrankEncode(argv, image);
+            encoder.encode();
+            encoder.close();
+        }
+        else{
+            FrankDecode decoder = FrankDecode(argv, image);
+            decoder.decode();
+        }
     }
 
     else if(strcmp(argv[1], "generate") == 0){
