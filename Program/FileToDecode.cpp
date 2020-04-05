@@ -26,17 +26,23 @@ FileToDecode::FileToDecode(string name){
 
     cout << "Total length of file to encode (in bytes): " << totalBytes << endl;
 
-    if((totalBytes % 3) != 0){
+    if((totalBytes % 2) != 0){
+        cout << "[ERROR]: Invalid decode file!" << endl;
+        valid = false;
+        return;
+    }
+
+    totalActualBytes = totalBytes / 2;
+
+    if((totalActualBytes % 3) != 0){
         cout << "[ERROR]: Invalid decode file!" << endl;
         valid = false;
         return;
     }
 
     inputFile.seekg(0, ios::beg);
+    valid = true;
     read = false;
-}
-
-FileToDecode::~FileToDecode(){
 }
 
 bool FileToDecode::isValid(){
@@ -60,11 +66,11 @@ size_t FileToDecode::getBytesRead(){
 }
 
 Location* FileToDecode::getNextPixels(){
-    if(((totalBytes / 3) - (bytesReadSoFar / 3)) > 1024){
+    if(((totalActualBytes / 3) - (bytesReadSoFar / 3)) > 1024){
         bufferSize = 1024;
     }
     else{
-        bufferSize = (totalBytes / 3) - (bytesReadSoFar / 3);
+        bufferSize = (totalActualBytes / 3) - (bytesReadSoFar / 3);
     }
 
     bytesReadSoFar += bufferSize * 3;
@@ -77,10 +83,7 @@ Location* FileToDecode::getNextPixels(){
         for(int ii = 0; ii < 3; ii++){
             unsigned short temp;
             inputFile.read(reinterpret_cast<char *>(&temp), sizeof(unsigned short));
-            cout << "Test: " << temp << endl;
-            // int number = Converter::hex2int(hex);
-            //
-            // details[ii] = number;
+            details[ii] = temp;
         }
 
         loc = Location{details[0], details[1], details[2]};
@@ -88,9 +91,13 @@ Location* FileToDecode::getNextPixels(){
         buffer[i] = loc;
     }
 
-    if(bytesReadSoFar >= totalBytes){
+    if(bytesReadSoFar >= totalActualBytes){
         read = true;
     }
 
     return buffer;
+}
+
+void FileToDecode::close(){
+    inputFile.close();
 }

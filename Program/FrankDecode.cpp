@@ -68,8 +68,13 @@ void FrankDecode::decodeFile(){
     bool moreToRead = true;
     do{
         Location* locations = inputFile.getNextPixels();
+        const char* strHex = image.getHexCode(locations, inputFile.getBufferSize());
+        outputFile.writetest(strHex);
+        delete [] strHex;
         moreToRead = !inputFile.isRead();
     } while(moreToRead);
+
+    outputFile.flush();
 }
 
 void FrankDecode::decode(){
@@ -81,4 +86,11 @@ void FrankDecode::decode(){
         decodeFile();
     }
     cout << "[INFO]: Decode file has been written." << endl;
+}
+
+void FrankDecode::close(){
+    if(!isImageInput){
+        inputFile.close();
+    }
+    outputFile.close();
 }
