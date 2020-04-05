@@ -44,7 +44,7 @@ CoverPixel::CoverPixel(int lx, int ly, string lcolour){
     x = sx;
     y = sy;
     colour = lcolour;
-    hash = sha512(x + y + colour);
+    hash = sha512(x + "-" + y + "-" + colour);
 
     char myString[32];
     randombytes_buf(myString, 32);
