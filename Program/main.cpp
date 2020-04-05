@@ -1,8 +1,8 @@
+#include "header_files/FrankDecode.h"
+#include "header_files/FrankEncode.h"
+#include "header_files/FrankGenerator.h"
 #include <iostream>
 #include <string.h>
-#include "FrankEncode.h"
-#include "FrankGenerator.h"
-#include "FrankDecode.h"
 
 using namespace std;
 

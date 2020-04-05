@@ -1,10 +1,10 @@
-#include "FrankEncode.h"
-#include "FileToEncode.h"
-#include "ImageToOutput.h"
-#include "CoverImage.h"
-#include "CoverPixel.h"
-#include "sha512.h"
-#include "Converter.h"
+#include "../header_files/FrankEncode.h"
+#include "../header_files/FileToEncode.h"
+#include "../header_files/ImageToOutput.h"
+#include "../header_files/CoverImage.h"
+#include "../header_files/CoverPixel.h"
+#include "../header_files/sha512.h"
+#include "../header_files/Converter.h"
 #include <Magick++.h>
 #include <iostream>
 #include <string>

@@ -1,7 +1,7 @@
-#include "FrankGenerator.h"
-#include "ImageToOutput.h"
-#include "Converter.h"
-#include "Magick++.h"
+#include "../header_files/FrankGenerator.h"
+#include "../header_files/ImageToOutput.h"
+#include "../header_files/Converter.h"
+#include <Magick++.h>
 #include <sodium.h>
 
 using namespace std;

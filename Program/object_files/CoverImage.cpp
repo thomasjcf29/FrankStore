@@ -1,8 +1,8 @@
-#include "CoverImage.h"
-#include "CoverPixel.h"
+#include "../header_files/CoverImage.h"
+#include "../header_files/CoverPixel.h"
+#include "../header_files/Converter.h"
 #include <iostream>
 #include <Magick++.h>
-#include "Converter.h"
 #include <sodium.h>
 #include <sstream>
 #include <cstring>

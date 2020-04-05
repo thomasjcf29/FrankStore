@@ -11,8 +11,9 @@ include_directories(${ImageMagick_INCLUDE_DIRS})
 set(CMAKE_CXX_STANDARD 11)
 
 file(GLOB FrankStore_SRC
+        "object_files/*.cpp"
+        "header_files/*.h"
         "*.cpp"
-        "*.h"
 )
 
 add_executable(FrankStore ${FrankStore_SRC})
