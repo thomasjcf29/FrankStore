@@ -1,8 +1,11 @@
 #include "CoverImage.h"
+#include "CoverPixel.h"
 #include <iostream>
 #include <Magick++.h>
 #include "Converter.h"
 #include <sodium.h>
+#include <sstream>
+#include <cstring>
 
 using namespace std;
 using namespace Magick;
@@ -43,7 +46,6 @@ CoverImage::CoverImage(string file){
 		incrementor = randombytes_uniform(getWidth());
 		if(incrementor >= halfWidth){
 			invalid = false;
-            cout << "[INFO]: Initial Incrementor: " << incrementor << endl;
 		}
 
 	} while(invalid);
@@ -122,7 +124,6 @@ int * CoverImage::getNextLocation(){
     }
 
     if(failedAttempts >= 10){
-        cout << "New Incrementor Requested: ";
         int halfWidth = ceil(incrementor / 2);
         int minHalfWidth = ceil(incrementor / 4);
     	bool invalid = true;
@@ -133,8 +134,6 @@ int * CoverImage::getNextLocation(){
     		}
 
     	} while(invalid);
-
-        cout << incrementor << endl;
 
         resetFailedAttempts();
     }
@@ -152,6 +151,21 @@ int * CoverImage::getNextLocation(){
 */
 bool CoverImage::isValid(){
     return valid;
+}
+
+char* CoverImage::getHexCode(Location* locations, size_t bufferSize){
+    stringstream ss;
+
+    for(size_t i = 0; i < bufferSize; i++){
+        string pxHex = getHexColour(locations[i].x, locations[i].y);
+        CoverPixel px = CoverPixel(locations[i].x, locations[i].y, pxHex);
+        ss << px.getLetterAt(locations[i].hash);
+    }
+
+    string str = ss.str();
+    char *c = new char [str.size() + 1];
+    strcpy(c, str.c_str());    
+    return c;
 }
 
 /**
