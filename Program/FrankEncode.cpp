@@ -252,7 +252,8 @@ void FrankEncode::writeImage(){
 	outputFileImage.updatePixel(Magick::ColorRGB(255, 255, 255));
 
 	while(!outputFileImage.isWritten()){
-		int random = randombytes_uniform(16777216);
+		//Needs to be 16777215 so that it cannot generate #FFFFFF (used to determine stopping pixel).
+		int random = randombytes_uniform(16777215);
 		double* rgb = Converter::hex2rgb(Converter::int2hex(random));
 
 		Magick::Color color = Magick::ColorRGB(rgb[0], rgb[1], rgb[2]);
