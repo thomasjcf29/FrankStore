@@ -1,7 +1,9 @@
+#include "Converter.h"
 #include "FileToOutput.h"
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -19,7 +21,7 @@ Creates the object and creates the output file.
 */
 FileToOutput::FileToOutput(string file){
     fileName = file;
-    outputFile.open(file);
+    outputFile = ofstream(file, ofstream::binary);
 
     if(!outputFile){
         valid = false;
@@ -34,6 +36,20 @@ Writes the bytes passed in to the file.
 */
 void FileToOutput::write(unsigned short data){
     outputFile.write(reinterpret_cast<const char*>(&data), sizeof(unsigned short));
+}
+
+/**
+Writes the char array provided to the output file as binary.
+@param const char* data: The char data of hex letters you would like written.
+Pass in hex letters in there character ('A') form, this will automatically
+convert to integer.
+*/
+void FileToOutput::writetest(const char* data){
+    size_t size = strlen(data);
+    for(int i = 0; i < size; i+=2){
+        char letters = Converter::char2int(data[i])*16+Converter::char2int(data[i+1]);
+        outputFile << letters;
+    }
 }
 
 /**

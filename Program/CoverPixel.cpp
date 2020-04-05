@@ -57,6 +57,15 @@ CoverPixel::CoverPixel(int lx, int ly, string lcolour){
 }
 
 /**
+Returns the letter at the specified hash location.
+@param int location: The location of the hash letter you would like.
+@return The string of the hash letter.
+*/
+string CoverPixel::getLetterAt(int location){
+    return hash.substr(location, 1);
+}
+
+/**
 @param The string hex character to be checked.
 @return the count left of the hex character provided.
 */

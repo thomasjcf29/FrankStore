@@ -14,8 +14,10 @@ public:
     FileToOutput(std::string fileName);
     bool isValid();
     void write(ushort data);
+    void writetest(const char* data);
     void close();
     void flush();
+    int cal(char c);
 };
 
 #endif //FRANKSTORE_FILETOOUTPUT_H

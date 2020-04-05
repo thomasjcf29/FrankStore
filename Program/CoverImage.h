@@ -9,6 +9,13 @@
 #include <sodium.h>
 #include <string>
 
+#ifndef FRANKSTORE_LOCATION
+#define FRANKSTORE_LOCATION
+    struct Location{
+        int x, y, hash;
+    };
+#endif //FRANKSTORE_LOCATION
+
 class CoverImage{
 private:
     std::string location;
@@ -28,6 +35,7 @@ public:
     void claimUsedPixel();
     void resetFailedAttempts();
     int getPixelsLeft();
+    char* getHexCode(Location* hexCode, size_t bufferSize);
 };
 
 #endif //FRANKSTORE_COVERIMAGE_H
