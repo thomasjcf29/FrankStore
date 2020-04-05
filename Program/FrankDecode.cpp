@@ -12,6 +12,12 @@
 
 using namespace std;
 
+/**
+Creates a FrankDecode object, check the object is valid before proceeding. Mind you,
+this object will just quit if the provided parameters are not valid!
+@param char **argv: Array of user provided arguments from the command line.
+@param bool isImage: Boolean for to test program if decode object is an image.
+*/
 FrankDecode::FrankDecode(char **argv, bool isImage){
     cout << "[INFO]: Opening cover image." << endl;
     image = CoverImage(argv[2]);
@@ -49,8 +55,20 @@ FrankDecode::FrankDecode(char **argv, bool isImage){
         cout << "[ERROR]: Program exiting" << endl;
         exit(7);
     }
+
+    valid = true;
 }
 
+/**
+@return if the object is valid to be used: true if valid, false if not.
+*/
+bool FrankDecode::isValid(){
+    return valid;
+}
+
+/**
+Private method used to decode the image and write to a file.
+*/
 void FrankDecode::decodeImage(){
     bool moreToRead = true;
     do{
@@ -64,6 +82,9 @@ void FrankDecode::decodeImage(){
     outputFile.flush();
 }
 
+/**
+Private method used to decode the file and write to a file.
+*/
 void FrankDecode::decodeFile(){
     bool moreToRead = true;
     do{
@@ -77,6 +98,10 @@ void FrankDecode::decodeFile(){
     outputFile.flush();
 }
 
+/**
+Public method called to decode the file, will return once the file has been fully decoded.
+This may take a while!
+*/
 void FrankDecode::decode(){
     cout << "[INFO]: Writing decode file." << endl;
     if(isImageInput){
@@ -88,6 +113,9 @@ void FrankDecode::decode(){
     cout << "[INFO]: Decode file has been written." << endl;
 }
 
+/**
+Public method used to close all resources this object has open.
+*/
 void FrankDecode::close(){
     if(!isImageInput){
         inputFile.close();

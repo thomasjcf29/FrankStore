@@ -14,6 +14,7 @@ public:
     static int hex2int(std::string hex);
     static std::string int2hex(int);
     static std::string char2hex(char* bytes, size_t size);
+    static int char2int(char c);
 private:
     Converter() {}
 };

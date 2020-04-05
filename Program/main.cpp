@@ -99,6 +99,7 @@ int main(int argc, char **argv) {
         else{
             FrankDecode decoder = FrankDecode(argv, image);
             decoder.decode();
+            decoder.close();
         }
     }
 

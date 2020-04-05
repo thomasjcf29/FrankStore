@@ -153,6 +153,13 @@ bool CoverImage::isValid(){
     return valid;
 }
 
+/**
+Returns the overall hex code for the specified array of locations.
+@param Location* locations: The array of locations you would like decoded.
+@param size_t bufferSize: The size of the array.
+@return the char array of the hex code.
+WARNING: You need to delete [] the array provided back to prevent a memeory leak!
+*/
 char* CoverImage::getHexCode(Location* locations, size_t bufferSize){
     stringstream ss;
 
@@ -164,7 +171,7 @@ char* CoverImage::getHexCode(Location* locations, size_t bufferSize){
 
     string str = ss.str();
     char *c = new char [str.size() + 1];
-    strcpy(c, str.c_str());    
+    strcpy(c, str.c_str());
     return c;
 }
 

@@ -95,3 +95,14 @@ string Converter::char2hex(char* bytes, size_t size){
     }
     return result;
 }
+
+/**
+Converts the specified char hex letter to its integer equivalaent.
+@param char c: The char hex letter you'd like to convert.
+@return the integer code for it.
+*/
+int Converter::char2int(char c){
+    if (c<='9'&&c>='0') return (int)c-(int)'0';
+    if (c<='f'&&c>='a') return (int)c-(int)'a'+10;
+    if (c<='F'&&c>='A') return (int)c-(int)'A'+10;
+}

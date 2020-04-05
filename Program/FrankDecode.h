@@ -20,6 +20,7 @@ class FrankDecode{
 private:
     CoverImage image;
     bool isImageInput;
+    bool valid;
     int counter = 0;
     FileToOutput outputFile;
     ImageToRead inputImage;
@@ -31,6 +32,7 @@ public:
     FrankDecode(char **argv, bool isImage);
     void decode();
     void close();
+    bool isValid();
 };
 
 #endif //FRANKSTORE_FRANKDECODE_H

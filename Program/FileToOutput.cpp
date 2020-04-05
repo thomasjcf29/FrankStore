@@ -1,3 +1,4 @@
+#include "Converter.h"
 #include "FileToOutput.h"
 #include <string>
 #include <fstream>
@@ -37,17 +38,16 @@ void FileToOutput::write(unsigned short data){
     outputFile.write(reinterpret_cast<const char*>(&data), sizeof(unsigned short));
 }
 
-int FileToOutput::cal(char c)// cal the coresponding value in hex of ascii char c
-{
-    if (c<='9'&&c>='0') return (int)c-(int)'0';
-    if (c<='f'&&c>='a') return (int)c-(int)'a'+10;
-    if (c<='F'&&c>='A') return (int)c-(int)'A'+10;
-}
-
+/**
+Writes the char array provided to the output file as binary.
+@param const char* data: The char data of hex letters you would like written.
+Pass in hex letters in there character ('A') form, this will automatically
+convert to integer.
+*/
 void FileToOutput::writetest(const char* data){
     size_t size = strlen(data);
     for(int i = 0; i < size; i+=2){
-        char letters = cal(data[i])*16+cal(data[i+1]);
+        char letters = Converter::char2int(data[i])*16+Converter::char2int(data[i+1]);
         outputFile << letters;
     }
 }
