@@ -20,7 +20,7 @@ Creates the object and creates the output file.
 */
 FileToOutput::FileToOutput(string file){
     fileName = file;
-    outputFile.open(file, ios::binary);
+    outputFile = ofstream(file, ofstream::binary);
 
     if(!outputFile){
         valid = false;
