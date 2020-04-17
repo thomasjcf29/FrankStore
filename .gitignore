@@ -1,0 +1,10 @@
+Program/.idea/
+Program/.idea/*
+Program/.vscode/
+Program/.vscode/*
+Program/CMakeFiles/
+Program/CMakeFiles/*
+Program/Makefile
+Program/CMakeCache.txt
+Program/cmake_install.cmake
+.remote-sync.json
