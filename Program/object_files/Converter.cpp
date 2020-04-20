@@ -105,4 +105,5 @@ int Converter::char2int(char c){
     if (c<='9'&&c>='0') return (int)c-(int)'0';
     if (c<='f'&&c>='a') return (int)c-(int)'a'+10;
     if (c<='F'&&c>='A') return (int)c-(int)'A'+10;
+    return -1;
 }
