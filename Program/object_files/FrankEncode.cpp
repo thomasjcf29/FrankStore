@@ -97,13 +97,12 @@ CoverPixel FrankEncode::findPixel(){
 			pixelsUsed[ix][iy] = true;
             string colour = image.getHexColour(ix, iy);
             image.claimUsedPixel();
+			image.resetFailedAttempts();
             return CoverPixel(ix, iy, colour);
         }
 
     } while(invalid);
-
-	image.resetFailedAttempts();
-	return NULL;
+	return CoverPixel();
 }
 
 /**
