@@ -103,6 +103,7 @@ CoverPixel FrankEncode::findPixel(){
     } while(invalid);
 
 	image.resetFailedAttempts();
+	return NULL;
 }
 
 /**
