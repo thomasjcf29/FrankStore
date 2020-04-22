@@ -13,7 +13,7 @@ public:
     FileToOutput();
     FileToOutput(std::string fileName);
     bool isValid();
-    void write(ushort data);
+    void write(unsigned short data);
     void writetest(const char* data);
     void close();
     void flush();

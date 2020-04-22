@@ -282,9 +282,9 @@ void FrankEncode::writeFile(){
 			string letter = hex.substr(i, 1);
 			Location loc = encodeLetter(letter);
 
-			ushort x = (ushort) loc.x;
-			ushort y = (ushort)  loc.y;
-			ushort hash = (ushort) loc.hash;
+			unsigned short x = (unsigned short) loc.x;
+			unsigned short y = (unsigned short)  loc.y;
+			unsigned short hash = (unsigned short) loc.hash;
 
 			outputFileFile.write(x);
 			outputFileFile.write(y);
