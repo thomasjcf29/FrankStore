@@ -44,9 +44,9 @@ ImageToRead::ImageToRead(string name){
     for(size_t i = 0; i < width; i++){
         for(size_t y = 0; y < height; y++){
             ColorRGB col = image.pixelColor(i, y);
-            int r = col.red() * 255;
-            int g = col.green() * 255;
-            int b = col.blue() * 255;
+            int r = (int) (col.red() * 255);
+            int g = (int) (col.green() * 255);
+            int b = (int) (col.blue() * 255);
 
             if(r == 255 && g == 255 && b == 255){
                 paddingPixel = (y * width) + i;
@@ -99,14 +99,14 @@ bool ImageToRead::isValid(){
 /**
 @return the width of the decode image.
 */
-int ImageToRead::getWidth(){
+size_t ImageToRead::getWidth(){
     return width;
 }
 
 /**
 @return the height of the decode image.
 */
-int ImageToRead::getHeight(){
+size_t ImageToRead::getHeight(){
     return height;
 }
 
@@ -136,9 +136,9 @@ Location* ImageToRead::getNextPixels(){
             }
 
             ColorRGB color = image.pixelColor(curX, curY);
-            int r = color.red() * 255;
-            int g = color.green() * 255;
-            int b = color.blue() * 255;
+            int r = (int) (color.red() * 255);
+            int g = (int) (color.green() * 255);
+            int b = (int) (color.blue() * 255);
 
             string hex = Converter::rgb2hex(r, g, b, false);
             size_t number = Converter::hex2int(hex);

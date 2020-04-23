@@ -36,8 +36,8 @@ public:
     bool isRead();
     bool isValid();
     size_t getBufferSize();
-    int getWidth();
-    int getHeight();
+    size_t getWidth();
+    size_t getHeight();
     Location* getNextPixels();
 };
 

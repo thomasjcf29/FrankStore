@@ -181,7 +181,7 @@ std::string sha512(std::string input)
     memset(digest,0,SHA512::DIGEST_SIZE);
     SHA512 ctx = SHA512();
     ctx.init();
-    ctx.update((unsigned char*)input.c_str(), input.length());
+    ctx.update((unsigned char*) input.c_str(), (unsigned int) input.length());
     ctx.final(digest);
 
     char buf[2*SHA512::DIGEST_SIZE+1];

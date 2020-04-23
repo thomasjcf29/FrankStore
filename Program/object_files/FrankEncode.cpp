@@ -216,8 +216,8 @@ void FrankEncode::writeImage(){
 			string letter = hex.substr(i, 1);
 			Location loc = encodeLetter(letter);
 
-			double* xRGB = Converter::hex2rgb(Converter::int2hex(loc.x));
-			double* yRGB = Converter::hex2rgb(Converter::int2hex(loc.y));
+			double* xRGB = Converter::hex2rgb(Converter::int2hex((int) loc.x));
+			double* yRGB = Converter::hex2rgb(Converter::int2hex((int) loc.y));
 			double* hashRGB = Converter::hex2rgb(Converter::int2hex(loc.hash));
 
 			Magick::Color x = Magick::ColorRGB(xRGB[0], xRGB[1], xRGB[2]);
