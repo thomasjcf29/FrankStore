@@ -1,15 +1,16 @@
 #ifndef FRANKSTORE_FILETODECODE_H
 #define FRANKSTORE_FILETODECODE_H
 
+#include <fstream>
+#include <string>
+
 #ifndef FRANKSTORE_LOCATION
 #define FRANKSTORE_LOCATION
     struct Location{
-        int x, y, hash;
+        size_t x, y;
+        int hash;
     };
 #endif //FRANKSTORE_LOCATION
-
-#include <fstream>
-#include <string>
 
 class FileToDecode{
 private:

@@ -1,14 +1,25 @@
 cmake_minimum_required(VERSION 3.10)
 project(FrankStore)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-
 add_definitions( -DMAGICKCORE_QUANTUM_DEPTH=16 )
 add_definitions( -DMAGICKCORE_HDRI_ENABLE=0 )
-find_package(ImageMagick COMPONENTS Magick++)
+
+if(UNIX)
+	find_package(PkgConfig)
+	pkg_check_modules(LIBSODIUM "libsodium")
+	add_definitions(${LIBSODIUM_CFLAGS})
+endif(UNIX)
+
+find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
+
 include_directories(${ImageMagick_INCLUDE_DIRS})
 
+if(WIN32)
+	add_compile_options(/wd4251 /wd4275 /wd4996)
+endif(WIN32)
+
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 file(GLOB FrankStore_SRC
         "object_files/*.cpp"
@@ -19,4 +30,11 @@ file(GLOB FrankStore_SRC
 add_executable(FrankStore ${FrankStore_SRC})
 
 target_link_libraries(FrankStore ${ImageMagick_LIBRARIES})
-target_link_libraries(FrankStore sodium)
+
+if(UNIX)
+	target_link_libraries(FrankStore ${LIBSODIUM_LDFLAGS})
+endif(UNIX)
+
+if(WIN32)
+	target_compile_definitions(FrankStore PUBLIC /wd4101 /wd4275 /wd4996)
+endif(WIN32)

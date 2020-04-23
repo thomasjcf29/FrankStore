@@ -12,7 +12,8 @@
 #ifndef FRANKSTORE_LOCATION
 #define FRANKSTORE_LOCATION
     struct Location{
-        int x, y, hash;
+        size_t x, y;
+        int hash;
     };
 #endif //FRANKSTORE_LOCATION
 
@@ -21,20 +22,21 @@ private:
     std::string location;
     Magick::Image img;
     bool valid = false;
-    int maxPixels, availablePixels, curX, curY, incrementor, failedAttempts;
+    int incrementor, failedAttempts;
+    size_t maxPixels, availablePixels, curX, curY;
 public:
     CoverImage(std::string file);
     CoverImage();
-    std::string getHexColour(int x, int y);
+    std::string getHexColour(size_t x, size_t y);
     void close();
-    int getWidth();
-    int getHeight();
-    int getMaxPixels();
-    int* getNextLocation();
+    size_t getWidth();
+    size_t getHeight();
+    size_t getMaxPixels();
+    size_t* getNextLocation();
     bool isValid();
     void claimUsedPixel();
     void resetFailedAttempts();
-    int getPixelsLeft();
+    size_t getPixelsLeft();
     char* getHexCode(Location* hexCode, size_t bufferSize);
 };
 

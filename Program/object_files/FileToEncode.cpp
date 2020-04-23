@@ -63,7 +63,7 @@ char* FileToEncode::getNextBytes(){
 
     inputFile.read(buffer, bufferSize);
 
-    if(inputFile.tellg() >= totalLength){
+    if((size_t) inputFile.tellg() >= totalLength){
         isRead = true;
     }
 

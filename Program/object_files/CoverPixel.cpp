@@ -34,9 +34,9 @@ Constructor for the CoverPixel class, returning back a valid object.
 @param int ly: The y location of the pixel.
 @param string lcolour: The colour of the pixel.
 */
-CoverPixel::CoverPixel(int lx, int ly, string lcolour){
-    intX = lx;
-    intY = ly;
+CoverPixel::CoverPixel(size_t lx, size_t ly, string lcolour){
+    sizeX = lx;
+    sizeY = ly;
 
     string sx = to_string(lx);
     string sy = to_string(ly);
@@ -68,7 +68,7 @@ string CoverPixel::getLetterAt(int location){
 @param The string hex character to be checked.
 @return the count left of the hex character provided.
 */
-int CoverPixel::getLetterCount(string letter){
+size_t CoverPixel::getLetterCount(string letter){
     int arrayPos = Converter::hex2int(letter);
     return letters[arrayPos].size();
 }
@@ -81,7 +81,7 @@ Returns the position of the hex character you want to encode in the hash.
 int CoverPixel::getLetter(string letter){
     int arrayPos = Converter::hex2int(letter);
     vector<int> locations = letters[arrayPos];
-    int location = randombytes_uniform(locations.size());
+    int location = randombytes_uniform((uint32_t) locations.size());
     int hashLocation = locations[location];
 
     locations.erase(locations.begin() + location);
@@ -101,13 +101,13 @@ string CoverPixel::getHash(){
 /**
 @return the X coordinates of the object.
 */
-int CoverPixel::getX(){
-    return intX;
+size_t CoverPixel::getX(){
+    return sizeX;
 }
 
 /**
 @return the Y coordinates of the object.
 */
-int CoverPixel::getY(){
-    return intY;
+size_t CoverPixel::getY(){
+    return sizeY;
 }

@@ -40,10 +40,10 @@ CoverImage::CoverImage(string file){
     char myString[32];
     randombytes_buf(myString, 32);
 
-    int halfWidth = ceil(getWidth() / 2);
+    int halfWidth = (int) ceil(getWidth() / 2);
 	bool invalid = true;
 	do{
-		incrementor = randombytes_uniform(getWidth());
+		incrementor = randombytes_uniform((uint32_t) getWidth());
 		if(incrementor >= halfWidth){
 			invalid = false;
 		}
@@ -58,7 +58,7 @@ CoverImage::CoverImage(string file){
 /**
 @return The width of the image.
 */
-int CoverImage::getWidth(){
+size_t CoverImage::getWidth(){
     if(!valid)
         return -1;
     return img.columns();
@@ -67,7 +67,7 @@ int CoverImage::getWidth(){
 /**
 @return The height of the image.
 */
-int CoverImage::getHeight(){
+size_t CoverImage::getHeight(){
     if(!valid)
         return -1;
     return img.rows();
@@ -76,7 +76,7 @@ int CoverImage::getHeight(){
 /**
 @return The total amount of pixels in the image (width * height).
 */
-int CoverImage::getMaxPixels(){
+size_t CoverImage::getMaxPixels(){
     return maxPixels;
 }
 
@@ -86,7 +86,7 @@ The hex colour of the pixel at the given coordinates.
 @param int y: The y coordinate.
 @return The hex colour of the pixel.
 */
-string CoverImage::getHexColour(int x, int y){
+string CoverImage::getHexColour(size_t x, size_t y){
     if(!valid)
         return "-1";
     if(x > (getWidth() - 1))
@@ -95,9 +95,9 @@ string CoverImage::getHexColour(int x, int y){
         return "ERROR: The requested height is too large.";
 
     ColorRGB px = img.pixelColor(x, y);
-    int red = px.red() * 255;
-    int green = px.green() * 255;
-    int blue = px.blue() * 255;
+    int red = (int) (px.red() * 255);
+    int green = (int) (px.green() * 255);
+    int blue = (int) (px.blue() * 255);
 
     return Converter::rgb2hex(red, green, blue, true);
 }
@@ -109,11 +109,11 @@ If called 10 times without resetting failed attempts the incrementor will change
 The pixel returned is not unique, you must make sure you are doing it yourself.
 Make sure to delete the array returned or else they'll be memory issues.
 */
-int * CoverImage::getNextLocation(){
-    int * location = new int[2];
+size_t * CoverImage::getNextLocation(){
+    size_t * location = new size_t[2];
 
     if(curX >= getWidth()){
-        int leftOver = curX - getWidth();
+        size_t leftOver = curX - getWidth();
         curX = leftOver;
         curY++;
     }
@@ -124,8 +124,8 @@ int * CoverImage::getNextLocation(){
     }
 
     if(failedAttempts >= 10){
-        int halfWidth = ceil(incrementor / 2);
-        int minHalfWidth = ceil(incrementor / 4);
+        int halfWidth = (int) ceil(incrementor / 2);
+        int minHalfWidth = (int) ceil(incrementor / 4);
     	bool invalid = true;
     	do{
     		incrementor = (randombytes_uniform(halfWidth) + 1);
@@ -192,7 +192,7 @@ void CoverImage::resetFailedAttempts(){
 /**
 @return the amount of pixels left that are unique.
 */
-int CoverImage::getPixelsLeft(){
+size_t CoverImage::getPixelsLeft(){
     return availablePixels;
 }
 

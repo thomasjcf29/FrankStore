@@ -12,7 +12,8 @@
 #ifndef FRANKSTORE_LOCATION
 #define FRANKSTORE_LOCATION
     struct Location{
-        int x, y, hash;
+        size_t x, y;
+        int hash;
     };
 #endif //FRANKSTORE_LOCATION
 

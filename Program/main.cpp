@@ -33,7 +33,7 @@ bool check(int argc, char **argv) {
                 layout();
                 return false;
             }
-            if(!strcmp(argv[5], "file") == 0 && !strcmp(argv[5], "image") == 0){
+            if(strcmp(argv[5], "file") != 0 && strcmp(argv[5], "image") != 0){
                 cout << "[ERROR]: An invalid entry was submitted, file or image?" << endl;
                 layout();
                 return false;
