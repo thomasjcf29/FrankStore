@@ -16,6 +16,13 @@ void layout() {
   cout << "To   encode: FrankStore encode <coverImage> <fileToEncode> <outputFile> <image|file>" << endl;
   cout << "To   decode: FrankStore decode <coverImage> <fileToDecode> <outputFile> <image|file>" << endl;
   cout << "To generate: FrankStore generate <width> <height> <outputFile>" << endl;
+  cout << "There are multiple options for encryption, all result in the same output." << endl;
+  cout << "If you are unsure refer to the documentation!" << endl;
+  cout << "The following are valid options to encrypt: " << endl;
+  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput>" << endl;
+  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password>" << endl;
+  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> image <imageFile>" << endl;
+  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password> image <imageFile>" << endl;
   cout << "Image = output as an image, file = output as a file" << endl;
 }
 
@@ -27,7 +34,7 @@ if they are not.
 @return true if valid, false if not.
 */
 bool check(int argc, char **argv) {
-    if (argc == 5 || argc == 6){
+    if (argc == 5 || argc == 6 || argc == 4 || argc == 8){
         if(strcmp(argv[1], "encode") == 0 || strcmp(argv[1], "decode") == 0){
             if(argc != 6){
                 layout();
@@ -40,6 +47,11 @@ bool check(int argc, char **argv) {
             }
         }
         else if(strcmp(argv[1], "generate") == 0){
+            if(argc != 5){
+                layout();
+                return false;
+            }
+
             try{
                 int i = stoi(argv[2]);
                 int x = stoi(argv[3]);
@@ -51,6 +63,29 @@ bool check(int argc, char **argv) {
             }
             catch(out_of_range e1){
                 cout << "[ERROR]: Number is too large to be an integer!" << endl;
+                layout();
+                return false;
+            }
+        }
+        else if(strcmp(argv[1], "encrypt") == 0){
+            if(argc == 4){
+                return true;
+            }
+            else if(argc == 6){
+                if(strcmp(argv[4], "password") != 0 && strcmp(argv[4], "image") != 0){
+                    cout << "[ERROR]: An invalid entry was submitted, password or image?" << endl;
+                    layout();
+                    return false;
+                }
+            }
+            else if(argc == 8){
+                if(strcmp(argv[4], "password") != 0 || strcmp(argv[6], "image") != 0){
+                    cout << "[ERROR]: An invalid entry was submitted!" << endl;
+                    layout();
+                    return false;
+                }
+            }
+            else{
                 layout();
                 return false;
             }
