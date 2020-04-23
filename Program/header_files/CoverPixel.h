@@ -16,7 +16,7 @@ private:
 public:
     ~CoverPixel();
     CoverPixel();
-    CoverPixel(int x, int y, std::string colour);
+    CoverPixel(size_t x, size_t y, std::string colour);
     int getLetter(std::string letter);
     std::string getHash();
     size_t getLetterCount(std::string letter);
