@@ -68,7 +68,7 @@ string CoverPixel::getLetterAt(int location){
 @param The string hex character to be checked.
 @return the count left of the hex character provided.
 */
-int CoverPixel::getLetterCount(string letter){
+size_t CoverPixel::getLetterCount(string letter){
     int arrayPos = Converter::hex2int(letter);
     return letters[arrayPos].size();
 }
@@ -81,7 +81,7 @@ Returns the position of the hex character you want to encode in the hash.
 int CoverPixel::getLetter(string letter){
     int arrayPos = Converter::hex2int(letter);
     vector<int> locations = letters[arrayPos];
-    int location = randombytes_uniform(locations.size());
+    int location = randombytes_uniform((uint32_t) locations.size());
     int hashLocation = locations[location];
 
     locations.erase(locations.begin() + location);

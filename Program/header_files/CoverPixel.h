@@ -19,7 +19,7 @@ public:
     CoverPixel(int x, int y, std::string colour);
     int getLetter(std::string letter);
     std::string getHash();
-    int getLetterCount(std::string letter);
+    size_t getLetterCount(std::string letter);
     std::string getLetterAt(int location);
     int getX();
     int getY();
