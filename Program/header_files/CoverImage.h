@@ -31,7 +31,7 @@ public:
     size_t getWidth();
     size_t getHeight();
     size_t getMaxPixels();
-    int* getNextLocation();
+    size_t* getNextLocation();
     bool isValid();
     void claimUsedPixel();
     void resetFailedAttempts();

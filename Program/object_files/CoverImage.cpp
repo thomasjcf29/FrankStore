@@ -109,8 +109,8 @@ If called 10 times without resetting failed attempts the incrementor will change
 The pixel returned is not unique, you must make sure you are doing it yourself.
 Make sure to delete the array returned or else they'll be memory issues.
 */
-int * CoverImage::getNextLocation(){
-    int * location = new int[2];
+size_t * CoverImage::getNextLocation(){
+    size_t * location = new size_t[2];
 
     if(curX >= getWidth()){
         size_t leftOver = curX - getWidth();
