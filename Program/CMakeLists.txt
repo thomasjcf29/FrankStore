@@ -18,7 +18,7 @@ if(WIN32)
 	add_compile_options(/wd4251 /wd4275)
 endif(WIN32)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 file(GLOB FrankStore_SRC
