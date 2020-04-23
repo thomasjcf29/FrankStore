@@ -34,9 +34,9 @@ Constructor for the CoverPixel class, returning back a valid object.
 @param int ly: The y location of the pixel.
 @param string lcolour: The colour of the pixel.
 */
-CoverPixel::CoverPixel(int lx, int ly, string lcolour){
-    intX = lx;
-    intY = ly;
+CoverPixel::CoverPixel(size_t lx, size_t ly, string lcolour){
+    sizeX = lx;
+    sizeY = ly;
 
     string sx = to_string(lx);
     string sy = to_string(ly);
@@ -101,13 +101,13 @@ string CoverPixel::getHash(){
 /**
 @return the X coordinates of the object.
 */
-int CoverPixel::getX(){
-    return intX;
+size_t CoverPixel::getX(){
+    return sizeX;
 }
 
 /**
 @return the Y coordinates of the object.
 */
-int CoverPixel::getY(){
-    return intY;
+size_t CoverPixel::getY(){
+    return sizeY;
 }
