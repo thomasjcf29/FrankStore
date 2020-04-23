@@ -15,6 +15,7 @@ void layout() {
   cout << "The correct arguments are:" << endl;
   cout << "To   encode: FrankStore encode <coverImage> <fileToEncode> <outputFile> <image|file>" << endl;
   cout << "To   decode: FrankStore decode <coverImage> <fileToDecode> <outputFile> <image|file>" << endl;
+  cout << "Image = output as an image, file = output as a file" << endl;
   cout << "To generate: FrankStore generate <width> <height> <outputFile>" << endl;
   cout << "There are multiple options for encryption, all result in the same output." << endl;
   cout << "If you are unsure refer to the documentation!" << endl;
@@ -23,7 +24,6 @@ void layout() {
   cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password>" << endl;
   cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> image <imageFile>" << endl;
   cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password> image <imageFile>" << endl;
-  cout << "Image = output as an image, file = output as a file" << endl;
 }
 
 /**
