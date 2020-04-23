@@ -152,7 +152,7 @@ Checks the count of the hex character in the specified pixel location.
 needs to be replaced.
 */
 bool FrankEncode::checkCount(int pixelLoc, string letter){
-    int amount = pixels[pixelLoc].getLetterCount(letter);
+    size_t amount = pixels[pixelLoc].getLetterCount(letter);
     if(amount < 1){
         replacePixel(pixelLoc);
         return false;
@@ -172,14 +172,14 @@ Location FrankEncode::encodeLetter(string hashLetter){
     CoverPixel pixel;
 
     do{
-        pixelToUse = randombytes_uniform(pixels.size());
+        pixelToUse = randombytes_uniform((uint32_t) pixels.size());
         valid = checkCount(pixelToUse, hashLetter);
     } while(!valid);
 
     pixel = pixels[pixelToUse];
 
-    int x = pixel.getX();
-    int y = pixel.getY();
+    size_t x = pixel.getX();
+    size_t y = pixel.getY();
     int hashLocation = pixel.getLetter(hashLetter);
 
     pixels[pixelToUse] = pixel;
@@ -196,7 +196,7 @@ creating a square output image. So it returns only width as height = width.
 size_t FrankEncode::calculateBestImageSize(size_t fileSize){
 	size_t withHex = fileSize * 2;
 	size_t withPixels = withHex * 3;
-	return ceil(sqrt(withPixels));
+	return ((size_t) ceil(sqrt(withPixels)));
 }
 
 /**
