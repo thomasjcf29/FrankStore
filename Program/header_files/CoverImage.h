@@ -21,15 +21,16 @@ private:
     std::string location;
     Magick::Image img;
     bool valid = false;
-    int maxPixels, availablePixels, curX, curY, incrementor, failedAttempts;
+    int availablePixels, curX, curY, incrementor, failedAttempts;
+    size_t maxPixels;
 public:
     CoverImage(std::string file);
     CoverImage();
     std::string getHexColour(int x, int y);
     void close();
-    int getWidth();
-    int getHeight();
-    int getMaxPixels();
+    size_t getWidth();
+    size_t getHeight();
+    size_t getMaxPixels();
     int* getNextLocation();
     bool isValid();
     void claimUsedPixel();

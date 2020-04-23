@@ -40,7 +40,7 @@ double* Converter::hex2rgb(string hex){
     	hex.erase(0,1);
     }
 
-    int size = hex.size();
+    size_t size = hex.size();
 
     for (int i = 0; i < 3; i++) {
     	// Determine 3 or 6 character format.
