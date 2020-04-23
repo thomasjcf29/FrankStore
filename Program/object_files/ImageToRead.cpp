@@ -127,7 +127,7 @@ Location* ImageToRead::getNextPixels(){
     for(int i = 0; i < bufferSize; i++){
         Location loc;
 
-        int details[3];
+        size_t details[3];
 
         for(int ii = 0; ii < 3; ii++){
             if(curX >= width){
@@ -141,14 +141,14 @@ Location* ImageToRead::getNextPixels(){
             int b = color.blue() * 255;
 
             string hex = Converter::rgb2hex(r, g, b, false);
-            int number = Converter::hex2int(hex);
+            size_t number = Converter::hex2int(hex);
 
             details[ii] = number;
 
             curX++;
         }
 
-        loc = Location{details[0], details[1], details[2]};
+        loc = Location{details[0], details[1], (int) details[2]};
 
         buffer[i] = loc;
     }
