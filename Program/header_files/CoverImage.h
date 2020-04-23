@@ -21,8 +21,8 @@ private:
     std::string location;
     Magick::Image img;
     bool valid = false;
-    int availablePixels, curX, curY, incrementor, failedAttempts;
-    size_t maxPixels;
+    int incrementor, failedAttempts;
+    size_t maxPixels, availablePixels, curX, curY;
 public:
     CoverImage(std::string file);
     CoverImage();
@@ -35,7 +35,7 @@ public:
     bool isValid();
     void claimUsedPixel();
     void resetFailedAttempts();
-    int getPixelsLeft();
+    size_t getPixelsLeft();
     char* getHexCode(Location* hexCode, size_t bufferSize);
 };
 

@@ -43,7 +43,7 @@ CoverImage::CoverImage(string file){
     int halfWidth = (int) ceil(getWidth() / 2);
 	bool invalid = true;
 	do{
-		incrementor = randombytes_uniform(getWidth());
+		incrementor = randombytes_uniform((uint32_t) getWidth());
 		if(incrementor >= halfWidth){
 			invalid = false;
 		}
@@ -95,9 +95,9 @@ string CoverImage::getHexColour(int x, int y){
         return "ERROR: The requested height is too large.";
 
     ColorRGB px = img.pixelColor(x, y);
-    size_t red = px.red() * 255;
-    size_t green = px.green() * 255;
-    size_t blue = px.blue() * 255;
+    int red = (int) (px.red() * 255);
+    int green = (int) (px.green() * 255);
+    int blue = (int) (px.blue() * 255);
 
     return Converter::rgb2hex(red, green, blue, true);
 }
@@ -113,7 +113,7 @@ int * CoverImage::getNextLocation(){
     int * location = new int[2];
 
     if(curX >= getWidth()){
-        int leftOver = curX - getWidth();
+        size_t leftOver = curX - getWidth();
         curX = leftOver;
         curY++;
     }
@@ -192,7 +192,7 @@ void CoverImage::resetFailedAttempts(){
 /**
 @return the amount of pixels left that are unique.
 */
-int CoverImage::getPixelsLeft(){
+size_t CoverImage::getPixelsLeft(){
     return availablePixels;
 }
 
