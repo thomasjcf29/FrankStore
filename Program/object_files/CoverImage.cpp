@@ -171,7 +171,7 @@ char* CoverImage::getHexCode(Location* locations, size_t bufferSize){
 
     string str = ss.str();
     char *c = new char [str.size() + 1];
-    strcpy_s(c, str.size() + 1, str.c_str());
+    strcpy(c, str.c_str());
     return c;
 }
 
