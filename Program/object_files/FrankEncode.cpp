@@ -86,9 +86,9 @@ Finds the next available pixel in the cover image and returns it to the method t
 CoverPixel FrankEncode::findPixel(){
     bool invalid = true;
     do{
-        int * loc = image.getNextLocation();
-		int ix = loc[0];
-		int iy = loc[1];
+        size_t * loc = image.getNextLocation();
+		size_t ix = loc[0];
+		size_t iy = loc[1];
 
 		delete [] loc;
 

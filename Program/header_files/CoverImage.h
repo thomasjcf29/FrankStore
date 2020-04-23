@@ -26,7 +26,7 @@ private:
 public:
     CoverImage(std::string file);
     CoverImage();
-    std::string getHexColour(int x, int y);
+    std::string getHexColour(size_t x, size_t y);
     void close();
     size_t getWidth();
     size_t getHeight();

@@ -86,7 +86,7 @@ The hex colour of the pixel at the given coordinates.
 @param int y: The y coordinate.
 @return The hex colour of the pixel.
 */
-string CoverImage::getHexColour(int x, int y){
+string CoverImage::getHexColour(size_t x, size_t y){
     if(!valid)
         return "-1";
     if(x > (getWidth() - 1))
