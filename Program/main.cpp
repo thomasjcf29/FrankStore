@@ -24,6 +24,7 @@ void layout() {
   cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput>" << endl;
   cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password>" << endl;
   cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> image <imageFile>" << endl;
+  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password image <imageFile>" << endl;
   cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password> image <imageFile>" << endl;
 }
 
@@ -35,7 +36,7 @@ if they are not.
 @return true if valid, false if not.
 */
 bool check(int argc, char **argv) {
-    if (argc == 5 || argc == 6 || argc == 4 || argc == 8){
+    if (argc == 5 || argc == 6 || argc == 4 || argc == 7 || argc == 8){
         if(strcmp(argv[1], "encode") == 0 || strcmp(argv[1], "decode") == 0){
             if(argc != 6){
                 layout();
@@ -75,6 +76,13 @@ bool check(int argc, char **argv) {
             else if(argc == 6){
                 if(strcmp(argv[4], "password") != 0 && strcmp(argv[4], "image") != 0){
                     cout << "[ERROR]: An invalid entry was submitted, password or image?" << endl;
+                    layout();
+                    return false;
+                }
+            }
+            else if(argc == 7){
+                if(strcmp(argv[4], "password") != 0 || strcmp(argv[5], "image") != 0){
+                    cout << "[ERROR]: An invalid entry was submitted!" << endl;
                     layout();
                     return false;
                 }
