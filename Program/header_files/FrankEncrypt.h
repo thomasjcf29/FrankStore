@@ -1,7 +1,7 @@
 #ifndef FRANKSTORE_FRANKENCRYPT_H
 #define FRANKSTORE_FRANKENCRYPT_H
 
-#import "CoverImage.h"
+#include "CoverImage.h"
 
 enum RunTime {Nothing, Image, Password, ImageAndPassword};
 
