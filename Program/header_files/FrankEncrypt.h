@@ -10,7 +10,7 @@ private:
     bool valid = false;
     CoverImage coverImage;
     RunTime action = Nothing;
-    string password;
+    string encryptionKey;
 
     void getPassword();
 public:

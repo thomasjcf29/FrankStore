@@ -15,15 +15,15 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
         getPassword();
 
-        cout << "Password: " << password << endl;
+        cout << "Password: " << encryptionKey << endl;
     }
     //Image or Password Specified
     else if(argc == 6){
         if(strcmp(argv[4], "password") != 0){
             action = Password;
-            password = string(argv[5]);
+            encryptionKey = string(argv[5]);
 
-            cout << "Password: " << password << endl;
+            cout << "Password: " << encryptionKey << endl;
         }
         else if(strcmp(argv[4], "image") != 0){
             action = Image;
@@ -39,7 +39,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
         getPassword();
 
-        cout << "Password: " << password << endl;
+        cout << "Password: " << encryptionKey << endl;
     }
     //Image and Password (Password Specified)
     else if(argc == 8){
@@ -47,9 +47,9 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         coverImage = CoverImage(argv[7]);
         valid = coverImage.isValid();
 
-        password = string(argv[5]);
+        encryptionKey = string(argv[5]);
 
-        cout << "Password: " << password << endl;
+        cout << "Password: " << encryptionKey << endl;
     }
 }
 
@@ -62,7 +62,7 @@ void FrankEncrypt::getPassword(){
 
     ConsoleController::SetStdinEcho(false);
 
-    cin >> password;
+    cin >> encryptionKey;
 
     ConsoleController::SetStdinEcho(true);
 }
