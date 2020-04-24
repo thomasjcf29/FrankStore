@@ -16,16 +16,20 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         getPassword();
 
         cout << "Password: " << encryptionKey << endl;
+
+        valid = true;
     }
     //Image or Password Specified
     else if(argc == 6){
-        if(strcmp(argv[4], "password") != 0){
+        if(strcmp(argv[4], "password") == 0){
             action = Password;
             encryptionKey = string(argv[5]);
 
             cout << "Password: " << encryptionKey << endl;
+
+            valid = true;
         }
-        else if(strcmp(argv[4], "image") != 0){
+        else if(strcmp(argv[4], "image") == 0){
             action = Image;
             coverImage = CoverImage(argv[5]);
             valid = coverImage.isValid();
@@ -58,14 +62,39 @@ bool FrankEncrypt::isValid(){
 }
 
 void FrankEncrypt::getPassword(){
-    cout << "Please enter an encryption key: ";
+    string tempPassword;
+    string checkPassword;
+    bool invalid = true;
 
-    ConsoleController::SetStdinEcho(false);
+    do{
+        cout << "Please enter an encryption key: ";
+        ConsoleController::SetStdinEcho(false);
 
-    cin >> encryptionKey;
+        cin >> tempPassword;
 
-    ConsoleController::SetStdinEcho(true);
+        ConsoleController::SetStdinEcho(true);
 
-    cout << endl << endl;
-    cout << "Password Accepted." << endl << endl;
+        cout << "Please verify password: ";
+        ConsoleController::SetStdinEcho(false);
+
+        cin >> checkPassword;
+
+        ConsoleController::SetStdinEcho(true);
+
+        cout << endl << endl;
+
+        if(strcmp(tempPassword, checkPassword) == 0){
+            cout << "[INFO]: Password Accepted." << endl << endl;
+            encryptionKey = tempPassword;
+            tempPassword.erase();
+            checkPassword.erase();
+            invalid = false;
+        }
+        else{
+            cout << "[ERROR]: Passwords do not match, please reenter." << endl << endl;
+            tempPassword.erase();
+            checkPassword.erase();
+        }
+
+    } while(invalid);
 }
