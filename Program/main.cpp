@@ -1,6 +1,7 @@
 #include "header_files/FrankDecode.h"
 #include "header_files/FrankEncode.h"
 #include "header_files/FrankGenerator.h"
+#include "header_files/FrankEncrypt.h"
 #include <iostream>
 #include <string.h>
 
@@ -145,6 +146,14 @@ int main(int argc, char **argv) {
             exit(10);
         }
         generator.generateData();
+    }
+
+    else if(strcmp(argv[1], "encrypt") == 0){
+        FrankEncrypt encryptor = FrankEncrypt(argc, argv);
+        if(!encryptor.isValid()){
+            cout << "[ERROR]: Exiting program";
+            exit(10);
+        }
     }
 
   	return 0;
