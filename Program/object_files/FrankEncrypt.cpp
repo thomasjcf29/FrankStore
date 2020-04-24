@@ -65,4 +65,6 @@ void FrankEncrypt::getPassword(){
     cin >> encryptionKey;
 
     ConsoleController::SetStdinEcho(true);
+
+    cout << endl;
 }
