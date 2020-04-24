@@ -5,7 +5,7 @@ class ConsoleController{
 public:
     static void SetStdinEcho(bool enable);
 private:
-    ConsoleController();
+    ConsoleController() {}
 };
 
 #endif //FRANKSTORE_CONSOLECONTROLLER_H
