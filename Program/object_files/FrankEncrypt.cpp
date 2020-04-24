@@ -1,4 +1,7 @@
 #include "../header_files/FrankEncrypt.h"
+#include <iostream>
+
+using namespace std;
 
 FrankEncrypt::FrankEncrypt(int argc, char **argv){
     cout << "[INFO]: Setting up encryptor." << endl;
