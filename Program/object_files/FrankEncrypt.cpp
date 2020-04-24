@@ -74,7 +74,7 @@ void FrankEncrypt::getPassword(){
 
         ConsoleController::SetStdinEcho(true);
 
-        cout << "Please verify password: ";
+        cout << endl << "Please verify password: ";
         ConsoleController::SetStdinEcho(false);
 
         cin >> checkPassword;
