@@ -6,7 +6,7 @@
 #include <unistd.h>
 #endif
 
-void SetStdinEcho(bool enable = true)
+void ConsoleController::SetStdinEcho(bool enable = true)
 {
 #ifdef WIN32
     HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
