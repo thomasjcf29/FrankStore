@@ -83,7 +83,7 @@ void FrankEncrypt::getPassword(){
 
         cout << endl << endl;
 
-        if(strcmp(tempPassword, checkPassword) == 0){
+        if(tempPassword.compare(checkPassword) == 0){
             cout << "[INFO]: Password Accepted." << endl << endl;
             encryptionKey = tempPassword;
             tempPassword.erase();
