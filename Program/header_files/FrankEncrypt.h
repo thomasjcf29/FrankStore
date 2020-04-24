@@ -10,6 +10,9 @@ private:
     bool valid = false;
     CoverImage coverImage;
     RunTime action = Nothing;
+    string password;
+
+    void getPassword();
 public:
     FrankEncrypt(int argc, char **argv);
     bool isValid();
