@@ -66,5 +66,6 @@ void FrankEncrypt::getPassword(){
 
     ConsoleController::SetStdinEcho(true);
 
-    cout << endl;
+    cout << endl << endl;
+    cout << "Password Accepted." << endl << endl;
 }
