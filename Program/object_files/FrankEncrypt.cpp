@@ -57,7 +57,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         cout << "Password: " << encryptionKey << endl;
     }
 
-    cout << "[INFO]: Encryption Manager setup up."
+    cout << "[INFO]: Encryption Manager setup up.";
 }
 
 bool FrankEncrypt::isValid(){
