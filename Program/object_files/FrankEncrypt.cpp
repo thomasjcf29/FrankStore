@@ -32,7 +32,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         else if(strcmp(argv[4], "image") == 0){
             action = Image;
             coverImage = CoverImage(argv[5]);
-            ExifManager(argv[5]);
+            ExifManager test = ExifManager(argv[5]);
             valid = coverImage.isValid();
         }
     }
@@ -56,6 +56,8 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
         cout << "Password: " << encryptionKey << endl;
     }
+
+    cout << "[INFO]: Encryption Manager setup up."
 }
 
 bool FrankEncrypt::isValid(){
