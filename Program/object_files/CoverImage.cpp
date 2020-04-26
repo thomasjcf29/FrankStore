@@ -33,7 +33,7 @@ CoverImage::CoverImage(string file){
     }
     catch( exception &error_ )
     {
-        cout << "Problem opening file: " << "Does the file exist?" << endl;
+        cout << "[ERROR]: Problem opening file: " << "Does the file exist?" << endl;
         valid = false;
     }
 
