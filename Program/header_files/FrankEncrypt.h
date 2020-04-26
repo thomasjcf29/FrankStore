@@ -9,7 +9,6 @@ enum RunTime {Nothing, Image, Password, ImageAndPassword};
 class FrankEncrypt{
 private:
     bool valid = false;
-    CoverImage coverImage;
     ExifManager exifManager;
     RunTime action = Nothing;
     std::string encryptionKey;

@@ -31,16 +31,15 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         }
         else if(strcmp(argv[4], "image") == 0){
             action = Image;
-            coverImage = CoverImage(argv[5]);
-            ExifManager test = ExifManager(argv[5]);
-            valid = coverImage.isValid();
+            exifManager = ExifManager(argv[5]);
+            valid = exifManager.isValid();
         }
     }
     //Image and Password (Password Not Specified)
     else if (argc == 7){
         action = ImageAndPassword;
-        coverImage = CoverImage(argv[6]);
-        valid = coverImage.isValid();
+        exifManager = ExifManager(argv[6]);
+        valid = exifManager.isValid();
 
         getPassword();
 
@@ -49,8 +48,8 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     //Image and Password (Password Specified)
     else if(argc == 8){
         action = ImageAndPassword;
-        coverImage = CoverImage(argv[7]);
-        valid = coverImage.isValid();
+        exifManager = ExifManager(argv[7]);
+        valid = exifManager.isValid();
 
         encryptionKey = string(argv[5]);
 
