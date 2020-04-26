@@ -10,7 +10,7 @@ private:
     size_t length;
 public:
     ExifManager();
-    ExifManager(std::string imageLocation);
+    ExifManager(char* imageLocation);
     std::string* getExifData();
     bool isValid();
     size_t getSize();
