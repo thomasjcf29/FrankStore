@@ -2,6 +2,7 @@
 #define FRANKSTORE_FRANKENCRYPT_H
 
 #include "CoverImage.h"
+#include "ExifManager.h"
 
 enum RunTime {Nothing, Image, Password, ImageAndPassword};
 
@@ -9,6 +10,7 @@ class FrankEncrypt{
 private:
     bool valid = false;
     CoverImage coverImage;
+    ExifManager exifManager;
     RunTime action = Nothing;
     std::string encryptionKey;
 
