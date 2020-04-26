@@ -8,6 +8,9 @@ if(UNIX)
 	find_package(PkgConfig)
 	pkg_check_modules(LIBSODIUM "libsodium")
 	add_definitions(${LIBSODIUM_CFLAGS})
+
+	pkg_check_modules(EXIV "exiv2")
+	add_definitions(${EXIV_CFLAGS})
 endif(UNIX)
 
 find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
@@ -33,6 +36,7 @@ target_link_libraries(FrankStore ${ImageMagick_LIBRARIES})
 
 if(UNIX)
 	target_link_libraries(FrankStore ${LIBSODIUM_LDFLAGS})
+	target_link_libraries(FrankStore ${EXIV_LDFLAGS})
 endif(UNIX)
 
 if(WIN32)
