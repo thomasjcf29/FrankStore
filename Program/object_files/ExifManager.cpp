@@ -5,14 +5,13 @@
 #include <cassert>
 
 using namespace std;
-using namespace exiv2;
 
 ExifManager::ExifManager(){
 
 }
 
 ExifManager::ExifManager(string imageLocation){
-    Image::AutoPtr image = Exiv2::ImageFactory::open(imageLocation);
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(imageLocation);
     assert(image.get() != 0);
     image->readMetadata();
     Exiv2::ExifData &exifData = image->exifData();
