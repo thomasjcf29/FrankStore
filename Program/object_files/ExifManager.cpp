@@ -13,7 +13,7 @@ ExifManager::ExifManager(){
 
 ExifManager::ExifManager(string imageLocation){
     Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(imageLocation);
-    if(image->good()){
+    if(image.get == 0 && image->good()){
         valid = true;
     }
     else{
@@ -42,8 +42,6 @@ ExifManager::ExifManager(string imageLocation){
     //               << std::dec << i->value()
     //               << "\n";
     // }
-
-    cout << "Exif Manager End" << endl;
 }
 
 bool ExifManager::isValid(){
