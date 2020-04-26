@@ -13,8 +13,8 @@ ExifManager::ExifManager(){
 ExifManager::ExifManager(char* imageLocation){
 
     try{
-        image = Exiv2::ImageFactory::open(imageLocation);
-        if(image.get() != 0 && image->good()){
+        test = Exiv2::ImageFactory::open(imageLocation);
+        if(test.get() != 0 && test->good()){
             valid = true;
         }
         else{
@@ -26,8 +26,8 @@ ExifManager::ExifManager(char* imageLocation){
         cout << "[ERROR]: Could not open image does it exist!?" << endl;
     }
 
-    image->readMetadata();
-    Exiv2::ExifData &exifData = image->exifData();
+    test->readMetadata();
+    Exiv2::ExifData &exifData = test->exifData();
     if (exifData.empty()) {
         std::string error("No Exif data found in file");
         throw Exiv2::Error(Exiv2::kerErrorMessage, error);
