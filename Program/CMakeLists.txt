@@ -9,7 +9,13 @@ if(UNIX)
 	pkg_check_modules(LIBSODIUM "libsodium")
 	add_definitions(${LIBSODIUM_CFLAGS})
 
-	find_package(exiv2 REQUIRED)
+	if(APPLE)
+		pkg_check_modules(OPENSSL "OPENSSL")
+		add_definitions(${OPENSSL_CFLAGS})
+	endif(APPLE)
+
+	pkg_check_modules(EXIV "exiv2")
+	add_definitions(${EXIV_CFLAGS})
 endif(UNIX)
 
 find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
@@ -35,7 +41,12 @@ target_link_libraries(FrankStore ${ImageMagick_LIBRARIES})
 
 if(UNIX)
 	target_link_libraries(FrankStore ${LIBSODIUM_LDFLAGS})
-	target_link_libraries(FrankStore exiv2)
+
+	if(APPLE)
+			target_link_libraries(FrankStore ${EXIV_LDFLAGS})
+	endif(APPLE)
+
+	target_link_libraries(FrankStore ${EXIV_LDFLAGS})
 endif(UNIX)
 
 if(WIN32)
