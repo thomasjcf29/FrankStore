@@ -14,7 +14,7 @@ ExifManager::ExifManager(){
 ExifManager::ExifManager(char* imageLocation){
 
     try{
-        image = Exiv2::ImageFactory::open(imageLocation);
+        image = &Exiv2::ImageFactory::open(imageLocation);
         if(image.get() != 0 && image->good()){
             valid = true;
         }
