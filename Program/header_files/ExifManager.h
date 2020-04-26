@@ -7,11 +7,13 @@
 class ExifManager{
 private:
     bool valid;
+    size_t length;
 public:
     ExifManager();
     ExifManager(std::string imageLocation);
-    std::string[] getExifData();
+    std::string* getExifData();
     bool isValid();
+    size_t getSize();
     void close();
 };
 
