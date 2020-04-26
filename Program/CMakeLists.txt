@@ -10,7 +10,7 @@ if(UNIX)
 	add_definitions(${LIBSODIUM_CFLAGS})
 
 	if(APPLE)
-		pkg_check_modules(OPENSSL "OPENSSL")
+		pkg_check_modules(OPENSSL "openssl")
 		add_definitions(${OPENSSL_CFLAGS})
 	endif(APPLE)
 
