@@ -13,7 +13,7 @@ ExifManager::ExifManager(){
 
 ExifManager::ExifManager(string imageLocation){
     Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(imageLocation);
-    if(image.good()){
+    if(image->good()){
         valid = true;
     }
     else{
