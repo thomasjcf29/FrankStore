@@ -9,7 +9,7 @@ if(UNIX)
 	pkg_check_modules(LIBSODIUM "libsodium")
 	add_definitions(${LIBSODIUM_CFLAGS})
 
-	find_package(exiv2 REQUIRED CONFIG NAMES exiv2)
+	find_package(exiv2 REQUIRED)
 endif(UNIX)
 
 find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
