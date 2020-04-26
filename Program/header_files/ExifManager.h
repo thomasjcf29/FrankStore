@@ -6,7 +6,7 @@
 
 class ExifManager{
 private:
-    bool valid;
+    bool valid = false;
     size_t length;
 public:
     ExifManager();
