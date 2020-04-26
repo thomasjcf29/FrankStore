@@ -4,6 +4,7 @@
 #include "header_files/FrankEncrypt.h"
 #include <iostream>
 #include <string.h>
+#include <exiv2/exiv2.hpp>
 
 using namespace std;
 
