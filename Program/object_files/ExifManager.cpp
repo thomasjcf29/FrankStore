@@ -12,6 +12,7 @@ ExifManager::ExifManager(){
 }
 
 ExifManager::ExifManager(string imageLocation){
+    cout << "Exif Manager" << endl;
     Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(imageLocation);
     assert(image.get() != 0);
     image->readMetadata();
@@ -35,4 +36,6 @@ ExifManager::ExifManager(string imageLocation){
                   << std::dec << i->value()
                   << "\n";
     }
+
+    cout << "Exif Manager End" << endl;
 }
