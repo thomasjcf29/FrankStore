@@ -12,12 +12,19 @@ ExifManager::ExifManager(){
 }
 
 ExifManager::ExifManager(char* imageLocation){
-    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(imageLocation);
-    if(image.get() != 0 && image->good()){
-        valid = true;
+
+    try{
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(imageLocation);
+        if(image.get() != 0 && image->good()){
+            valid = true;
+        }
+        else{
+            cout << "[ERROR]: Could not open image does it exist!?" << endl;
+        }
     }
-    else{
-        cout << "[ERROR]: Could not open image, check your permissions!" << endl;
+    catch(exception &error_){
+        valid = false;
+        cout << "[ERROR]: Could not open image check does it exist!?" << endl;
     }
 
     // image->readMetadata();
