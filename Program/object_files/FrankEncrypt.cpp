@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <sstream>
 
 using namespace std;
 
@@ -104,8 +105,13 @@ void FrankEncrypt::getImageInfo(){
     }
 
     size_t size = exifManager.getSize();
+    stringstream tempData;
 
     for(size_t i = 0; i < size; i++){
-        cout << exifData[i] << endl;
+        tempData << exifData[i];
     }
+
+    imageKey = tempData.str();
+
+    cout << "Test: " << imageKey << endl;
 }
