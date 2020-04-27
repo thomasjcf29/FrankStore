@@ -2,7 +2,7 @@
 #define FRANKSTORE_FRANKENCRYPT_H
 
 #include "CoverImage.h"
-#include "ExifManager.h"
+#include "ExifManager.hpp"
 
 enum RunTime {Nothing, Image, Password, ImageAndPassword};
 

@@ -1,4 +1,4 @@
-#include "../header_files/ExifManager.h"
+#include "../header_files/ExifManager.hpp"
 #include <string.h>
 #include <exiv2/exiv2.hpp>
 #include <iomanip>
