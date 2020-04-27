@@ -1,4 +1,4 @@
-#include "../header_files/ExifManager.hpp"
+#include "../header_files/ExifManager.h"
 #include <string.h>
 #include <exiv2/exiv2.hpp>
 #include <iomanip>
@@ -7,17 +7,15 @@
 using namespace std;
 
 ExifManager::ExifManager(){
-    this->test = Exiv2::ImageFactory::create(0);
 }
 
 ExifManager::ExifManager(char* imageLocation){
 
-    //Exiv2::Image::AutoPtr test = Exiv2::ImageFactory::create(0);
-
     try{
-        this->test = Exiv2::ImageFactory::open(imageLocation);
+        Exiv2::Image::AutoPtr test = Exiv2::ImageFactory::open(imageLocation);
         if(test.get() != 0 && test->good()){
             valid = true;
+            image = test.release();
         }
         else{
             cout << "[ERROR]: Could not open image does it exist!?" << endl;
@@ -28,12 +26,12 @@ ExifManager::ExifManager(char* imageLocation){
         cout << "[ERROR]: Could not open image does it exist!?" << endl;
     }
 
-    test->readMetadata();
-    Exiv2::ExifData &exifData = test->exifData();
-    if (exifData.empty()) {
-        std::string error("No Exif data found in file");
-        throw Exiv2::Error(Exiv2::kerErrorMessage, error);
-    }
+    // test->readMetadata();
+    // Exiv2::ExifData &exifData = test->exifData();
+    // if (exifData.empty()) {
+    //     std::string error("No Exif data found in file");
+    //     throw Exiv2::Error(Exiv2::kerErrorMessage, error);
+    // }
 
     // Exiv2::ExifData::const_iterator end = exifData.end();
     // for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
@@ -52,7 +50,12 @@ ExifManager::ExifManager(char* imageLocation){
     // }
 }
 
+ExifManager::~ExifManager(){
+    delete image;
+}
+
 bool ExifManager::isValid(){
+    cout << "Test: " << image->good() << endl;
     return valid;
 }
 

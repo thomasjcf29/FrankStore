@@ -2,7 +2,7 @@
 #define FRANKSTORE_FRANKENCRYPT_H
 
 #include "CoverImage.h"
-#include "ExifManager.hpp"
+#include "ExifManager.h"
 
 enum RunTime {Nothing, Image, Password, ImageAndPassword};
 
@@ -12,7 +12,6 @@ private:
     ExifManager exifManager;
     RunTime action = Nothing;
     std::string encryptionKey;
-
     void getPassword();
 public:
     FrankEncrypt(int argc, char **argv);
