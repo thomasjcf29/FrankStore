@@ -8,7 +8,7 @@ class ExifManager{
 private:
     bool valid = false;
     size_t length;
-    Exiv2::Image::AutoPtr test = NULL;
+    Exiv2::Image::AutoPtr test = new Exiv2::Image();
 public:
     ExifManager();
     ExifManager(char* imageLocation);
