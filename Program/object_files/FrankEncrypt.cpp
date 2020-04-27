@@ -31,15 +31,16 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         }
         else if(strcmp(argv[4], "image") == 0){
             action = Image;
-            exifManager = ExifManager(argv[5]);
-            //valid = exifManager.isValid();
-            valid = true;
+            (&exifManager)->~ExifManager();
+            new (&exifManager) ExifManager(argv[5]);
+            valid = exifManager.isValid();
         }
     }
     //Image and Password (Password Not Specified)
     else if (argc == 7){
         action = ImageAndPassword;
-        exifManager = ExifManager(argv[6]);
+        (&exifManager)->~ExifManager();
+        new (&exifManager) ExifManager(argv[6]);
         valid = exifManager.isValid();
 
         getPassword();
@@ -49,11 +50,11 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     //Image and Password (Password Specified)
     else if(argc == 8){
         action = ImageAndPassword;
-        exifManager = ExifManager(argv[7]);
+        (&exifManager)->~ExifManager();
+        new (&exifManager) ExifManager(argv[7]);
         valid = exifManager.isValid();
 
         encryptionKey = string(argv[5]);
-
         cout << "Password: " << encryptionKey << endl;
     }
 
