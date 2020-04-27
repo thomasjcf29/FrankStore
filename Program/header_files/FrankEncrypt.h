@@ -12,6 +12,7 @@ private:
     ExifManager exifManager;
     RunTime action = Nothing;
     std::string encryptionKey;
+    std::string imageKey;
     void getPassword();
 public:
     FrankEncrypt(int argc, char **argv);
