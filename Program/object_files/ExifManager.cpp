@@ -21,7 +21,7 @@ ExifManager::ExifManager(char* imageLocation){
             cout << "[ERROR]: Could not open image does it exist!?" << endl;
         }
     }
-    catch(exception &error_){
+    catch(exception){
         valid = false;
         cout << "[ERROR]: Could not open image does it exist!?" << endl;
     }
