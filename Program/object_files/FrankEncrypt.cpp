@@ -9,14 +9,13 @@ using namespace std;
 FrankEncrypt::FrankEncrypt(int argc, char **argv){
     cout << "[INFO]: Setting up encryptor." << endl;
 
+    //Get rid of current ExifManager - new one will be made if required.
+    (&exifManager)->~ExifManager();
+
     //Password - Not Specified
     if(argc == 4){
         action = Password;
-
         getPassword();
-
-        cout << "Password: " << encryptionKey << endl;
-
         valid = true;
     }
     //Image or Password Specified
@@ -24,38 +23,28 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         if(strcmp(argv[4], "password") == 0){
             action = Password;
             encryptionKey = string(argv[5]);
-
-            cout << "Password: " << encryptionKey << endl;
-
             valid = true;
         }
         else if(strcmp(argv[4], "image") == 0){
             action = Image;
-            (&exifManager)->~ExifManager();
             new (&exifManager) ExifManager(argv[5]);
-            valid = exifManager.isValid();
         }
     }
     //Image and Password (Password Not Specified)
     else if (argc == 7){
         action = ImageAndPassword;
-        (&exifManager)->~ExifManager();
         new (&exifManager) ExifManager(argv[6]);
-        valid = exifManager.isValid();
-
         getPassword();
-
-        cout << "Password: " << encryptionKey << endl;
     }
     //Image and Password (Password Specified)
     else if(argc == 8){
         action = ImageAndPassword;
-        (&exifManager)->~ExifManager();
         new (&exifManager) ExifManager(argv[7]);
-        valid = exifManager.isValid();
-
         encryptionKey = string(argv[5]);
-        cout << "Password: " << encryptionKey << endl;
+    }
+
+    if(action == ImageAndPassword || action == Image){
+        valid = exifManager.isValid();
     }
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
