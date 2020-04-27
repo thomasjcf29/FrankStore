@@ -51,7 +51,7 @@ string* ExifManager::getExifData(){
         length = exifData.count();
         Exiv2::ExifData::const_iterator end = exifData.end();
 
-        for (Exiv2::ExifData::const_iterator i = exifData.begin(), y = 0; i != end; i++, y++) {
+        for (Exiv2::ExifData::const_iterator i = exifData.begin(), int y = 0; i != end; i++, y++) {
             result[y] = i->key() + ":" + i->value().toString();
             return result;
         }
