@@ -14,6 +14,7 @@ private:
     std::string encryptionKey;
     std::string imageKey;
     void getPassword();
+    void getImageInfo();
 public:
     FrankEncrypt(int argc, char **argv);
     bool isValid();

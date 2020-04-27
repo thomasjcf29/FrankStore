@@ -45,6 +45,9 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
     if(action == ImageAndPassword || action == Image){
         valid = exifManager.isValid();
+        if(valid){
+            getImageInfo();
+        }
     }
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
@@ -90,4 +93,19 @@ void FrankEncrypt::getPassword(){
         }
 
     } while(invalid);
+}
+
+void FrankEncrypt::getImageInfo(){
+    string* exifData = exifManager.getExifData();
+
+    if(exifData == NULL){
+        valid = false;
+        return;
+    }
+
+    size_t size = exifManager.getSize();
+
+    for(size_t i = 0; i < size; i++){
+        cout << exifData[i] << endl;
+    }
 }
