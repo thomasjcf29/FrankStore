@@ -12,6 +12,8 @@ ExifManager::ExifManager(){
 
 ExifManager::ExifManager(char* imageLocation){
 
+    Exiv2::Image::AutoPtr test = Exiv2::ImageFactory::create(0);
+
     try{
         test = Exiv2::ImageFactory::open(imageLocation);
         if(test.get() != 0 && test->good()){
