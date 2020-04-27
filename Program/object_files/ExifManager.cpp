@@ -37,7 +37,7 @@ ExifManager::ExifManager(char* imageLocation){
         Exiv2::ExifData::const_iterator end = exifData.end();
         for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
             string key = i->key();
-            string value = i->value();
+            string value = i->value().toString();
 
             //string result = i->key() + ":" + i->value();
             //cout << "Result: " << result << endl;
