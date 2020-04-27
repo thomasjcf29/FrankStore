@@ -50,11 +50,14 @@ string* ExifManager::getExifData(){
         string* result = new string[exifData.count()];
         length = exifData.count();
         Exiv2::ExifData::const_iterator end = exifData.end();
+        int y = 0;
 
-        for (Exiv2::ExifData::const_iterator i = exifData.begin(), int y = 0; i != end; i++, y++) {
+        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; i++){
             result[y] = i->key() + ":" + i->value().toString();
-            return result;
+            y++;
         }
+
+        return result;
     }
 }
 
