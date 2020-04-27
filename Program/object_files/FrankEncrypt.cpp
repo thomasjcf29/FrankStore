@@ -32,7 +32,8 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         else if(strcmp(argv[4], "image") == 0){
             action = Image;
             exifManager = ExifManager(argv[5]);
-            valid = exifManager.isValid();
+            //valid = exifManager.isValid();
+            valid = true;
         }
     }
     //Image and Password (Password Not Specified)
