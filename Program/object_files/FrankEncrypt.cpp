@@ -112,6 +112,4 @@ void FrankEncrypt::getImageInfo(){
     }
 
     imageKey = tempData.str();
-
-    cout << "Test: " << imageKey << endl;
 }
