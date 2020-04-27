@@ -29,10 +29,9 @@ ExifManager::ExifManager(char* imageLocation){
 
     image->readMetadata();
     Exiv2::ExifData &exifData = image->exifData();
-    // if (exifData.empty()) {
-    //     std::string error("No Exif data found in file");
-    //     throw Exiv2::Error(Exiv2::kerErrorMessage, error);
-    // }
+    if (exifData.empty()){
+         cout << "[ERROR]: No Exif Data in this file!" << endl;
+    }
 
     // Exiv2::ExifData::const_iterator end = exifData.end();
     // for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
