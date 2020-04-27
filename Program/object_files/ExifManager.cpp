@@ -28,19 +28,6 @@ ExifManager::ExifManager(char* imageLocation){
     }
 
     image->readMetadata();
-    Exiv2::ExifData &exifData = image->exifData();
-    if (exifData.empty()){
-         cout << "[ERROR]: No Exif Data in this file!" << endl;
-    }
-
-    else{
-        cout << "Size: " << exifData.count() << endl;
-        Exiv2::ExifData::const_iterator end = exifData.end();
-        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
-            string result = i->key() + ":" + i->value().toString();
-            cout << "Result: " << result << endl;
-        }
-    }
 }
 
 ExifManager::~ExifManager(){
@@ -51,6 +38,26 @@ bool ExifManager::isValid(){
     return valid;
 }
 
-void ExifManager::close(){
+string* ExifManager::getExifData(){
+    Exiv2::ExifData &exifData = image->exifData();
 
+    if (exifData.empty()){
+         cout << "[ERROR]: No Exif Data in this file!" << endl;
+         return NULL;
+    }
+
+    else{
+        string* result = new string[exifData.count()];
+        length = exifData.count();
+        Exiv2::ExifData::const_iterator end = exifData.end();
+
+        for (Exiv2::ExifData::const_iterator i = exifData.begin(), y = 0; i != end; i++, y++) {
+            result[y] = i->key() + ":" + i->value().toString();
+            return result;
+        }
+    }
+}
+
+size_t ExifManager::getSize(){
+    return length;
 }

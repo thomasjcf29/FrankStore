@@ -16,7 +16,6 @@ public:
     std::string* getExifData();
     bool isValid();
     size_t getSize();
-    void close();
 };
 
 #endif //FRANKSTORE_EXIFMANAGER_H
