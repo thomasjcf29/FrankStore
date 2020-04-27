@@ -18,6 +18,7 @@ ExifManager::ExifManager(char* imageLocation){
             image = test.release();
         }
         else{
+            valid = false;
             cout << "[ERROR]: Could not open image does it exist!?" << endl;
         }
     }
@@ -26,8 +27,8 @@ ExifManager::ExifManager(char* imageLocation){
         cout << "[ERROR]: Could not open image does it exist!?" << endl;
     }
 
-    // test->readMetadata();
-    // Exiv2::ExifData &exifData = test->exifData();
+    image->readMetadata();
+    Exiv2::ExifData &exifData = image->exifData();
     // if (exifData.empty()) {
     //     std::string error("No Exif data found in file");
     //     throw Exiv2::Error(Exiv2::kerErrorMessage, error);
