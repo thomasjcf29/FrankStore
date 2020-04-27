@@ -36,11 +36,8 @@ ExifManager::ExifManager(char* imageLocation){
     else{
         Exiv2::ExifData::const_iterator end = exifData.end();
         for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
-            string key = i->key();
-            string value = i->value().toString();
-
-            //string result = i->key() + ":" + i->value();
-            //cout << "Result: " << result << endl;
+            string result = i->key() + ":" + i->value().toString();
+            cout << "Result: " << result << endl;
 
             // const char* tn = i->typeName();
             // std::cout << std::setw(44) << std::setfill(' ') << std::left
