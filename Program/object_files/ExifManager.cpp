@@ -51,7 +51,7 @@ ExifManager::ExifManager(char* imageLocation){
 }
 
 ExifManager::~ExifManager(){
-    delete image;
+    //delete [] image;
 }
 
 bool ExifManager::isValid(){
