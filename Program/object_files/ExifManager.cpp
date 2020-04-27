@@ -7,7 +7,7 @@
 using namespace std;
 
 ExifManager::ExifManager(){
-    this->test = Exiv2:ImageFactory::create(0);
+    this->test = Exiv2::ImageFactory::create(0);
 }
 
 ExifManager::ExifManager(char* imageLocation){
