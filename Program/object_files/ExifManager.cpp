@@ -55,7 +55,6 @@ ExifManager::~ExifManager(){
 }
 
 bool ExifManager::isValid(){
-    cout << "Test: " << image->good() << endl;
     return valid;
 }
 
