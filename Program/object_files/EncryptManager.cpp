@@ -6,16 +6,12 @@
 #include <openssl/sha.h>
 #include <openssl/crypto.h>
 
-void EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations, uint32_t outputBytes, char* hexResult, uint8_t* binResult)
+unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations, uint32_t outputBytes)
 {
     const unsigned char* salt = (unsigned char*) tempSalt;
 
     unsigned int i;
     unsigned char* digest = new unsigned char[outputBytes];
     PKCS5_PBKDF2_HMAC(pass, passlen, salt, sizeof(salt), iterations, EVP_sha256(), outputBytes, digest);
-    for (i = 0; i < sizeof(digest); i++)
-    {
-        sprintf(hexResult + (i * 2), "%02x", 255 & digest[i]);
-        binResult[i] = digest[i];
-    };
+    return digest;
 }
