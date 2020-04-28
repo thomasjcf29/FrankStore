@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
-#include <getopt.h>
 #include <ctype.h>
 #include <openssl/crypto.h>
 
