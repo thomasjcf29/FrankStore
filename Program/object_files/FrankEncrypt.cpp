@@ -62,7 +62,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     }
 
     unsigned char* pass = new unsigned char[overallKey.length()];
-    strcpy((char*) pass, overallKey);
+    strcpy((char) pass, overallKey);
 
     cout << pass << endl;
     delete [] pass;
