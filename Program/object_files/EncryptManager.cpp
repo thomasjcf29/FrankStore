@@ -48,7 +48,6 @@ void EncryptManager::generateIV(){
     }
     else{
         cout << "[INFO]: IV Generated." << endl;
-        cout << iv << endl;
     }
 }
 
