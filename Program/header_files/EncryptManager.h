@@ -1,6 +1,10 @@
 #ifndef FRANKSTORE_ENCRYPTMANAGER_H
 #define FRANKSTORE_ENCRYPTMANAGER_H
 
+#include <string.h>
+#include <stdio.h>
+#include <stdint.h>
+
 class EncryptManager{
 private:
 public:
