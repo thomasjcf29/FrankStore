@@ -63,10 +63,18 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
     char* pass = new char [overallKey.length()+1];
     strcpy(pass, overallKey.c_str());
-    unsigned char* result[32];
 
+    uint32_t outputBytes = 32;
+    char hexResult[2*outputBytes+1];
+    memset(hexResult,0,sizeof(hexResult));
+    uint8_t binResult[outputBytes+1];
+    memset(binResult,0,sizeof(binResult));
+
+    EncryptManager::PBKDF2_HMAC_SHA_256(pass, sizeof(pass), 300000, uint32_t outputBytes, hexResult, binResult);
 
     delete [] pass;
+
+    cout << "Test: " << outputBytes << endl;
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
 }
