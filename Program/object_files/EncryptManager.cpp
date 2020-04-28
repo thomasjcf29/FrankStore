@@ -16,14 +16,6 @@ EncryptManager::EncryptManager(){
 
 EncryptManager::EncryptManager(unsigned char* password, string inputFile, string outputFile){
 
-    size_t size = (&key)[1] - key;
-
-    cout << "Size: " << size << endl;
-
-    if(size != 32){
-        cout << "[WARNING]: The input key size is not 32, is there a problem?" << endl;
-    }
-
     key = password;
     in = ifstream(inputFile);
     out = ofstream(outputFile);
@@ -55,10 +47,9 @@ void EncryptManager::setIV(){
 
 }
 
-unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations, uint32_t outputBytes)
-{
+unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations){
     const unsigned char* salt = (unsigned char*) tempSalt;
-    unsigned char* digest = new unsigned char[outputBytes];
-    PKCS5_PBKDF2_HMAC(pass, passlen, salt, sizeof(salt), iterations, EVP_sha256(), outputBytes, digest);
+    unsigned char* digest = new unsigned char[32];
+    PKCS5_PBKDF2_HMAC(pass, passlen, salt, sizeof(salt), iterations, EVP_sha256(), 32, digest);
     return digest;
 }
