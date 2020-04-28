@@ -7,6 +7,7 @@
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 #include <openssl/crypto.h>
+#include <openssl/rand.h>
 
 using namespace std;
 
@@ -40,7 +41,15 @@ bool EncryptManager::isValid(){
 }
 
 void EncryptManager::generateIV(){
-
+    cout << "[INFO]: Generating IV..." << endl;
+    if(!RAND_bytes(iv, 16)){
+        valid = false;
+        cout << "[EROR]: Generating IV, program cannot continue." << endl;
+    }
+    else{
+        cout << "[INFO]: IV Generated." << endl;
+        cout << iv << endl;
+    }
 }
 
 void EncryptManager::setIV(){
