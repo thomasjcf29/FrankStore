@@ -111,5 +111,7 @@ void FrankEncrypt::getImageInfo(){
         tempData << exifData[i];
     }
 
+    delete exifData;
+
     imageKey = tempData.str();
 }
