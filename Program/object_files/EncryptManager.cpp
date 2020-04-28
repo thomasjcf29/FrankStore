@@ -50,6 +50,6 @@ void EncryptManager::setIV(){
 unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations){
     const unsigned char* salt = (unsigned char*) tempSalt;
     unsigned char* digest = new unsigned char[32];
-    PKCS5_PBKDF2_HMAC(pass, passlen, salt, 16, iterations, EVP_sha256(), (unit32_t) 32, digest);
+    PKCS5_PBKDF2_HMAC(pass, passlen, salt, 16, iterations, EVP_sha256(), (uint32_t) 32, digest);
     return digest;
 }

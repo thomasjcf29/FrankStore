@@ -64,7 +64,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     char* pass = new char [overallKey.length()+1];
     strcpy(pass, overallKey.c_str());
 
-    unsigned char* key = EncryptManager::PBKDF2_HMAC_SHA_256(pass, sizeof(pass), 300000, 32);
+    unsigned char* key = EncryptManager::PBKDF2_HMAC_SHA_256(pass, overallKey.length()+1, 300000, 32);
 
     delete [] pass;
 
