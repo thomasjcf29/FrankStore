@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <fstream>
+#include <iostream>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 #include <openssl/crypto.h>
