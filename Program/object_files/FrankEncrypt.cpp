@@ -18,6 +18,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     if(argc == 4){
         action = Password;
         getPassword();
+        overallKey = encryptionKey;
         valid = true;
     }
     //Image or Password Specified
@@ -25,6 +26,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         if(strcmp(argv[4], "password") == 0){
             action = Password;
             encryptionKey = string(argv[5]);
+            overallKey = encryptionKey;
             valid = true;
         }
         else if(strcmp(argv[4], "image") == 0){
@@ -49,8 +51,21 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         valid = exifManager.isValid();
         if(valid){
             getImageInfo();
+
+            if(action == ImageAndPassword){
+                overallKey = encryptionKey + ":" + imageKey;
+            }
+            else{
+                overallKey = imageKey;
+            }
         }
     }
+
+    unsigned char* pass = new unsigned char[overallKey.length()];
+    strcpy((char*) pass, overallKey);
+
+    cout << pass << endl;
+    delete [] pass;
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
 }

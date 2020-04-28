@@ -13,6 +13,7 @@ private:
     RunTime action = Nothing;
     std::string encryptionKey;
     std::string imageKey;
+    std::string overallKey;
     void getPassword();
     void getImageInfo();
 public:
