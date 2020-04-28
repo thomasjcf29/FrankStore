@@ -16,6 +16,8 @@ EncryptManager::EncryptManager(){
 
 EncryptManager::EncryptManager(unsigned char* password, string inputFile, string outputFile){
 
+    cout << "Size: " << sizeof(key) << endl;
+
     if(sizeof(key) != 32){
         cout << "[WARNING]: The input key size is not 32, is there a problem?" << endl;
     }
