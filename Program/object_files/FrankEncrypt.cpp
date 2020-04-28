@@ -53,19 +53,24 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
     if(action == ImageAndPassword || action == Image){
         valid = exifManager.isValid();
+        cout << "[INFO]: 3." << endl;
         if(valid){
             getImageInfo();
 
+            cout << "[INFO]: 4." << endl;
+
             if(action == ImageAndPassword){
+                cout << "[INFO]: 5." << endl;
                 overallKey = encryptionKey + ":" + imageKey;
             }
             else{
+                cout << "[INFO]: 6." << endl;
                 overallKey = imageKey;
             }
         }
     }
 
-    cout << "[INFO]: 3." << endl;
+    cout << "[INFO]: 7." << endl;
 
     //char* pass = new char [overallKey.length()+1];
     //unsigned char* password = reinterpret_cast<unsigned char*>(pass);
