@@ -21,7 +21,7 @@ EncryptManager::EncryptManager(unsigned char* password, string inputFile, string
     }
 
     key = password;
-    in = ifsteam(inputFile);
+    in = ifstream(inputFile);
     out = ofstream(outputFile);
 
     if(!in){
