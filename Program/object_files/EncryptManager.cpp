@@ -10,7 +10,7 @@ void EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t 
 {
     unsigned int i;
     unsigned char* digest = new unsigned char[outputBytes];
-    PKCS5_PBKDF2_HMAC(pass, passlen, salt, saltlen, iterations, EVP_sha256(), outputBytes, digest);
+    PKCS5_PBKDF2_HMAC(pass, passlen, salt, sizeof(salt), iterations, EVP_sha256(), outputBytes, digest);
     for (i = 0; i < sizeof(digest); i++)
     {
         sprintf(hexResult + (i * 2), "%02x", 255 & digest[i]);
