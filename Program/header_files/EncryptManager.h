@@ -12,7 +12,7 @@ private:
     unsigned char* key;
     std::ifstream in;
     std::ofstream out;
-    bool valid;
+    bool valid = false;
 public:
     EncryptManager();
     EncryptManager(unsigned char* password, std::string inputFile, std::string outputFile);

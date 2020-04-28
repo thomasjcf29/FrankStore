@@ -68,7 +68,12 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
     delete [] pass;
 
-    cout << "Test: " << key << endl;
+    encryptManager = EncryptManager(key, argv[2], argv[3]);
+
+    //Do not want to change to true if already false.
+    if(valid){
+        valid = encryptManager.isValid();
+    }
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
 }

@@ -6,6 +6,20 @@
 #include <openssl/sha.h>
 #include <openssl/crypto.h>
 
+using namespace std;
+
+EncryptManager::EncryptManager(){
+
+}
+
+EncryptManager::EncryptManager(unsigned char* password, string inputFile, string outputFile){
+    key = password;
+}
+
+bool EncryptManager::isValid(){
+    return valid;
+}
+
 unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations, uint32_t outputBytes)
 {
     const unsigned char* salt = (unsigned char*) tempSalt;
