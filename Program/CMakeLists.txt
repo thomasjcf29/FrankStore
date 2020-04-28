@@ -9,6 +9,9 @@ if(UNIX)
 	pkg_check_modules(LIBSODIUM "libsodium")
 	add_definitions(${LIBSODIUM_CFLAGS})
 
+	pkg_check_modules(OPENSSL "openssl")
+	add_definitions(${OPENSSL_CFLAGS})
+
 	if(APPLE)
 		pkg_check_modules(LIBSSH "libssh")
 		add_definitions(${LIBSSH_CFLAGS})
@@ -47,6 +50,7 @@ if(UNIX)
 	endif(APPLE)
 
 	target_link_libraries(FrankStore ${EXIV_LDFLAGS})
+	target_link_libraries(FrankStore ${OPENSSL_LDFLAGS})
 endif(UNIX)
 
 if(WIN32)
