@@ -61,11 +61,11 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         }
     }
 
-    char* pass = new char [overallKey.length()+1];
+    //char* pass = new char [overallKey.length()+1];
     //unsigned char* password = reinterpret_cast<unsigned char*>(pass);
-    strcpy(pass, overallKey.c_str());
+    //strcpy(pass, overallKey.c_str());
 
-    cout << pass << endl;
+    //cout << pass << endl;
     //delete [] pass;
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
