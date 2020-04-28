@@ -9,7 +9,7 @@ class EncryptManager{
 private:
 public:
     static constexpr const char* tempSalt = "wD,Fvhjb2{y=5N^w";
-    static constexpr const unsigned char* salt = reinterpret_cast<unsigned char*>(tempSalt);
+    static constexpr const unsigned char* salt = reinterpret_cast<const unsigned char*>(tempSalt);
 
     EncryptManager();
     static void PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations, uint32_t outputBytes, char* hexResult, uint8_t* binResult);
