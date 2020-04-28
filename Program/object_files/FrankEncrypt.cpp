@@ -70,7 +70,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     uint8_t binResult[outputBytes+1];
     memset(binResult,0,sizeof(binResult));
 
-    EncryptManager::PBKDF2_HMAC_SHA_256(pass, sizeof(pass), 300000, uint32_t outputBytes, hexResult, binResult);
+    EncryptManager::PBKDF2_HMAC_SHA_256(pass, sizeof(pass), 300000, outputBytes, hexResult, binResult);
 
     delete [] pass;
 
