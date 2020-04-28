@@ -1,5 +1,6 @@
 #include "../header_files/FrankEncrypt.h"
 #include "../header_files/ConsoleController.h"
+#include "../header_files/EncryptManager.h"
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
