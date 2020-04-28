@@ -69,7 +69,6 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     delete [] pass;
 
     encryptManager = EncryptManager(key, argv[2], argv[3]);
-    encryptManager.generateIV();
 
     //Do not want to change to true if already false.
     if(valid){
@@ -139,4 +138,13 @@ void FrankEncrypt::getImageInfo(){
     delete [] exifData;
 
     imageKey = tempData.str();
+}
+
+void FrankEncrypt::encrypt(){
+    encryptManager.generateIV();
+
+    if(!encryptManager.isValid()){
+        cout << "Cannot encrypt... exiting." << endl;
+        exit(55);
+    }
 }

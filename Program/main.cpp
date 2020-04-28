@@ -162,6 +162,7 @@ int main(int argc, char **argv) {
             cout << "[ERROR]: Exiting program";
             exit(10);
         }
+        encryptor.encrypt();
     }
 
   	return 0;
