@@ -16,7 +16,7 @@ EncryptManager::EncryptManager(){
 
 EncryptManager::EncryptManager(unsigned char* password, string inputFile, string outputFile){
 
-    int size = sizeof(key) / sizeof(key[0]);
+    int size = (&key)[1] - key;
 
     cout << "Size: " << size << endl;
 
