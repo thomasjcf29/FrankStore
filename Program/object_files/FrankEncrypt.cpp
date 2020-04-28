@@ -14,8 +14,6 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     //Get rid of current ExifManager - new one will be made if required.
     (&exifManager)->~ExifManager();
 
-    cout << "[INFO]: 1." << endl;
-
     //Password - Not Specified
     if(argc == 4){
         action = Password;
@@ -49,35 +47,26 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
         encryptionKey = string(argv[5]);
     }
 
-    cout << "[INFO]: 2." << endl;
-
     if(action == ImageAndPassword || action == Image){
         valid = exifManager.isValid();
-        cout << "[INFO]: 3." << endl;
         if(valid){
             getImageInfo();
 
-            cout << "[INFO]: 4." << endl;
-
             if(action == ImageAndPassword){
-                cout << "[INFO]: 5." << endl;
                 overallKey = encryptionKey + ":" + imageKey;
             }
             else{
-                cout << "[INFO]: 6." << endl;
                 overallKey = imageKey;
             }
         }
     }
 
-    cout << "[INFO]: 7." << endl;
-
-    //char* pass = new char [overallKey.length()+1];
+    char* pass = new char [overallKey.length()+1];
     //unsigned char* password = reinterpret_cast<unsigned char*>(pass);
-    //strcpy(pass, overallKey.c_str());
+    strcpy(pass, overallKey.c_str());
 
-    //cout << pass << endl;
-    //delete [] pass;
+    cout << pass << endl;
+    delete [] pass;
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
 }
