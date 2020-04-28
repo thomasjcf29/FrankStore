@@ -17,6 +17,8 @@ public:
     EncryptManager();
     EncryptManager(unsigned char* password, std::string inputFile, std::string outputFile);
     bool isValid();
+    void generateIV();
+    void setIV();
     static unsigned char* PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations, uint32_t outputBytes);
 };
 
