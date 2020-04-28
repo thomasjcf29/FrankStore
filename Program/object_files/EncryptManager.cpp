@@ -18,5 +18,4 @@ void EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t 
         sprintf(hexResult + (i * 2), "%02x", 255 & digest[i]);
         binResult[i] = digest[i];
     };
-    delete [] digest;
 }
