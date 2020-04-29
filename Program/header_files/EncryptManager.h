@@ -20,6 +20,7 @@ public:
     bool isValid();
     void generateIV();
     void setIV();
+    voud encrypt();
     static unsigned char* PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations);
 };
 

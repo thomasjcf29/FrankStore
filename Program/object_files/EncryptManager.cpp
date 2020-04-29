@@ -55,6 +55,10 @@ void EncryptManager::setIV(){
 
 }
 
+void EncryptManager::encrypt(){
+    
+}
+
 unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations){
     const unsigned char* salt = (unsigned char*) tempSalt;
     unsigned char* digest = new unsigned char[32];

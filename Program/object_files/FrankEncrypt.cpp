@@ -147,4 +147,6 @@ void FrankEncrypt::encrypt(){
         cout << "Cannot encrypt... exiting." << endl;
         exit(55);
     }
+
+    encryptManager.encrypt();
 }
