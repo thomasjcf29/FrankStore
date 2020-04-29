@@ -107,7 +107,7 @@ void EncryptManager::encrypt(){
             unsigned char ciphertext[16];
             in.read(reinterpret_cast<char*>(data), 16);
 
-            if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, 16)){
+            if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, data, 16)){
                 cout << "[ERROR]: Error encrypting info, exiting." << endl;
                 exit(55);
             }
