@@ -67,7 +67,7 @@ void EncryptManager::encrypt(){
     size_t leftToRead = fileSize;
 
     //Amount of cipher iterations, blocks must be 16 bytes
-    size_t iterations = (size_t) ceil(fileSize / 16);
+    size_t iterations = ceil(fileSize / 16);
 
     cout << "[INFO]: Total bytes: " << fileSize << ", block iterations: " << iterations << endl;
 
@@ -76,7 +76,11 @@ void EncryptManager::encrypt(){
         if(i+1 == iterations){
             unsigned char* data = new unsigned char[leftToRead];
             in.read(reinterpret_cast<char*>(&data), leftToRead);
-            cout << "Data: " << data << endl;
+            cout << "Data: ";
+            for(int i = 0; i < leftToRead; i++){
+                cout << data[i];
+            }
+            cout << endl;
             delete [] data;
         }
         //There will always be 16 bytes if not last iteration.
@@ -84,7 +88,11 @@ void EncryptManager::encrypt(){
             leftToRead -= 16;
             unsigned char* data[16];
             in.read(reinterpret_cast<char*>(&data), 16);
-            cout << "Data: " << data << endl;
+            cout << "Data: ";
+            for(int i = 0; i < 16; i++){
+                cout << data[i];
+            }
+            cout << endl;
         };
     }
 
