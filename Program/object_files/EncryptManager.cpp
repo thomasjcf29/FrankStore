@@ -59,6 +59,9 @@ void EncryptManager::setIV(){
 void EncryptManager::encrypt(){
     cout << "[INFO]: Encrypting, this may take a while..." << endl;
 
+    int len;
+    int ciphertext_len;
+
     EVP_CIPHER_CTX *ctx;
     if(!(ctx = EVP_CIPHER_CTX_new())){
         cout << "[ERROR]: Cannot create cipher, exiting." << endl;
@@ -101,10 +104,25 @@ void EncryptManager::encrypt(){
         else{
             leftToRead -= 16;
             unsigned char data[16];
+            unsighed char ciphertext[16];
             in.read(reinterpret_cast<char*>(data), 16);
+
+            if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, 16)){
+                cout << "[ERROR]: Error encrypting info, exiting." << endl;
+                exit(55);
+            }
+
+            ciphertext_len = len;
+
             cout << "Data: ";
             for(int y = 0; y < 16; y++){
                 cout << data[y];
+            }
+            cout << endl;
+
+            cout << "Encrypted: ";
+            for(int y = 0; y < ciphertext_len; y++){
+                cout << ciphertext[y];
             }
             cout << endl;
             cout << "Left To Read: " << leftToRead << endl;
