@@ -59,6 +59,17 @@ void EncryptManager::setIV(){
 void EncryptManager::encrypt(){
     cout << "[INFO]: Encrypting, this may take a while..." << endl;
 
+    EVP_CIPHER_CTX *ctx;
+    if(!(ctx = EVP_CIPHER_CTX_new())){
+        cout << "[ERROR]: Cannot create cipher, exiting." << endl;
+        exit(55);
+    }
+
+    if(1 != EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv)){
+        cout << "[ERROR]: Cannot initialise encryption, exiting." << endl;
+        exit(55);
+    }
+
     //Get Total File Size
     in.seekg(0, ios::end);
     size_t fileSize = in.tellg();
@@ -99,6 +110,8 @@ void EncryptManager::encrypt(){
             cout << "Left To Read: " << leftToRead << endl;
         };
     }
+
+    EVP_CIPHER_CTX_free(ctx);
 
     cout << "[INFO]: File encrypted." << endl;
 }
