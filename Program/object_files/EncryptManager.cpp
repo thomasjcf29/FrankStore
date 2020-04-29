@@ -104,7 +104,7 @@ void EncryptManager::encrypt(){
         else{
             leftToRead -= 16;
             unsigned char data[16];
-            unsigned char ciphertext[16];
+            unsigned char ciphertext[6];
             in.read(reinterpret_cast<char*>(data), 16);
 
             if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, data, 16)){
@@ -121,7 +121,7 @@ void EncryptManager::encrypt(){
             cout << endl;
 
             cout << "Encrypted: ";
-            for(int y = 0; y < ciphertext_len; y++){
+            for(int y = 0; y < 6; y++){
                 cout << ciphertext[y];
             }
             cout << endl;
