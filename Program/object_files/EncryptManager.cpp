@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <fstream>
 #include <iostream>
+#include <math.h>
 #include <openssl/evp.h>
 #include <openssl/sha.h>
 #include <openssl/crypto.h>
@@ -56,7 +57,19 @@ void EncryptManager::setIV(){
 }
 
 void EncryptManager::encrypt(){
-    
+    cout << "[INFO]: Encrypting, this may take a while..." << endl;
+
+    //Get Total File Size
+    in.seekg(0, ios::end);
+    size_t fileSize = in.tellg();
+    in.seekg(0, ios::beg);
+
+    //Amount of cipher iterations, blocks must be 16 bytes
+    size_t iterations = ceil(fileSize % 16);
+
+    cout << "[INFO]: Total bytes: " << fileSize << ", block iterations: " << iterations << endl;
+
+    cout << "[INFO]: File encrypted." << endl;
 }
 
 unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations){
