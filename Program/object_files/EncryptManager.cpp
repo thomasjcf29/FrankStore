@@ -74,11 +74,12 @@ void EncryptManager::encrypt(){
     for(size_t i = 0; i < iterations; i++){
         //Last iteration
         if(i+1 == iterations){
+            cout << "Left To Read: " << leftToRead << endl;
             unsigned char* data = new unsigned char[leftToRead];
             in.read(reinterpret_cast<char*>(&data), leftToRead);
             cout << "Data: ";
-            for(int i = 0; i < leftToRead; i++){
-                cout << data[i];
+            for(int y = 0; y < leftToRead; y++){
+                cout << data[y];
             }
             cout << endl;
             delete [] data;
@@ -86,11 +87,12 @@ void EncryptManager::encrypt(){
         //There will always be 16 bytes if not last iteration.
         else{
             leftToRead -= 16;
+            cout << "Left To Read: " << leftToRead << endl;
             unsigned char* data[16];
             in.read(reinterpret_cast<char*>(&data), 16);
             cout << "Data: ";
-            for(int i = 0; i < 16; i++){
-                cout << data[i];
+            for(int y = 0; y < 16; y++){
+                cout << data[y];
             }
             cout << endl;
         };
