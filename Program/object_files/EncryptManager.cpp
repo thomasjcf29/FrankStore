@@ -64,10 +64,29 @@ void EncryptManager::encrypt(){
     size_t fileSize = in.tellg();
     in.seekg(0, ios::beg);
 
+    size_t leftToRead = fileSize;
+
     //Amount of cipher iterations, blocks must be 16 bytes
     size_t iterations = (size_t) ceil(fileSize / 16);
 
     cout << "[INFO]: Total bytes: " << fileSize << ", block iterations: " << iterations << endl;
+
+    for(size_t i = 0; i < iterations; i++){
+        //Last iteration
+        if(i+1 == iterations){
+            unsigned char* data = new unsigned char[leftToRead];
+            in.read(reinterpret_cast<char*>(&data), leftToRead);
+            cout << "Data: " << data << endl;
+            delete [] data;
+        }
+        //There will always be 16 bytes if not last iteration.
+        else{
+            leftToRead -= 16;
+            unsigned char* data[16];
+            in.read(reinterpret_cast<char*>(&data), 16);
+            cout << "Data: " << data << endl;
+        };
+    }
 
     cout << "[INFO]: File encrypted." << endl;
 }
