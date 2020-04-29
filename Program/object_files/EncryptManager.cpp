@@ -104,7 +104,7 @@ void EncryptManager::encrypt(){
         else{
             leftToRead -= 16;
             unsigned char data[16];
-            unsighed char ciphertext[16];
+            unsigned char ciphertext[16];
             in.read(reinterpret_cast<char*>(data), 16);
 
             if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, 16)){
