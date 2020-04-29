@@ -65,7 +65,7 @@ void EncryptManager::encrypt(){
     in.seekg(0, ios::beg);
 
     //Amount of cipher iterations, blocks must be 16 bytes
-    size_t iterations = ceil(fileSize % 16);
+    size_t iterations = ceil(fileSize / 16);
 
     cout << "[INFO]: Total bytes: " << fileSize << ", block iterations: " << iterations << endl;
 
