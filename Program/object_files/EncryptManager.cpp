@@ -19,8 +19,8 @@ EncryptManager::EncryptManager(){
 EncryptManager::EncryptManager(unsigned char* password, string inputFile, string outputFile){
 
     key = password;
-    in = ifstream(inputFile);
-    out = ofstream(outputFile);
+    in = ifstream(inputFile, ifstream::binary);
+    out = ofstream(outputFile, ofstream::binary);
 
     if(!in){
         cout << "[ERROR]: Unable to open file to read, do you have permission?" << endl;
@@ -67,34 +67,36 @@ void EncryptManager::encrypt(){
     size_t leftToRead = fileSize;
 
     //Amount of cipher iterations, blocks must be 16 bytes
-    size_t iterations = ceil(fileSize / 16);
+    size_t iterations = (size_t) ceil(fileSize / 16.0);
 
     cout << "[INFO]: Total bytes: " << fileSize << ", block iterations: " << iterations << endl;
 
     for(size_t i = 0; i < iterations; i++){
         //Last iteration
         if(i+1 == iterations){
-            cout << "Left To Read: " << leftToRead << endl;
             unsigned char* data = new unsigned char[leftToRead];
-            in.read(reinterpret_cast<char*>(&data), leftToRead);
+            in.read(reinterpret_cast<char*>(data), leftToRead);
             cout << "Data: ";
             for(int y = 0; y < leftToRead; y++){
                 cout << data[y];
             }
             cout << endl;
             delete [] data;
+
+            leftToRead -= leftToRead;
+            cout << "Left To Read: " << leftToRead << endl;
         }
         //There will always be 16 bytes if not last iteration.
         else{
             leftToRead -= 16;
-            cout << "Left To Read: " << leftToRead << endl;
-            unsigned char* data[16];
-            in.read(reinterpret_cast<char*>(&data), 16);
+            unsigned char data[16];
+            in.read(reinterpret_cast<char*>(data), 16);
             cout << "Data: ";
             for(int y = 0; y < 16; y++){
                 cout << data[y];
             }
             cout << endl;
+            cout << "Left To Read: " << leftToRead << endl;
         };
     }
 
