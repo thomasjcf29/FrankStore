@@ -203,6 +203,11 @@ void EncryptManager::decrypt(){
 
         cout << "Length: " << len << endl;
 
+        cout << "CipherText Text: ";
+        for(int y = 0; y < 16; y++){
+            cout << ciphertext[y];
+        }
+
         cout << "Plain Text: ";
         for(int y = 0; y < plaintext_len; y++){
             cout << plaintext[y];
