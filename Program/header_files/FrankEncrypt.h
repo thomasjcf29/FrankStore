@@ -20,6 +20,7 @@ private:
     void getImageInfo();
 public:
     FrankEncrypt(int argc, char **argv);
+    ~FrankEncrypt();
     bool isValid();
     void encrypt();
     void close();
