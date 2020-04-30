@@ -80,6 +80,7 @@ void EncryptManager::encrypt(){
     in.seekg(0, ios::beg);
 
     size_t leftToRead = fileSize;
+    size_t readThisTime = 0;
 
     //Amount of cipher iterations, blocks must be 16 bytes
     size_t iterations = (size_t) ceil(fileSize / 16.0);
@@ -89,48 +90,42 @@ void EncryptManager::encrypt(){
     for(size_t i = 0; i < iterations; i++){
         //Last iteration
         if(i+1 == iterations){
-            unsigned char* data = new unsigned char[leftToRead];
-            in.read(reinterpret_cast<char*>(data), leftToRead);
-
-            cout << "Data: ";
-            for(int y = 0; y < leftToRead; y++){
-                cout << data[y];
-            }
-            cout << endl;
-            delete [] data;
-
+            readThisTime = leftToRead;
             leftToRead -= leftToRead;
-            cout << "Left To Read: " << leftToRead << endl;
         }
         //There will always be 16 bytes if not last iteration.
         else{
             leftToRead -= 16;
-            unsigned char data[16];
-
-            in.read(reinterpret_cast<char*>(data), 16);
-
-            if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, data, 16)){
-                cout << "[ERROR]: Error encrypting info, exiting." << endl;
-                exit(55);
-            }
-
-            ciphertext_len = len;
-
-            out.write(reinterpret_cast<char*>(ciphertext), 16);
-
-            cout << "Data: ";
-            for(int y = 0; y < 16; y++){
-                cout << data[y];
-            }
-            cout << endl;
-
-            cout << "Encrypted: ";
-            for(int y = 0; y < ciphertext_len; y++){
-                cout << ciphertext[y];
-            }
-            cout << endl;
-            cout << "Left To Read: " << leftToRead << endl;
+            readThisTime = 16;
         }
+
+        unsigned char* data = new unsigned char[readThisTime];
+
+        in.read(reinterpret_cast<char*>(data), readThisTime);
+
+        if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, data, readThisTime)){
+            cout << "[ERROR]: Error encrypting info, exiting." << endl;
+            exit(55);
+        }
+
+        ciphertext_len = len;
+
+        //out.write(reinterpret_cast<char*>(ciphertext), 16);
+
+        cout << "Data: ";
+        for(int y = 0; y < 16; y++){
+            cout << data[y];
+        }
+        cout << endl;
+
+        cout << "Encrypted: ";
+        for(int y = 0; y < ciphertext_len; y++){
+            cout << ciphertext[y];
+        }
+        cout << endl;
+        cout << "Left To Read: " << leftToRead << endl;
+
+        delete [] data;
     }
 
     EVP_CIPHER_CTX_free(ctx);
