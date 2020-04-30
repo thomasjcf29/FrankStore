@@ -134,6 +134,10 @@ void EncryptManager::encrypt(){
     cout << "[INFO]: File encrypted." << endl;
 }
 
+void EncryptManager::decrypt(){
+    
+}
+
 void EncryptManager::close(){
     delete [] key;
 }

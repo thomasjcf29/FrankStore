@@ -21,11 +21,11 @@ void layout() {
   cout << "There are multiple options for encryption, all result in the same output." << endl;
   cout << "If you are unsure refer to the documentation!" << endl;
   cout << "The following are valid options to encrypt: " << endl;
-  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput>" << endl;
-  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password>" << endl;
-  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> image <imageFile>" << endl;
-  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password image <imageFile>" << endl;
-  cout << "FrankStore encrypt <fileToEncrypt> <fileToOutput> password <password> image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> password <password>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> password image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> password <password> image <imageFile>" << endl;
 }
 
 /**
@@ -69,7 +69,7 @@ bool check(int argc, char **argv) {
                 return false;
             }
         }
-        else if(strcmp(argv[1], "encrypt") == 0){
+        else if(strcmp(argv[1], "encrypt") == 0 || strcmp(argv[1], "decrypt") == 0){
             if(argc == 4){
                 return true;
             }
@@ -156,13 +156,20 @@ int main(int argc, char **argv) {
         generator.generateData();
     }
 
-    else if(strcmp(argv[1], "encrypt") == 0){
+    else if(strcmp(argv[1], "encrypt") == 0 || strcmp(argv[1], "decrypt") == 0){
         FrankEncrypt encryptor = FrankEncrypt(argc, argv);
+
         if(!encryptor.isValid()){
             cout << "[ERROR]: Exiting program";
             exit(10);
         }
-        encryptor.encrypt();
+
+        if(strcmp(argv[1], "encrypt") == 0){
+            encryptor.encrypt();
+        }
+        else{
+            encryptor.decrypt();
+        }
         encryptor.close();
     }
 

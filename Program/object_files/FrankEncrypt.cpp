@@ -152,6 +152,11 @@ void FrankEncrypt::encrypt(){
     encryptManager.encrypt();
 }
 
+void FrankEncrypt::decrypt(){
+    //IV will be handled when decrypting the file.
+    encryptManager.decrypt();
+}
+
 void FrankEncrypt::close(){
     encryptManager.close();
 }

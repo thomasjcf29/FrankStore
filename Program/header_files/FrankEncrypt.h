@@ -22,6 +22,7 @@ public:
     FrankEncrypt(int argc, char **argv);
     bool isValid();
     void encrypt();
+    void decrypt();
     void close();
 };
 
