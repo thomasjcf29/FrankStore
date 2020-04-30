@@ -52,7 +52,7 @@ void EncryptManager::generateIV(){
     }
 }
 
-void EncryptManager::setIV(char readIV){
+void EncryptManager::setIV(unsigned char readIV){
     iv = reinterpret_cast<unsigned char>(readIV)
 }
 
@@ -149,8 +149,8 @@ void EncryptManager::decrypt(){
     }
 
     cout << "[INFO]: Reading IV..." << endl;
-    char readIV[16];
-    in.read(readIV, 16);
+    unsigned char readIV[16];
+    in.read(reinterpret_cast<char>(readIV), 16);
     leftToRead -= 16;
     setIV(readIV);
     cout << "[INFO]: IV Read." << endl;
