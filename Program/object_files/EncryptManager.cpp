@@ -126,19 +126,6 @@ void EncryptManager::encrypt(){
 
         out.write(reinterpret_cast<char*>(ciphertext), 16);
 
-        cout << "Data: ";
-        for(int y = 0; y < readThisTime; y++){
-            cout << data[y];
-        }
-        cout << endl;
-
-        cout << "Encrypted: ";
-        for(int y = 0; y < ciphertext_len; y++){
-            cout << ciphertext[y];
-        }
-        cout << endl;
-        cout << "Left To Read: " << leftToRead << endl;
-
         delete [] data;
     }
 
