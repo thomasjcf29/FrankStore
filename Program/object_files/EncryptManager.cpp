@@ -113,7 +113,7 @@ void EncryptManager::encrypt(){
         //out.write(reinterpret_cast<char*>(ciphertext), 16);
 
         cout << "Data: ";
-        for(int y = 0; y < 16; y++){
+        for(int y = 0; y < readThisTime; y++){
             cout << data[y];
         }
         cout << endl;
