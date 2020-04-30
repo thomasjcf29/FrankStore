@@ -150,7 +150,7 @@ void EncryptManager::decrypt(){
     }
 
     cout << "[INFO]: Reading IV..." << endl;
-    unsigned char readIV = new unsigned char[16];
+    unsigned char* readIV = new unsigned char[16];
     in.read(reinterpret_cast<char*>(readIV), 16);
     leftToRead -= 16;
     setIV(readIV);
