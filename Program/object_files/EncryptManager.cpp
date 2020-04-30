@@ -192,6 +192,15 @@ void EncryptManager::decrypt(){
 
         plaintext_len = len;
 
+        if(finalLoop){
+            if(1 != EVP_DecryptFinal_ex(ctx, plaintext + len, &len)){
+                cout << "[ERROR]: Error decrypting final block, exiting." << endl;
+                exit(55);
+            }
+        }
+
+        plaintext_len = len;
+
         cout << "Plain Text: ";
         for(int y = 0; y < plaintext_len; y++){
             cout << plaintext[y];
