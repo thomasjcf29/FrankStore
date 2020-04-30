@@ -118,10 +118,10 @@ void EncryptManager::encrypt(){
                 exit(55);
             }
         }
-        
+
         ciphertext_len = len;
 
-        //out.write(reinterpret_cast<char*>(ciphertext), 16);
+        out.write(reinterpret_cast<char*>(ciphertext), 16);
 
         cout << "Data: ";
         for(int y = 0; y < readThisTime; y++){
