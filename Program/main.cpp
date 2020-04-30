@@ -20,7 +20,7 @@ void layout() {
   cout << "To generate: FrankStore generate <width> <height> <outputFile>" << endl;
   cout << "There are multiple options for encryption, all result in the same output." << endl;
   cout << "If you are unsure refer to the documentation!" << endl;
-  cout << "The following are valid options to encrypt: " << endl;
+  cout << "The following are valid options to encrypt/decrypt: " << endl;
   cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput>" << endl;
   cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> password <password>" << endl;
   cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> image <imageFile>" << endl;
