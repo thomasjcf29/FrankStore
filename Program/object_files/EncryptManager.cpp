@@ -37,6 +37,12 @@ EncryptManager::EncryptManager(unsigned char* password, string inputFile, string
     valid = true;
 }
 
+EncryptManager::~EncryptManager(){
+    if(key != NULL){
+        delete [] key;
+    }
+}
+
 bool EncryptManager::isValid(){
     return valid;
 }

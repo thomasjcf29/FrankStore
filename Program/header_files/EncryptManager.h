@@ -9,7 +9,7 @@
 class EncryptManager{
 private:
     static constexpr const char* tempSalt = "wD,Fvhjb2{y=5N^w";
-    unsigned char* key;
+    unsigned char* key = NULL;
     unsigned char iv[16];
     std::ifstream in;
     std::ofstream out;
@@ -17,6 +17,7 @@ private:
 public:
     EncryptManager();
     EncryptManager(unsigned char* password, std::string inputFile, std::string outputFile);
+    ~EncryptManager();
     bool isValid();
     void generateIV();
     void setIV();
