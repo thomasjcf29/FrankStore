@@ -74,6 +74,9 @@ void EncryptManager::encrypt(){
         exit(55);
     }
 
+    //Write IV to File
+    out.write(reinterpret_cast<char*>(iv), 16);
+
     //Get Total File Size
     in.seekg(0, ios::end);
     size_t fileSize = in.tellg();
