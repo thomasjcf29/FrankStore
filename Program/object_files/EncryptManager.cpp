@@ -118,6 +118,8 @@ void EncryptManager::encrypt(){
                 exit(55);
             }
         }
+        
+        ciphertext_len = len;
 
         //out.write(reinterpret_cast<char*>(ciphertext), 16);
 
