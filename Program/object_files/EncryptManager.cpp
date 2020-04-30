@@ -103,7 +103,7 @@ void EncryptManager::encrypt(){
 
         in.read(reinterpret_cast<char*>(data), readThisTime);
 
-        if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, data, readThisTime)){
+        if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, data, (int) readThisTime)){
             cout << "[ERROR]: Error encrypting info, exiting." << endl;
             exit(55);
         }
