@@ -13,6 +13,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
     //Get rid of current ExifManager - new one will be made if required.
     (&exifManager)->~ExifManager();
+    (&encryptManager)->~EncryptManager();
 
     //Password - Not Specified
     if(argc == 4){
@@ -76,10 +77,6 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     }
 
     cout << "[INFO]: Encryption Manager setup up." << endl;
-}
-
-FrankEncrypt::~FrankEncrypt(){
-    delete [] key;
 }
 
 bool FrankEncrypt::isValid(){
