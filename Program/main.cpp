@@ -21,11 +21,11 @@ void layout() {
   cout << "There are multiple options for encryption, all result in the same output." << endl;
   cout << "If you are unsure refer to the documentation!" << endl;
   cout << "The following are valid options to encrypt/decrypt: " << endl;
-  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput>" << endl;
-  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> password <password>" << endl;
-  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> image <imageFile>" << endl;
-  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> password image <imageFile>" << endl;
-  cout << "FrankStore <encrypt|decrypt> <fileToEncrypt> <fileToOutput> password <password> image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> password <password>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> password image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> password <password> image <imageFile>" << endl;
 }
 
 /**
