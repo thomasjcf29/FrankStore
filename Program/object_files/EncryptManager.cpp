@@ -138,6 +138,18 @@ void EncryptManager::encrypt(){
 void EncryptManager::decrypt(){
     cout << "[INFO]: Decrypting, this may take a while..." << endl;
 
+    int len;
+    int plaintext_len;
+    unsigned char ciphertext[16];
+    unsigned cahr plaintext[16];
+    bool finalLoop;
+
+    EVP_CIPHER_CTX *ctx;
+    if(!(ctx = EVP_CIPHER_CTX_new())){
+        cout << "[ERROR]: Cannot create cipher, exiting." << endl;
+        exit(55);
+    }
+
     //Get Total File Size
     in.seekg(0, ios::end);
     size_t fileSize = in.tellg();
@@ -155,6 +167,38 @@ void EncryptManager::decrypt(){
     leftToRead -= 16;
     setIV(readIV);
     cout << "[INFO]: IV Read." << endl;
+
+    if(1 != EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv)){
+        cout << "[ERROR]: Cannot initialise decryption, exiting." << endl;
+        exit(56);
+    }
+
+    //Amount of cipher iterations, blocks must be 16 bytes
+    size_t iterations = (size_t) ceil(leftToRead / 16.0);
+    cout << "[INFO]: Total bytes: " << leftToRead << ", block iterations: " << iterations << endl;
+
+    for(size_t i = 0; i < iterations; i++){
+        //Last iteration
+        if(i+1 == iterations){
+            finalLoop = true;
+        }
+
+        in.read(reinterpret_cast<char*>(ciphertext), 16);
+
+        if(1 != EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, 16)){
+            cout << "[ERROR]: Error decrypting info, exiting." << endl;
+            exit(56);
+        }
+
+        plaintext_len = len;
+
+        cout << "Plain Text: ";
+        for(int y = 0; y < plaintext_len; y++){
+            cout << plaintext[y];
+        }
+
+        cout << endl;
+    }
 
     cout << "[INFO]: File decrypted." << endl;
 }
