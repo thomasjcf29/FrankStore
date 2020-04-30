@@ -156,7 +156,7 @@ void EncryptManager::decrypt(){
     setIV(readIV);
     cout << "[INFO]: IV Read." << endl;
 
-    cout << "[INFO]: File decrypted.";
+    cout << "[INFO]: File decrypted." << endl;
 }
 
 void EncryptManager::close(){
