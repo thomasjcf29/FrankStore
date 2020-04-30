@@ -37,14 +37,6 @@ EncryptManager::EncryptManager(unsigned char* password, string inputFile, string
     valid = true;
 }
 
-EncryptManager::~EncryptManager(){
-    in.close();
-    out.close();
-    if(key != NULL){
-        delete [] key;
-    }
-}
-
 bool EncryptManager::isValid(){
     return valid;
 }
@@ -140,6 +132,10 @@ void EncryptManager::encrypt(){
     EVP_CIPHER_CTX_free(ctx);
 
     cout << "[INFO]: File encrypted." << endl;
+}
+
+void EncryptManager::close(){
+    delete [] key;
 }
 
 unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations){

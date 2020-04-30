@@ -151,3 +151,7 @@ void FrankEncrypt::encrypt(){
 
     encryptManager.encrypt();
 }
+
+void FrankEncrypt::close(){
+    encryptManager.close();
+}

@@ -163,6 +163,7 @@ int main(int argc, char **argv) {
             exit(10);
         }
         encryptor.encrypt();
+        encryptor.close();
     }
 
   	return 0;
