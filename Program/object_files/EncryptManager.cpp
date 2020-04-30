@@ -52,8 +52,8 @@ void EncryptManager::generateIV(){
     }
 }
 
-void EncryptManager::setIV(){
-
+void EncryptManager::setIV(char* readIV){
+    iv = reinterpret_cast<unsigned char*>(iv)
 }
 
 void EncryptManager::encrypt(){
@@ -135,7 +135,27 @@ void EncryptManager::encrypt(){
 }
 
 void EncryptManager::decrypt(){
-    
+    cout << "[INFO]: Decrypting, this may take a while..." << endl;
+
+    //Get Total File Size
+    in.seekg(0, ios::end);
+    size_t fileSize = in.tellg();
+    size_t leftToRead = fileSize;
+    in.seekg(0, ios::beg);
+
+    if(fileSize < 16 || (fileSize % 16) != 0){
+        cout << "[ERROR]: Invalid input file!" << endl;
+        exit(56);
+    }
+
+    cout << "[INFO]: Reading IV..." << endl;
+    char readIV[16];
+    in.read(readIV, 16);
+    leftToRead -= 16;
+    setIV(readIV);
+    cout << "[INFO]: IV Read." << endl;
+
+    cout << "[INFO]: File decrypted."
 }
 
 void EncryptManager::close(){
