@@ -19,6 +19,7 @@ EncryptManager::EncryptManager(){
 EncryptManager::EncryptManager(unsigned char* password, string inputFile, string outputFile){
 
     key = password;
+    iv = new unsigned char[16];
     in = ifstream(inputFile, ifstream::binary);
     out = ofstream(outputFile, ofstream::binary);
 
@@ -52,8 +53,8 @@ void EncryptManager::generateIV(){
     }
 }
 
-void EncryptManager::setIV(unsigned char readIV){
-    iv = reinterpret_cast<unsigned char>(readIV)
+void EncryptManager::setIV(char readIV){
+    iv = reinterpret_cast<unsigned char*>(readIV)
 }
 
 void EncryptManager::encrypt(){
@@ -150,7 +151,7 @@ void EncryptManager::decrypt(){
 
     cout << "[INFO]: Reading IV..." << endl;
     unsigned char readIV[16];
-    in.read(reinterpret_cast<char>(readIV), 16);
+    in.read(reinterpret_cast<char*>(readIV), 16);
     leftToRead -= 16;
     setIV(readIV);
     cout << "[INFO]: IV Read." << endl;
@@ -160,6 +161,7 @@ void EncryptManager::decrypt(){
 
 void EncryptManager::close(){
     delete [] key;
+    delete [] iv;
 }
 
 unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations){
