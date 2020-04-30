@@ -201,8 +201,8 @@ void EncryptManager::decrypt(){
 
         plaintext_len = len;
 
-        cout << "Length: " << len;
-        
+        cout << "Length: " << len << endl;
+
         cout << "Plain Text: ";
         for(int y = 0; y < plaintext_len; y++){
             cout << plaintext[y];
