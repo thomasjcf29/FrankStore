@@ -81,6 +81,7 @@ void EncryptManager::encrypt(){
 
     size_t leftToRead = fileSize;
     size_t readThisTime = 0;
+    bool finalLoop = false;
 
     //Amount of cipher iterations, blocks must be 16 bytes
     size_t iterations = (size_t) ceil(fileSize / 16.0);
@@ -92,6 +93,7 @@ void EncryptManager::encrypt(){
         if(i+1 == iterations){
             readThisTime = leftToRead;
             leftToRead -= leftToRead;
+            finalLoop = true;
         }
         //There will always be 16 bytes if not last iteration.
         else{
@@ -109,6 +111,13 @@ void EncryptManager::encrypt(){
         }
 
         ciphertext_len = len;
+
+        if(finalLoop){
+            if(1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len)){
+                cout << "[ERROR]: Error encrypting final block, exiting." << endl;
+                exit(55);
+            }
+        }
 
         //out.write(reinterpret_cast<char*>(ciphertext), 16);
 
