@@ -210,20 +210,13 @@ void EncryptManager::decrypt(){
         }
         cout << endl;
 
-        if(i != 0){
-            cout << "Plain Text: ";
-            for(int y = 0; y < 16; y++){
-                cout << plaintext[y];
-            }
-            cout << endl;
+        cout << "Plain Text: ";
+        for(int y = 0; y < plaintext_len; y++){
+            cout << plaintext[y];
         }
-    }
 
-    cout << "Plain Text: ";
-    for(int y = 0; y < plaintext_len; y++){
-        cout << plaintext[y];
+        cout << endl;
     }
-    cout << endl;
 
     cout << "[INFO]: File decrypted." << endl;
 }
