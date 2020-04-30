@@ -61,6 +61,7 @@ void EncryptManager::encrypt(){
 
     int len;
     int ciphertext_len;
+    unsigned char ciphertext[16];
 
     EVP_CIPHER_CTX *ctx;
     if(!(ctx = EVP_CIPHER_CTX_new())){
@@ -90,6 +91,7 @@ void EncryptManager::encrypt(){
         if(i+1 == iterations){
             unsigned char* data = new unsigned char[leftToRead];
             in.read(reinterpret_cast<char*>(data), leftToRead);
+
             cout << "Data: ";
             for(int y = 0; y < leftToRead; y++){
                 cout << data[y];
@@ -104,7 +106,7 @@ void EncryptManager::encrypt(){
         else{
             leftToRead -= 16;
             unsigned char data[16];
-            unsigned char ciphertext[6];
+
             in.read(reinterpret_cast<char*>(data), 16);
 
             if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, data, 16)){
@@ -114,6 +116,8 @@ void EncryptManager::encrypt(){
 
             ciphertext_len = len;
 
+            out.write(reinterpret_cast<char*>(ciphertext), 16);
+
             cout << "Data: ";
             for(int y = 0; y < 16; y++){
                 cout << data[y];
@@ -121,12 +125,12 @@ void EncryptManager::encrypt(){
             cout << endl;
 
             cout << "Encrypted: ";
-            for(int y = 0; y < 6; y++){
+            for(int y = 0; y < ciphertext_len; y++){
                 cout << ciphertext[y];
             }
             cout << endl;
             cout << "Left To Read: " << leftToRead << endl;
-        };
+        }
     }
 
     EVP_CIPHER_CTX_free(ctx);
