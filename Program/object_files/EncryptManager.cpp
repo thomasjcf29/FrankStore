@@ -38,6 +38,8 @@ EncryptManager::EncryptManager(unsigned char* password, string inputFile, string
 }
 
 EncryptManager::~EncryptManager(){
+    in.close();
+    out.close();
     if(key != NULL){
         delete [] key;
     }
