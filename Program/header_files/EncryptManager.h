@@ -15,7 +15,7 @@ private:
     std::ofstream out;
     bool valid = false;
 
-    void setIV(char readIV);
+    void setIV(unsigned char* readIV);
 public:
     EncryptManager();
     EncryptManager(unsigned char* password, std::string inputFile, std::string outputFile);

@@ -53,8 +53,8 @@ void EncryptManager::generateIV(){
     }
 }
 
-void EncryptManager::setIV(char readIV){
-    iv = reinterpret_cast<unsigned char*>(readIV);
+void EncryptManager::setIV(unsigned char* readIV){
+    iv = readIV;
 }
 
 void EncryptManager::encrypt(){
