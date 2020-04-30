@@ -69,7 +69,7 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
 
     delete [] pass;
 
-    encryptManager = EncryptManager(key, argv[2], argv[3]);
+    new (&encryptManager) EncryptManager(key, argv[2], argv[3]);
 
     //Do not want to change to true if already false.
     if(valid){
