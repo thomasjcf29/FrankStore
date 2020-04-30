@@ -142,7 +142,7 @@ void EncryptManager::decrypt(){
     int plaintext_len;
     unsigned char ciphertext[16];
     unsigned char plaintext[16];
-    bool finalLoop;
+    bool finalLoop = false;
 
     EVP_CIPHER_CTX *ctx;
     if(!(ctx = EVP_CIPHER_CTX_new())){
