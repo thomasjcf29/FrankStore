@@ -121,7 +121,7 @@ encoding / decoding / generating.
 int main(int argc, char **argv) {
 
 	if(!check(argc, argv)){
-		cout << "Exiting Program" << endl;
+		cout << "[ERROR]: Exiting Program" << endl;
 		exit(2);
 	}
 
