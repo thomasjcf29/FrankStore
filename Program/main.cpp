@@ -1,6 +1,7 @@
 #include "header_files/FrankDecode.h"
 #include "header_files/FrankEncode.h"
 #include "header_files/FrankGenerator.h"
+#include "header_files/FrankEncrypt.h"
 #include <iostream>
 #include <string.h>
 
@@ -15,8 +16,16 @@ void layout() {
   cout << "The correct arguments are:" << endl;
   cout << "To   encode: FrankStore encode <coverImage> <fileToEncode> <outputFile> <image|file>" << endl;
   cout << "To   decode: FrankStore decode <coverImage> <fileToDecode> <outputFile> <image|file>" << endl;
-  cout << "To generate: FrankStore generate <width> <height> <outputFile>" << endl;
   cout << "Image = output as an image, file = output as a file" << endl;
+  cout << "To generate: FrankStore generate <width> <height> <outputFile>" << endl;
+  cout << "There are multiple options for encryption, all result in the same output." << endl;
+  cout << "If you are unsure refer to the documentation!" << endl;
+  cout << "The following are valid options to encrypt/decrypt: " << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> password <password>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> password image <imageFile>" << endl;
+  cout << "FrankStore <encrypt|decrypt> <fileToRead> <fileToOutput> password <password> image <imageFile>" << endl;
 }
 
 /**
@@ -27,7 +36,7 @@ if they are not.
 @return true if valid, false if not.
 */
 bool check(int argc, char **argv) {
-    if (argc == 5 || argc == 6){
+    if (argc == 5 || argc == 6 || argc == 4 || argc == 7 || argc == 8){
         if(strcmp(argv[1], "encode") == 0 || strcmp(argv[1], "decode") == 0){
             if(argc != 6){
                 layout();
@@ -40,6 +49,11 @@ bool check(int argc, char **argv) {
             }
         }
         else if(strcmp(argv[1], "generate") == 0){
+            if(argc != 5){
+                layout();
+                return false;
+            }
+
             try{
                 int i = stoi(argv[2]);
                 int x = stoi(argv[3]);
@@ -51,6 +65,36 @@ bool check(int argc, char **argv) {
             }
             catch(out_of_range e1){
                 cout << "[ERROR]: Number is too large to be an integer!" << endl;
+                layout();
+                return false;
+            }
+        }
+        else if(strcmp(argv[1], "encrypt") == 0 || strcmp(argv[1], "decrypt") == 0){
+            if(argc == 4){
+                return true;
+            }
+            else if(argc == 6){
+                if(strcmp(argv[4], "password") != 0 && strcmp(argv[4], "image") != 0){
+                    cout << "[ERROR]: An invalid entry was submitted, password or image?" << endl;
+                    layout();
+                    return false;
+                }
+            }
+            else if(argc == 7){
+                if(strcmp(argv[4], "password") != 0 || strcmp(argv[5], "image") != 0){
+                    cout << "[ERROR]: An invalid entry was submitted!" << endl;
+                    layout();
+                    return false;
+                }
+            }
+            else if(argc == 8){
+                if(strcmp(argv[4], "password") != 0 || strcmp(argv[6], "image") != 0){
+                    cout << "[ERROR]: An invalid entry was submitted!" << endl;
+                    layout();
+                    return false;
+                }
+            }
+            else{
                 layout();
                 return false;
             }
@@ -77,7 +121,7 @@ encoding / decoding / generating.
 int main(int argc, char **argv) {
 
 	if(!check(argc, argv)){
-		cout << "Exiting Program" << endl;
+		cout << "[ERROR]: Exiting Program" << endl;
 		exit(2);
 	}
 
@@ -110,6 +154,23 @@ int main(int argc, char **argv) {
             exit(10);
         }
         generator.generateData();
+    }
+
+    else if(strcmp(argv[1], "encrypt") == 0 || strcmp(argv[1], "decrypt") == 0){
+        FrankEncrypt encryptor = FrankEncrypt(argc, argv);
+
+        if(!encryptor.isValid()){
+            cout << "[ERROR]: Exiting program";
+            exit(10);
+        }
+
+        if(strcmp(argv[1], "encrypt") == 0){
+            encryptor.encrypt();
+        }
+        else{
+            encryptor.decrypt();
+        }
+        encryptor.close();
     }
 
   	return 0;

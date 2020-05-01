@@ -8,6 +8,17 @@ if(UNIX)
 	find_package(PkgConfig)
 	pkg_check_modules(LIBSODIUM "libsodium")
 	add_definitions(${LIBSODIUM_CFLAGS})
+
+	pkg_check_modules(OPENSSL "openssl")
+	add_definitions(${OPENSSL_CFLAGS})
+
+	if(APPLE)
+		pkg_check_modules(LIBSSH "libssh")
+		add_definitions(${LIBSSH_CFLAGS})
+	endif(APPLE)
+
+	pkg_check_modules(EXIV "exiv2")
+	add_definitions(${EXIV_CFLAGS})
 endif(UNIX)
 
 find_package(ImageMagick COMPONENTS Magick++ REQUIRED)
@@ -33,6 +44,13 @@ target_link_libraries(FrankStore ${ImageMagick_LIBRARIES})
 
 if(UNIX)
 	target_link_libraries(FrankStore ${LIBSODIUM_LDFLAGS})
+
+	if(APPLE)
+			target_link_libraries(FrankStore ${LIBSSH_LDFLAGS})
+	endif(APPLE)
+
+	target_link_libraries(FrankStore ${EXIV_LDFLAGS})
+	target_link_libraries(FrankStore ${OPENSSL_LDFLAGS})
 endif(UNIX)
 
 if(WIN32)
