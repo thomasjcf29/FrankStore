@@ -198,9 +198,9 @@ void EncryptManager::decrypt(){
                 cout << "[ERROR]: Error decrypting final block, exiting." << endl;
                 exit(55);
             }
-        }
 
-        plaintext_len = len;
+            laintext_len += len;
+        }
 
         cout << "Length: " << len << endl;
 
