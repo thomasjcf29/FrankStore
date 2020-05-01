@@ -124,7 +124,7 @@ void EncryptManager::encrypt(){
             ciphertext_len += len;
         }
 
-        out.write(reinterpret_cast<char*>(ciphertext), 16);
+        out.write(reinterpret_cast<char*>(ciphertext), ciphertext_len);
 
         delete [] data;
     }
@@ -201,20 +201,7 @@ void EncryptManager::decrypt(){
             plaintext_len += len;
         }
 
-        cout << "Length: " << len << endl;
-
-        cout << "CipherText Text: ";
-        for(int y = 0; y < 16; y++){
-            cout << ciphertext[y];
-        }
-        cout << endl;
-
-        cout << "Plain Text: ";
-        for(int y = 0; y < plaintext_len; y++){
-            cout << plaintext[y];
-        }
-
-        cout << endl;
+        out.write(reinterpret_cast<char*>(plaintext), plaintext_len)
     }
 
     cout << "[INFO]: File decrypted." << endl;
