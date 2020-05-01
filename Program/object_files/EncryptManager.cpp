@@ -12,10 +12,20 @@
 
 using namespace std;
 
+/**
+Blank constructor for the class, used to allow headers to point to it.
+Do not use the object if initialised with this constructor!
+*/
 EncryptManager::EncryptManager(){
-
 }
 
+/**
+Returns an object handling the encryption and decryption of files. Check is valid
+before using it. (.isValid())
+@param unsigned char* password: The password to use.
+@param string inputFile: The file to read from.
+@param string outputFIle: The file to write too.
+*/
 EncryptManager::EncryptManager(unsigned char* password, string inputFile, string outputFile){
 
     key = password;
@@ -38,10 +48,17 @@ EncryptManager::EncryptManager(unsigned char* password, string inputFile, string
     valid = true;
 }
 
+/**
+Returns the validity status of itself and the objects it has initalised.
+@return validity status, if false do not use.
+*/
 bool EncryptManager::isValid(){
     return valid;
 }
 
+/**
+Securely generates an IV of size 16 bytes. This will need to be done for encryption.
+*/
 void EncryptManager::generateIV(){
     cout << "[INFO]: Generating IV..." << endl;
     if(!RAND_bytes(iv, 16)){
@@ -53,10 +70,18 @@ void EncryptManager::generateIV(){
     }
 }
 
+/**
+Sets IV to the one specified, used during decryption.
+@param unsigned char* readIV: The IV which has been read from file.
+*/
 void EncryptManager::setIV(unsigned char* readIV){
     iv = readIV;
 }
 
+/**
+Loops through the input file and writes the encrypted bytes to output.
+Depending on the file size this may take a while.
+*/
 void EncryptManager::encrypt(){
     cout << "[INFO]: Encrypting, this may take a while..." << endl;
 
@@ -134,6 +159,10 @@ void EncryptManager::encrypt(){
     cout << "[INFO]: File encrypted." << endl;
 }
 
+/**
+Loops through the input file and writes the plain text bytes to output.
+Depending on the file size this may take a while.
+*/
 void EncryptManager::decrypt(){
     cout << "[INFO]: Decrypting, this may take a while..." << endl;
 
@@ -206,11 +235,23 @@ void EncryptManager::decrypt(){
     cout << "[INFO]: File decrypted." << endl;
 }
 
+/**
+Deletes any raw pointers in memory to free up resources.
+Should be called after you are finished with the object.
+*/
 void EncryptManager::close(){
     delete [] key;
     delete [] iv;
 }
 
+/**
+Static method to take a variable sized input and return a fixed array of key bytes
+to be used for encryption and decryption. The returned key size is 32 bytes.
+@param const char* pass: The variable sized password.
+@param int passlen: The length of the variable password.
+@param int32_t: The amount of iterations to hash the password.
+@return a fixed 32 byte sized key to be used for encryption.
+*/
 unsigned char* EncryptManager::PBKDF2_HMAC_SHA_256(const char* pass, int passlen, int32_t iterations){
     const unsigned char* salt = (unsigned char*) tempSalt;
     unsigned char* digest = new unsigned char[32];

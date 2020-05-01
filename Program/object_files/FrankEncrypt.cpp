@@ -8,6 +8,14 @@
 
 using namespace std;
 
+/**
+Returns an object ready to encrypt an decrypt data. Any password or images are
+automatically gotten from the user if required. Therefore this constructor can cause
+an unlimited wait time until the user enters different information. Before using this
+object, check it is valid using the .isValid() method. If it returns false, do not use it.
+@param int argc: The arg count, passed from main.
+@param char **argv: The arguments, passed from main.
+*/
 FrankEncrypt::FrankEncrypt(int argc, char **argv){
     cout << "[INFO]: Setting up encryptor." << endl;
 
@@ -79,10 +87,17 @@ FrankEncrypt::FrankEncrypt(int argc, char **argv){
     cout << "[INFO]: Encryption Manager setup up." << endl;
 }
 
+/**
+@return If the object is valid, true if valid, false if not.
+*/
 bool FrankEncrypt::isValid(){
     return valid;
 }
 
+/**
+Gets password from user (if not specified), uses a none echo return prompt to hide
+the password during typing.
+*/
 void FrankEncrypt::getPassword(){
     string tempPassword;
     string checkPassword;
@@ -121,6 +136,9 @@ void FrankEncrypt::getPassword(){
     } while(invalid);
 }
 
+/**
+Get the EXIF Data from the image and place it into a string containing the image key.
+*/
 void FrankEncrypt::getImageInfo(){
     string* exifData = exifManager.getExifData();
 
@@ -141,6 +159,10 @@ void FrankEncrypt::getImageInfo(){
     imageKey = tempData.str();
 }
 
+/**
+Begin encryption of the file, will not return until the file is encrypted.
+The program will exit if there is a problem during encryption.
+*/
 void FrankEncrypt::encrypt(){
     encryptManager.generateIV();
 
@@ -152,11 +174,18 @@ void FrankEncrypt::encrypt(){
     encryptManager.encrypt();
 }
 
+/**
+Begin decryption of the file, will not return until the file is decrypted.
+The program will exit if there is a problem during decryption.
+*/
 void FrankEncrypt::decrypt(){
     //IV will be handled when decrypting the file.
     encryptManager.decrypt();
 }
 
+/**
+Tidy up resources of any raw pointers that may exist.
+*/
 void FrankEncrypt::close(){
     encryptManager.close();
 }

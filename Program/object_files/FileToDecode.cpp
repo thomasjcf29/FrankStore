@@ -17,7 +17,7 @@ FileToDecode::FileToDecode(){
 /**
 Returns an object to handle the decoding of a file. Check the object is valid
 before using it (.isValid()).
-@param strign name: The file location name.
+@param string name: The file location name.
 */
 FileToDecode::FileToDecode(string name){
     fileName = name;

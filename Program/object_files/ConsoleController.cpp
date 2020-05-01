@@ -6,8 +6,11 @@
 #include <unistd.h>
 #endif
 
-void ConsoleController::SetStdinEcho(bool enable = true)
-{
+/**
+Show console output, works on both windows and linux. If no param supplied, defaults to true.
+@param bool enable: Whether to enable console output, false will hide it.
+*/
+void ConsoleController::SetStdinEcho(bool enable = true){
 #ifdef WIN32
     HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
     DWORD mode;
