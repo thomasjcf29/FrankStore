@@ -201,7 +201,7 @@ void EncryptManager::decrypt(){
             plaintext_len += len;
         }
 
-        out.write(reinterpret_cast<char*>(plaintext), plaintext_len)
+        out.write(reinterpret_cast<char*>(plaintext), plaintext_len);
     }
 
     cout << "[INFO]: File decrypted." << endl;
