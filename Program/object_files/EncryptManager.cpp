@@ -62,7 +62,7 @@ void EncryptManager::encrypt(){
 
     int len;
     int ciphertext_len;
-    unsigned char ciphertext[16];
+    unsigned char ciphertext[32];
 
     EVP_CIPHER_CTX *ctx;
     if(!(ctx = EVP_CIPHER_CTX_new())){
@@ -121,9 +121,8 @@ void EncryptManager::encrypt(){
                 cout << "[ERROR]: Error encrypting final block, exiting." << endl;
                 exit(55);
             }
+            ciphertext_len += len;
         }
-
-        ciphertext_len = len;
 
         out.write(reinterpret_cast<char*>(ciphertext), 16);
 
@@ -199,7 +198,7 @@ void EncryptManager::decrypt(){
                 exit(55);
             }
 
-            laintext_len += len;
+            plaintext_len += len;
         }
 
         cout << "Length: " << len << endl;
