@@ -1,12 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 project(FrankStoreUI)
 
-if(UNIX)
-    find_package(PkgConfig)
+find_package(PkgConfig)
 
-    pkg_check_modules(GTKMM "gtkmm-3.0")
-	add_definitions(${GTKMM_CFLAGS})
-endif(UNIX)
+pkg_check_modules(GTKMM "gtkmm-3.0")
+add_definitions(${GTKMM_CFLAGS})
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -19,6 +17,4 @@ file(GLOB FrankStoreUI_SRC
 
 add_executable(FrankStoreUI ${FrankStoreUI_SRC})
 
-if(UNIX)
-    target_link_libraries(FrankStoreUI ${GTKMM_LDFLAGS})
-endif(UNIX)
+target_link_libraries(FrankStoreUI ${GTKMM_LDFLAGS})
