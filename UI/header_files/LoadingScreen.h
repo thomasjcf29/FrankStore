@@ -12,6 +12,6 @@ public:
     ~LoadingScreen();
     Gtk::Window* getWindow();
     bool isValid();
-}
+};
 
 #endif //FRANKSTOREUI_LOADINGSCREEN_H
