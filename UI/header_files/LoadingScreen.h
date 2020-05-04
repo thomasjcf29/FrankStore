@@ -10,11 +10,12 @@
 
 class LoadingScreen : public Gtk::GtkWindow {
 private:
+    Glib::RefPtr<Gtk::Builder> ui;
     void on_loadingScreen_destroy();
 public:
-    LoadingScreen();
+    LoadingScreen() : ui{Gtk::Builder::create_from_file("designs\\loading_screen.glade")};
     ~LoadingScreen();
-}
+};
 
 
 #endif //FRANKSTOREUI_LOADINGSCREEN_H
