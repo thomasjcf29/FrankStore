@@ -14,7 +14,7 @@ private:
     void on_loadingScreen_destroy();
 public:
     LoadingScreen();
-    ~LoadingScreen();
+    virtual ~LoadingScreen();
 };
 
 
