@@ -32,6 +32,7 @@ int main(int argc, char **argv){
     Gtk::Window* pWindow = nullptr;
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
+        cout << "Found Window" << endl;
         app->run(*pWindow);
     }
 
