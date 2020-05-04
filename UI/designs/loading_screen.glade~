@@ -5,15 +5,14 @@
   <object class="GtkWindow" id="loadingScreen">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">FrankStoreUI - Loading</property>
-    <property name="role">loadingScreen_Role</property>
     <property name="resizable">False</property>
     <property name="window_position">center-always</property>
     <property name="default_width">440</property>
     <property name="default_height">250</property>
+    <property name="icon_name">application-x-executable</property>
     <property name="urgency_hint">True</property>
     <property name="deletable">False</property>
-    <property name="gravity">north</property>
-    <property name="startup_id">loadingScreen_StartUp</property>
+    <property name="gravity">center</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -21,99 +20,6 @@
       <object class="GtkGrid" id="loadingScreenGrid">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
         <child>
           <placeholder/>
         </child>
