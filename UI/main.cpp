@@ -12,7 +12,7 @@ int main(int argc, char **argv){
     LoadingScreen loadingScreen;
 
     if(loadingScreen.isValid()){
-        app->run(loadingScreen.getWindow());
+        app->run(*(loadingScreen.getWindow()));
     }
 
     return 0;
