@@ -33,7 +33,7 @@ int main(int argc, char **argv){
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
         cout << "Found Window" << endl;
-        pWindow.show_all();
+        pWindow->show_all();
         app->run(*pWindow);
     }
 
