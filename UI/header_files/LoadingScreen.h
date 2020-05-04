@@ -1,7 +1,7 @@
 #ifndef FRANKSTOREUI_LOADINGSCREEN_H
 #define FRANKSTOREUI_LOADINGSCREEN_H
 
-#include <gtkmm/window.h>
+#include <gtkmm.h>
 
 class LoadingScreen{
 private:
