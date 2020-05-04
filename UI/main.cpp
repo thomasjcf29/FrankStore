@@ -1,3 +1,4 @@
+#include "header_files/LoadingScreen.h"
 #include <iostream>
 #include <gtkmm.h>
 
