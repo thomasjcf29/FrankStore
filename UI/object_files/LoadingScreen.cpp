@@ -10,7 +10,7 @@
 
 using namespace std;
 
-LoadingScreen::LoadingScreen(){
+LoadingScreen::LoadingScreen() : ui{Gtk::Builder::create_from_file("designs\\loading_screen.glade")}{
     if(ui){
         cout << "UI True" << endl;
     }

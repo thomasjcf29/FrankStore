@@ -13,7 +13,7 @@ private:
     Glib::RefPtr<Gtk::Builder> ui;
     void on_loadingScreen_destroy();
 public:
-    LoadingScreen() : ui{Gtk::Builder::create_from_file("designs\\loading_screen.glade")};
+    LoadingScreen();
     ~LoadingScreen();
 };
 
