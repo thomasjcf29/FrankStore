@@ -23,10 +23,11 @@ LoadingScreen::LoadingScreen(){
     }
 
     auto css_provider = Gtk::CssProvider::create();
-    css_provider->load_from_resource("designs/application.css");
-
-    if(not css_provider){
-        std::cerr << "Cannot load CSS file" << std::endl;
+    try{
+        css_provider->load_from_resource("designs/application.css");
+    }
+    catch(const Glib::Error& ex){
+        std::cerr << "CSS Error: " << ex.what() << std::endl;
         return;
     }
 
