@@ -1,7 +1,11 @@
-.GtkLabel{
-    color: green;
+.LoadingTitle, .AuthorTitle{
+    color: #F4A261;
 }
 
-.loadingScreen{
-    background-color: black;
+.LoadingSpinner{
+    color: #E9C46A;
+}
+
+.Background{
+    background-color: #264653;
 }
