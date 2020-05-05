@@ -5,9 +5,7 @@
 using namespace std;
 
 int main(int argc, char **argv){
-    cout << "Hello World!" << endl;
-
-    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
+    auto app = Gtk::Application::create(argc, argv, "uk.co.thomasfranklin.frankstore");
 
     LoadingScreen loadingScreen;
 
@@ -16,10 +14,4 @@ int main(int argc, char **argv){
     }
 
     return 0;
-}
-
-// called when window is closed
-void on_window_main_destroy()
-{
-    gtk_main_quit();
 }
