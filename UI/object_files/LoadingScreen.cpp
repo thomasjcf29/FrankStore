@@ -24,16 +24,11 @@ LoadingScreen::LoadingScreen(){
     }
 
     auto css_provider = Gtk::CssProvider::create();
-    std::ifstream fileC;
 
-    fileC.open("designs/application.css")
-
-    if(!fileC){
-        std::cerr << "Cannot open file." << std::endl;
+    if(!css_provider->load_from_path("/designs/application.css")){
+        std:cerr << "Can not load CSS File" << std::endl;
         return;
     }
-
-    css_provider->load_from_file(fileC);
 
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
