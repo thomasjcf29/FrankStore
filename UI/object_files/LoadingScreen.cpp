@@ -31,7 +31,7 @@ LoadingScreen::LoadingScreen(){
         std::exit(1);
       });
 
-    css_provider->load_from_path("designs/application.css");
+    css_provider->load_from_resource("/loading_screen/application.css");
 
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
