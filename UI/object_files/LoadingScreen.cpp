@@ -22,12 +22,16 @@ LoadingScreen::LoadingScreen(){
         return;
     }
 
-    auto css_provider = gtk_css_provider_new();
+    auto css_provider = Gtk::CssProvider::create();
 
-    if(not gtk_css_provider_load_from_path(css_provider, "designs/application.css", NULL)){
-        std::cerr << "Can not load CSS File" << std::endl;
-        return;
-    }
+    css_provider->signal_parsing_error().connect(
+      [](const Glib::RefPtr<const Gtk::CssSection>& section,
+         const Glib::Error& error) {
+        std::cerr << "CSS Error: " << error.what() << std::endl;
+        std::exit(1);
+      });
+
+    css_provider->load_from_path("designs/application.css");
 
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
