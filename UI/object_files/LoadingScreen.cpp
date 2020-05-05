@@ -22,9 +22,9 @@ LoadingScreen::LoadingScreen(){
         return;
     }
 
-    auto css_provider = Gtk::CssProvider::create();
+    auto css_provider = gtk_css_provider_new();
 
-    if(not gtk_css_provider_load_from_path(*css_provider, "designs/application.css", NULL)){
+    if(not gtk_css_provider_load_from_path(css_provider, "designs/application.css", NULL)){
         std::cerr << "Can not load CSS File" << std::endl;
         return;
     }
