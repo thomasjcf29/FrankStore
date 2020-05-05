@@ -1,5 +1,6 @@
 #include "../header_files/LoadingScreen.h"
 #include <iostream>
+#include <fstream>
 
 LoadingScreen::LoadingScreen(){
     auto refBuilder = Gtk::Builder::create();
@@ -23,13 +24,16 @@ LoadingScreen::LoadingScreen(){
     }
 
     auto css_provider = Gtk::CssProvider::create();
-    try{
-        css_provider->load_from_file("designs/application.css");
-    }
-    catch(const Glib::Error& ex){
-        std::cerr << "CSS Error: " << ex.what() << std::endl;
+    ifstream fileC;
+
+    fileC.open("designs/application.css")
+
+    if(!fileC){
+        std::cerr << "Cannot open file." << std::endl;
         return;
     }
+
+    css_provider->load_from_file(fileC);
 
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
