@@ -24,7 +24,7 @@ LoadingScreen::LoadingScreen(){
     }
 
     auto css_provider = Gtk::CssProvider::create();
-    ifstream fileC;
+    std::ifstream fileC;
 
     fileC.open("designs/application.css")
 
