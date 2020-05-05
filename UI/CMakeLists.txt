@@ -16,6 +16,7 @@ file(GLOB FrankStoreUI_SRC
         "object_files/*.cpp"
         "header_files/*.h"
         "*.cpp"
+        "resources.c"
 )
 
 add_executable(FrankStoreUI ${FrankStoreUI_SRC})
