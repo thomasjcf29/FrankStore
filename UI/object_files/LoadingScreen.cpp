@@ -1,6 +1,5 @@
 #include "../header_files/LoadingScreen.h"
 #include <iostream>
-#include <fstream>
 
 LoadingScreen::LoadingScreen(){
     auto refBuilder = Gtk::Builder::create();
@@ -25,7 +24,7 @@ LoadingScreen::LoadingScreen(){
 
     auto css_provider = Gtk::CssProvider::create();
 
-    if(!css_provider->load_from_path("/designs/application.css")){
+    if(not gtk_css_provider_load_from_path(css_provider, "designs/application.css", NULL)){
         std::cerr << "Can not load CSS File" << std::endl;
         return;
     }
