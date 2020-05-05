@@ -36,6 +36,12 @@ LoadingScreen::LoadingScreen(){
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
         pWindow->show_all();
+        refBuilder->get_widget("loadingSpinner", pSpinner);
+        if(!pSpinner){
+            std::cerr << "Error loading glade design." << std::endl;
+            return;
+        }
+        pSpinner->start();
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         valid = true;
     }
@@ -43,6 +49,7 @@ LoadingScreen::LoadingScreen(){
 
 LoadingScreen::~LoadingScreen(){
     delete pWindow;
+    delete pSpinner;
 }
 
 Gtk::Window* LoadingScreen::getWindow(){
