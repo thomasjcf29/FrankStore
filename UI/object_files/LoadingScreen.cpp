@@ -42,6 +42,7 @@ LoadingScreen::LoadingScreen(){
             return;
         }
         pSpinner->start();
+        pSpinner->show();
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         valid = true;
     }
