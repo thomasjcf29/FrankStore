@@ -5,7 +5,7 @@ LoadingScreen::LoadingScreen(){
     auto refBuilder = Gtk::Builder::create();
 
     try{
-        refBuilder->add_from_file("designs/loading_screen.glade");
+        refBuilder->add_from_resource("/loading_screen/designs/loading_screen.glade");
     }
     catch(const Glib::FileError& ex){
         std::cerr << "FileError: " << ex.what() << std::endl;
@@ -31,7 +31,7 @@ LoadingScreen::LoadingScreen(){
         std::exit(1);
       });
 
-    css_provider->load_from_resource("/loading_screen/application.css");
+    css_provider->load_from_resource("/loading_screen/designs/application.css");
 
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
