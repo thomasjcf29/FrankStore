@@ -20,26 +20,61 @@
       <object class="GtkGrid" id="loadingScreenGrid">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="row_homogeneous">True</property>
+        <property name="column_homogeneous">True</property>
         <child>
-          <placeholder/>
+          <object class="GtkLabel" id="loadingLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Loading...</property>
+            <property name="justify">center</property>
+            <attributes>
+              <attribute name="scale" value="3"/>
+            </attributes>
+            <style>
+              <class name="LoadingTitle"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+            <property name="width">3</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkSpinner" id="loadingSpinner">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="active">True</property>
+            <style>
+              <class name="LoadingSpinner"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+            <property name="width">3</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
+          <object class="GtkLabel" id="byLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">end</property>
+            <property name="valign">end</property>
+            <property name="margin_right">5</property>
+            <property name="margin_bottom">3</property>
+            <property name="label" translatable="yes">By Tom Franklin
+</property>
+            <property name="single_line_mode">True</property>
+            <style>
+              <class name="AuthorTitle"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">2</property>
+          </packing>
         </child>
         <child>
           <placeholder/>
@@ -49,5 +84,8 @@
         </child>
       </object>
     </child>
+    <style>
+      <class name="Background"/>
+    </style>
   </object>
 </interface>
