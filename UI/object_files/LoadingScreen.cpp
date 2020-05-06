@@ -64,7 +64,14 @@ bool LoadingScreen::isValid(){
 bool LoadingScreen::readyUp(){
     string result = StaticFunctions::commandExec("echo %cd%");
     cout << "[FOUND]: " << foundFrankstore() << endl;
-    return true;
+
+    if(!foundFrankstore()){
+        FileChooser fileCh;
+        if(fileCh.isValid()){
+            pWindow->add(fileCh.getFileChooser());
+        }
+    }
+    return false;
 }
 
 bool LoadingScreen::foundFrankstore(){
