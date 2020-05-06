@@ -72,9 +72,10 @@ bool LoadingScreen::foundFrankstore(){
 
         //In Windows where returns a location if it's in the curent folder or
         //in the environment path
-        string result = StaticFunctions::commandExec("where FrankStore");
+        string result = StaticFunctions::commandExec("where FrankStore /q && if %ERRORLEVEL% EQU 0 echo OK");
 
-        if(result.find("INFO: Could not find files") != string::npos){
+        //There will not be an OK if the file does not exist
+        if(result.empty()){
             return false;
         }
 
