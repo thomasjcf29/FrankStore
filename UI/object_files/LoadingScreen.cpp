@@ -1,5 +1,6 @@
 #include "../header_files/LoadingScreen.h"
 #include "../header_files/StaticFunctions.h"
+#include <iostream>
 #include <sys/types.h>
 #include <sys/stat.h>
 
