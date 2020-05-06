@@ -1,6 +1,7 @@
 #include "../header_files/LoadingScreen.h"
 #include "../header_files/StaticFunctions.h"
-#include <iostream>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -36,12 +37,31 @@ LoadingScreen::LoadingScreen(){
 
     css_provider->load_from_resource("/loading_screen/designs/application.css");
 
+    refBuilder->get_widget("fileChooser", pChooser);
+
+    if(!pChooser){
+        cerr << "Invalid glade file!" << endl;
+        exit(1);
+    }
+
+    refBuilder->get_widget("alertBox", pDialog);
+    refBuilder->get_widget("okButton", dialogButton);
+    refBuilder->get_widget("fileButton", fileButton);
+
+    if(!pDialog || !dialogButton || !fileButton){
+        cerr << "Invalid glade file!" << endl;
+        exit(1);
+    }
+
+    dialogButton->signal_clicked().connect(sigc::mem_fun(*this, &LoadingScreen::on_dialog_ok));
+    fileButton->signal_clicked().connect(sigc::mem_fun(*this, &LoadingScreen::on_file_ok));
+
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
         pWindow->show_all();
         pWindow->show_all_children();
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-        int timeout_value = 5000; //5s
+        int timeout_value = 1000; //5s
         sigc::slot<bool> my_slot = sigc::mem_fun(*this, &LoadingScreen::readyUp);
         Glib::signal_timeout().connect(my_slot, timeout_value);
         valid = true;
@@ -50,6 +70,10 @@ LoadingScreen::LoadingScreen(){
 
 LoadingScreen::~LoadingScreen(){
     delete pWindow;
+    delete pChooser;
+    delete pDialog;
+    delete dialogButton;
+    delete fileButton;
 }
 
 Gtk::Window* LoadingScreen::getWindow(){
@@ -62,16 +86,32 @@ bool LoadingScreen::isValid(){
 
 bool LoadingScreen::readyUp(){
     string result = StaticFunctions::commandExec("echo %cd%");
-    cout << "[FOUND]: " << foundFrankstore() << endl;
 
     if(!foundFrankstore()){
-        FileChooser fileCh;
-        if(fileCh.isValid()){
-            auto app = pWindow->get_application();
-            app->add_window(*fileCh.getFileChooser());
-        }
+        pDialog->run();
+        pChooser->run();
     }
     return false;
+}
+
+void LoadingScreen::on_dialog_ok(){
+    pDialog->hide();
+}
+
+void LoadingScreen::on_file_ok(){
+    fileName = pChooser->get_filename();
+    struct stat info;
+
+    if(stat(fileName.c_str(), &info) != 0){
+        return;
+    }
+    else if(info.st_mode & S_IFDIR){
+        pChooser->set_current_folder(fileName);
+        return;
+    }
+    else{
+        pChooser->hide();
+    }
 }
 
 bool LoadingScreen::foundFrankstore(){
