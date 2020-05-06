@@ -3,5 +3,6 @@
   <gresource prefix="/loading_screen">
     <file>designs/loading_screen.glade</file>
     <file>designs/application.css</file>
+    <file>designs/file_chooser.css</file>
   </gresource>
 </gresources>
