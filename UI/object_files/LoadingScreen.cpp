@@ -69,7 +69,7 @@ bool LoadingScreen::readyUp(){
         FileChooser fileCh;
         if(fileCh.isValid()){
             Gtk::Application app = pWindow->get_application();
-            app.add_window(*fileCh);
+            app.add_window(*fileCh.getFileChooser());
         }
     }
     return false;
