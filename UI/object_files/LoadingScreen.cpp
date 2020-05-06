@@ -1,6 +1,8 @@
 #include "../header_files/LoadingScreen.h"
 #include <iostream>
 
+using namespace std;
+
 LoadingScreen::LoadingScreen(){
     auto refBuilder = Gtk::Builder::create();
 
@@ -8,17 +10,17 @@ LoadingScreen::LoadingScreen(){
         refBuilder->add_from_resource("/loading_screen/designs/loading_screen.glade");
     }
     catch(const Glib::FileError& ex){
-        std::cerr << "FileError: " << ex.what() << std::endl;
+        cerr << "FileError: " << ex.what() << endl;
         return;
     }
     catch(const Glib::MarkupError& ex)
     {
-        std::cerr << "MarkupError: " << ex.what() << std::endl;
+        cerr << "MarkupError: " << ex.what() << endl;
         return;
     }
     catch(const Gtk::BuilderError& ex)
     {
-        std::cerr << "BuilderError: " << ex.what() << std::endl;
+        cerr << "BuilderError: " << ex.what() << endl;
         return;
     }
 
@@ -27,8 +29,8 @@ LoadingScreen::LoadingScreen(){
     css_provider->signal_parsing_error().connect(
       [](const Glib::RefPtr<const Gtk::CssSection>& section,
          const Glib::Error& error) {
-        std::cerr << "CSS Error: " << error.what() << std::endl;
-        std::exit(1);
+        cerr << "CSS Error: " << error.what() << endl;
+        exit(1);
       });
 
     css_provider->load_from_resource("/loading_screen/designs/application.css");
@@ -36,13 +38,6 @@ LoadingScreen::LoadingScreen(){
     refBuilder->get_widget("loadingScreen", pWindow);
     if(pWindow){
         pWindow->show_all();
-        refBuilder->get_widget("loadingSpinner", pSpinner);
-        if(!pSpinner){
-            std::cerr << "Error loading glade design." << std::endl;
-            return;
-        }
-        pSpinner->start();
-        pSpinner->show();
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         valid = true;
     }
@@ -50,7 +45,11 @@ LoadingScreen::LoadingScreen(){
 
 LoadingScreen::~LoadingScreen(){
     delete pWindow;
-    delete pSpinner;
+}
+
+bool LoadingScreen::readyUp(){
+    cout << "[INFO]: Hello" << endl;
+    return true;
 }
 
 Gtk::Window* LoadingScreen::getWindow(){
