@@ -4,7 +4,7 @@
 
 using namespace std;
 
-FileChooser::FileChooser{
+FileChooser::FileChooser(){
     auto refBuilder = Gtk::Builder::create();
 
     try{
@@ -45,7 +45,7 @@ FileChooser::FileChooser{
     }
 }
 
-FileChooser::~FileChooser{
+FileChooser::~FileChooser(){
     delete pChooser;
 }
 
