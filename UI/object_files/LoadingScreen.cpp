@@ -68,7 +68,7 @@ bool LoadingScreen::readyUp(){
     if(!foundFrankstore()){
         FileChooser fileCh;
         if(fileCh.isValid()){
-            pWindow->add(*fileCh.getFileChooser());
+            fileCh.getFileChooser()->show();
         }
     }
     return false;
