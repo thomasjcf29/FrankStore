@@ -14,6 +14,6 @@ public:
     std::string getFileLocation();
     Gtk::FileChooserDialog* getFileChooser();
     bool isValid();
-}
+};
 
 #endif //FRANKSTOREUI_FILECHOOSER_H
