@@ -1,4 +1,5 @@
 #include "../header_files/LoadingScreen.h"
+#include "../header_files/StaticFunctions.h"
 #include <iostream>
 
 using namespace std;
@@ -52,7 +53,8 @@ LoadingScreen::~LoadingScreen(){
 }
 
 bool LoadingScreen::readyUp(){
-    cout << "[INFO]: Hello" << endl;
+    string result = StaticFunctions::commandExec("echo hello");
+    cout << "[TEST]: " << result << endl;
     return true;
 }
 
