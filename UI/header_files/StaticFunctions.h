@@ -1,7 +1,7 @@
 #ifndef FRANKSTOREUI_STATICFUNCTIONS_H
 #define FRANKSTOREUI_STATICFUNCTIONS_H
 
-#include <string.h>
+#include <string>
 
 class StaticFunctions{
 private:
