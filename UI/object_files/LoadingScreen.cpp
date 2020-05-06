@@ -68,7 +68,8 @@ bool LoadingScreen::readyUp(){
     if(!foundFrankstore()){
         FileChooser fileCh;
         if(fileCh.isValid()){
-            fileCh.getFileChooser()->show();
+            Gtk::Application app = pWindow->get_application();
+            app->add_window(*fileCh);
         }
     }
     return false;
