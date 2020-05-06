@@ -41,7 +41,7 @@ LoadingScreen::LoadingScreen(){
         pWindow->show_all_children();
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         int timeout_value = 5000; //5s
-        sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*pWindow, &LoadingScreen::readyUp), 0);
+        sigc::slot<bool> my_slot = sigc::mem_fun(*this, &LoadingScreen::readyUp);
         Glib::signal_timeout().connect(my_slot, timeout_value);
         valid = true;
     }
