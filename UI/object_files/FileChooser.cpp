@@ -37,9 +37,9 @@ FileChooser::FileChooser(){
     css_provider->load_from_resource("/loading_screen/designs/application.css");
 
     refBuilder->get_widget("fileChooser", pChooser);
-    if(pWindow){
-        pWindow->show_all();
-        pWindow->show_all_children();
+    if(pChooser){
+        pChooser->show_all();
+        pChooser->show_all_children();
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         valid = true;
     }
