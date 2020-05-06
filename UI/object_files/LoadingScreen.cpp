@@ -1,5 +1,6 @@
 #include "../header_files/LoadingScreen.h"
 #include "../header_files/StaticFunctions.h"
+#include "../header_files/FileChooser.h"
 #include <iostream>
 
 using namespace std;
