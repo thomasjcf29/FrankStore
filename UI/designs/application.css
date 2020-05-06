@@ -2,6 +2,10 @@
     color: #F4A261;
 }
 
+.errorLabel{
+    color: #E76F51; 
+}
+
 .LoadingSpinner{
     color: #E9C46A;
 }

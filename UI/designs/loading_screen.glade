@@ -147,6 +147,9 @@
                 <attributes>
                   <attribute name="size" value="12000"/>
                 </attributes>
+                <style>
+                  <class name="ErrorLabel"/>
+                </style>
               </object>
               <packing>
                 <property name="left_attach">0</property>
