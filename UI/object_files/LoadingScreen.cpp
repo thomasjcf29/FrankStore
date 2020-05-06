@@ -53,7 +53,7 @@ LoadingScreen::~LoadingScreen(){
 }
 
 bool LoadingScreen::readyUp(){
-    string result = StaticFunctions::commandExec("echo pwd");
+    string result = StaticFunctions::commandExec("echo %cd%");
     cout << "[TEST]: " << result << endl;
     return true;
 }
