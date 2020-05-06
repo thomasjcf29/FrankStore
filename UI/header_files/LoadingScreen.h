@@ -7,12 +7,14 @@ class LoadingScreen{
 private:
     Gtk::Window* pWindow = nullptr;
     bool valid = false;
+
+    bool readyUp();
+    bool foundFrankstore();
 public:
     LoadingScreen();
     ~LoadingScreen();
     Gtk::Window* getWindow();
     bool isValid();
-    bool readyUp();
 };
 
 #endif //FRANKSTOREUI_LOADINGSCREEN_H

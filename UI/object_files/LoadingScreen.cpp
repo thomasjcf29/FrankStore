@@ -52,16 +52,46 @@ LoadingScreen::~LoadingScreen(){
     delete pWindow;
 }
 
-bool LoadingScreen::readyUp(){
-    string result = StaticFunctions::commandExec("echo %cd%");
-    cout << "[TEST]: " << result << endl;
-    return true;
-}
-
 Gtk::Window* LoadingScreen::getWindow(){
     return pWindow;
 }
 
 bool LoadingScreen::isValid(){
     return valid;
+}
+
+bool LoadingScreen::readyUp(){
+    string result = StaticFunctions::commandExec("echo %cd%");
+    cout << "[FOUND]: " << foundFrankstore() << endl;
+    return true;
+}
+
+bool LoadingScreen::foundFrankstore(){
+
+    #ifdef WIN32
+
+        //In Windows where returns a location if it's in the curent folder or
+        //in the environment path
+        string result = StaticFunctions::comandExec("where FrankStore");
+
+        if(result.find("INFO: Could not find files") != string::npos){
+            return false;
+        }
+
+        return true;
+
+    #else
+
+        //In Linux which will only return a result if it's in the environment
+        //path, you will also have to check the local folder.
+        string pathResult = StaticFunctions::comandExec("which FrankStore");
+        string localResult = StaticFunctions::comandExec("ls -lA . | grep -ow FrankStore");
+
+        if(pathResult.empty() && localResult.empty()){
+            return false;
+        }
+
+        return true;
+
+    #endif
 }
