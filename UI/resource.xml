@@ -4,4 +4,8 @@
     <file>designs/loading_screen.glade</file>
     <file>designs/application.css</file>
   </gresource>
+  <gresource prefix="/main_screen">
+    <file>designs/main_screen.glade</file>
+    <file>designs/application.css</file>
+  </gresource>
 </gresources>
