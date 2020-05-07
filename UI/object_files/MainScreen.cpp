@@ -98,7 +98,7 @@ void MainScreen::show_encryption_parts(){
     if(!encrypt){
         btnAddImageKey->hide();
         btnEditImageKey->hide();
-        btnEditDelKey->hide();
+        btnDelImageKey->hide();
         btnAddPassword->hide();
         btnEditPassword->hide();
         btnDelPassword->hide();
@@ -107,12 +107,12 @@ void MainScreen::show_encryption_parts(){
         if(encryptPassword.empty()){
             btnAddImageKey->show();
             btnEditImageKey->hide();
-            btnEditDelKey->hide();
+            btnDelImageKey->hide();
         }
         else{
             btnAddImageKey->hide();
             btnEditImageKey->show();
-            btnEditDelKey->show();
+            btnDelImageKey->show();
         }
 
         if(encryptImage.empty()){
