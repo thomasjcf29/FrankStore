@@ -7,8 +7,10 @@
 }
 
 .Form{
-    color: #2A9D8F;
-    background-color: #F4A261;
+    color: #F4A261;
+    background-color: #3A5D63;
+    border-radius: 60;
+    margin-bottom: 5;
 }
 
 .LoadingSpinner{
