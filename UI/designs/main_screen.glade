@@ -145,7 +145,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="btnAddPssword">
+                  <object class="GtkButton" id="btnAddPassword">
                     <property name="label" translatable="yes">Add Password</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
