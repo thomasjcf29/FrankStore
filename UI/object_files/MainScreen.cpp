@@ -38,7 +38,24 @@ MainScreen::MainScreen(string application){
 
     css_provider->load_from_resource("/main_screen/designs/application.css");
 
+    //Windows / Dialogs
     refBuilder->get_widget("mainWindow", pWindow);
+    refBuilder->get_widget("gridEncryption", gridEncryption);
+
+    //Encryption Section
+    refBuilder->get_widget("btnAddImageKey", btnAddImageKey);
+    refBuilder->get_widget("btnEditImageKey", btnEditImageKey);
+    refBuilder->get_widget("btnDelImageKey", btnDelImageKey);
+    refBuilder->get_widget("btnAddPassword", btnAddPassword);
+    refBuilder->get_widget("btnEditPassword", btnEditPassword);
+    refBuilder->get_widget("btnDelPassword", btnDelPassword);
+    refBuilder->get_widget("switchEncryption", switchEncryption);
+
+    if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword || !btnEditPassword || !btnDelPassword || !switchEncryption ||){
+        cout << "Invalid glade file!" << endl;
+        exit(1);
+    }
+
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         valid = true;
