@@ -40,8 +40,6 @@ MainScreen::MainScreen(string application){
 
     refBuilder->get_widget("mainWindow", pWindow);
     if(pWindow){
-        pWindow->show_all();
-        pWindow->show_all_children();
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         valid = true;
     }
