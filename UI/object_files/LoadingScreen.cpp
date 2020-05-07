@@ -141,6 +141,10 @@ bool LoadingScreen::foundFrankstore(){
             return false;
         }
 
+        if(!localResult.empty()){
+            fileName = "./FrankStore";
+        }
+
         return true;
 
     #endif
