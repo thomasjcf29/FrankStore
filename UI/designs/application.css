@@ -9,8 +9,8 @@
 .Form{
     color: #F4A261;
     background-color: #3A5D63;
-    border-radius: 60;
-    margin-bottom: 5;
+    border-radius: 60px;
+    margin-bottom: 5px;
 }
 
 .LoadingSpinner{
