@@ -13,6 +13,7 @@ private:
     //Windows / Dialogs
     Gtk::Window* pWindow = nullptr;
     Gtk::Grid* gridEncryption = nullptr;
+    Gtk::Paned* pneController = nullptr;
 
     //Encryption Section
     Gtk::Button* btnAddImageKey = nullptr;
@@ -21,9 +22,9 @@ private:
     Gtk::Button* btnAddPassword = nullptr;
     Gtk::Button* btnEditPassword = nullptr;
     Gtk::Button* btnDelPassword = nullptr;
-    Gtk::Switch* switchEncryption = nullptr;
+    Gtk::CheckButton* chkEncryption = nullptr;
 
-    void switch_encryption_pressed();
+    void checkbox_encryption_toggled();
 
 public:
     MainScreen(std::string application);

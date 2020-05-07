@@ -41,6 +41,7 @@ MainScreen::MainScreen(string application){
     //Windows / Dialogs
     refBuilder->get_widget("mainWindow", pWindow);
     refBuilder->get_widget("gridEncryption", gridEncryption);
+    refBuilder->get_widget("pneController", pneController);
 
     //Encryption Section
     refBuilder->get_widget("btnAddImageKey", btnAddImageKey);
@@ -49,17 +50,19 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("btnAddPassword", btnAddPassword);
     refBuilder->get_widget("btnEditPassword", btnEditPassword);
     refBuilder->get_widget("btnDelPassword", btnDelPassword);
-    refBuilder->get_widget("switchEncryption", switchEncryption);
+    refBuilder->get_widget("chkEncryption", chkEncryption);
 
-    if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword || !btnEditPassword || !btnDelPassword || !switchEncryption){
+    if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword || !btnEditPassword || !btnDelPassword || !chkEncryption || !pneController){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
 
-    switchEncryption->signal_button_press_event().connect(sigc::mem_fun(*this, &MainScreen::switch_encryption_pressed));
+    chkEncryption->signal_toggled().connect(sigc::mem_fun(*this, &MainScreen::checkbox_encryption_toggled));
 
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+        pWindow->set_size_request(1500, 600);
+        pneController->set_position(600);
         valid = true;
     }
 
@@ -73,7 +76,8 @@ MainScreen::~MainScreen(){
     delete btnAddPassword;
     delete btnEditPassword;
     delete btnDelPassword;
-    delete switchEncryption;
+    delete chkEncryption;
+    delete pneController;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -84,7 +88,8 @@ bool MainScreen::isValid(){
     return valid;
 }
 
-void MainScreen::switch_encryption_pressed(){
+void MainScreen::checkbox_encryption_toggled(){
+    //cout << "Result: " << result << endl;
     encrypt = !encrypt;
 
     if(encrypt){
@@ -93,4 +98,6 @@ void MainScreen::switch_encryption_pressed(){
     else{
         gridEncryption->hide();
     }
+
+    //return false;
 }
