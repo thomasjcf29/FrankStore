@@ -152,6 +152,9 @@
                     <property name="receives_default">True</property>
                     <property name="image_position">right</property>
                     <property name="always_show_image">True</property>
+                    <style>
+                      <class name="Form"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
