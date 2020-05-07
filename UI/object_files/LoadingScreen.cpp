@@ -79,6 +79,10 @@ bool LoadingScreen::isValid(){
     return valid;
 }
 
+string LoadingScreen::getExecutable(){
+    return fileName;
+}
+
 bool LoadingScreen::readyUp(){
     string result = StaticFunctions::commandExec("echo %cd%");
 
@@ -86,6 +90,9 @@ bool LoadingScreen::readyUp(){
         pDialog->run();
         pChooser->run();
     }
+
+    pWindow->close();
+
     return false;
 }
 

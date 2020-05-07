@@ -23,6 +23,7 @@ public:
     ~LoadingScreen();
     Gtk::Window* getWindow();
     bool isValid();
+    std::string getExecutable();
 };
 
 #endif //FRANKSTOREUI_LOADINGSCREEN_H

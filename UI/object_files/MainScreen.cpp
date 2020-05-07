@@ -38,7 +38,7 @@ MainScreen::MainScreen(string application){
 
     css_provider->load_from_resource("/main_screen/designs/application.css");
 
-    refBuilder->get_widget("loadingScreen", pWindow);
+    refBuilder->get_widget("mainWindow", pWindow);
     if(pWindow){
         pWindow->show_all();
         pWindow->show_all_children();
@@ -52,7 +52,7 @@ MainScreen::~MainScreen(){
     delete pWindow;
 }
 
-Gtk::Window* MainScreen::getwindow(){
+Gtk::Window* MainScreen::getWindow(){
     return pWindow;
 }
 
