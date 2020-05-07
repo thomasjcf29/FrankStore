@@ -139,7 +139,7 @@ void MainScreen::show_encryption_parts(){
         btnDelPassword->hide();
     }
     else{
-        if(encryptPassword.empty()){
+        if(encryptImage.empty()){
             btnAddImageKey->show();
             btnEditImageKey->hide();
             btnDelImageKey->hide();
@@ -150,7 +150,7 @@ void MainScreen::show_encryption_parts(){
             btnDelImageKey->show();
         }
 
-        if(encryptImage.empty()){
+        if(encryptPassword.empty()){
             btnAddPassword->show();
             btnEditPassword->hide();
             btnDelPassword->hide();
