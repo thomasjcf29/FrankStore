@@ -39,17 +39,11 @@ LoadingScreen::LoadingScreen(){
     css_provider->load_from_resource("/loading_screen/designs/application.css");
 
     refBuilder->get_widget("fileChooser", pChooser);
-
-    if(!pChooser){
-        cerr << "Invalid glade file!" << endl;
-        exit(1);
-    }
-
     refBuilder->get_widget("alertBox", pDialog);
     refBuilder->get_widget("okButton", dialogButton);
     refBuilder->get_widget("fileButton", fileButton);
 
-    if(!pDialog || !dialogButton || !fileButton){
+    if(!pDialog || !dialogButton || !fileButton || !pChooser){
         cerr << "Invalid glade file!" << endl;
         exit(1);
     }
