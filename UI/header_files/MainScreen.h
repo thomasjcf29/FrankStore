@@ -22,7 +22,8 @@ private:
     Gtk::Button* btnEditPassword = nullptr;
     Gtk::Button* btnDelPassword = nullptr;
     Gtk::Switch* switchEncryption = nullptr;
-    
+
+    void switch_encryption_pressed();
 
 public:
     MainScreen(std::string application);

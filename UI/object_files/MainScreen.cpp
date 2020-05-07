@@ -56,6 +56,8 @@ MainScreen::MainScreen(string application){
         exit(1);
     }
 
+    switchEncryption->signal_button_press_event.connect(sigc::mem_fun(*this, &MainScreen::switch_encryption_pressed));
+
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         valid = true;
@@ -80,4 +82,15 @@ Gtk::Window* MainScreen::getWindow(){
 
 bool MainScreen::isValid(){
     return valid;
+}
+
+void MainScreen::switch_encryption_pressed(){
+    encrypt = !encrypt;
+
+    if(encrypt){
+        gridEncryption->show();
+    }
+    else{
+        gridEncryption->hide();
+    }
 }
