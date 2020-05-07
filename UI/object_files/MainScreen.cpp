@@ -65,6 +65,13 @@ MainScreen::MainScreen(string application){
 
 MainScreen::~MainScreen(){
     delete pWindow;
+    delete btnAddImageKey;
+    delete btnEditImageKey;
+    delete btnDelImageKey;
+    delete btnAddPassword;
+    delete btnEditPassword;
+    delete btnDelPassword;
+    delete switchEncryption;
 }
 
 Gtk::Window* MainScreen::getWindow(){
