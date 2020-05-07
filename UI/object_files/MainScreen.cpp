@@ -89,15 +89,41 @@ bool MainScreen::isValid(){
 }
 
 void MainScreen::checkbox_encryption_toggled(){
-    //cout << "Result: " << result << endl;
     encrypt = !encrypt;
+    show_encryption_parts();
+}
 
-    if(encrypt){
-        gridEncryption->show();
+
+void MainScreen::show_encryption_parts(){
+    if(!encrypt){
+        btnAddImageKey->hide();
+        btnEditImageKey->hide();
+        btnEditDelKey->hide();
+        btnAddPassword->hide();
+        btnEditPassword->hide();
+        btnDelPassword->hide();
     }
     else{
-        gridEncryption->hide();
-    }
+        if(encryptPassword.empty()){
+            btnAddImageKey->show();
+            btnEditImageKey->hide();
+            btnEditDelKey->hide();
+        }
+        else{
+            btnAddImageKey->hide();
+            btnEditImageKey->show();
+            btnEditDelKey->show();
+        }
 
-    //return false;
+        if(encryptImage.empty()){
+            btnAddPassword->show();
+            btnEditPassword->hide();
+            btnDelPassword->hide();
+        }
+        else{
+            btnAddPassword->hide();
+            btnEditPassword->show();
+            btnDelPassword->show();
+        }
+    }
 }

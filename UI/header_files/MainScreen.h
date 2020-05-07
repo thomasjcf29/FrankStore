@@ -25,7 +25,7 @@ private:
     Gtk::CheckButton* chkEncryption = nullptr;
 
     void checkbox_encryption_toggled();
-
+    void show_encryption_parts();
 public:
     MainScreen(std::string application);
     ~MainScreen();
