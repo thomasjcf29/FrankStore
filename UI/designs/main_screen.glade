@@ -20,7 +20,7 @@
       <object class="GtkPaned" id="pneController">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
-        <property name="position">500</property>
+        <property name="position">600</property>
         <property name="position_set">True</property>
         <child>
           <object class="GtkGrid">
@@ -56,12 +56,13 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="valign">start</property>
+                    <property name="margin_left">15</property>
                     <property name="margin_bottom">5</property>
-                    <property name="hexpand">True</property>
                     <property name="label" translatable="yes">1. Would you like to encrypt the file before hiding?</property>
                     <property name="single_line_mode">True</property>
-                    <property name="xalign">0.10000000149011612</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="size" value="12000"/>
                     </attributes>
@@ -112,16 +113,16 @@
                 <property name="vexpand">True</property>
                 <property name="row_spacing">5</property>
                 <property name="column_spacing">2</property>
-                <property name="row_homogeneous">True</property>
                 <property name="column_homogeneous">True</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
+                    <property name="margin_left">15</property>
                     <property name="label" translatable="yes">2. Please select encryption parameters</property>
-                    <property name="xalign">0.10000000149011612</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="size" value="12000"/>
                     </attributes>
@@ -198,6 +199,7 @@
                 <child>
                   <object class="GtkButton" id="btnAddPassword">
                     <property name="label" translatable="yes">Add Password</property>
+                    <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -268,11 +270,13 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="valign">start</property>
+                    <property name="margin_left">15</property>
                     <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">3. Select cover image</property>
                     <property name="single_line_mode">True</property>
-                    <property name="xalign">0.070000000298023224</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="size" value="12000"/>
                     </attributes>
@@ -317,11 +321,12 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="valign">start</property>
+                    <property name="margin_left">15</property>
                     <property name="margin_bottom">5</property>
-                    <property name="hexpand">True</property>
                     <property name="label" translatable="yes">5. Would you like to encode or decode?</property>
-                    <property name="xalign">0.10000000149011612</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="size" value="12000"/>
                     </attributes>
@@ -383,11 +388,12 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="valign">start</property>
+                    <property name="margin_left">15</property>
                     <property name="margin_bottom">5</property>
-                    <property name="hexpand">True</property>
                     <property name="label" translatable="yes">4. Select files/folders</property>
-                    <property name="xalign">0.070000000298023224</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="size" value="12000"/>
                     </attributes>
@@ -786,6 +792,8 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="margin_left">15</property>
                 <property name="hexpand">True</property>
                 <property name="label" translatable="yes">6. File status</property>
                 <property name="single_line_mode">True</property>
