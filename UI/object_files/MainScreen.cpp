@@ -131,34 +131,34 @@ void MainScreen::btn_del_pwd(){
 
 void MainScreen::show_encryption_parts(){
     if(!encrypt){
-        btnAddImageKey->hide();
-        btnEditImageKey->hide();
-        btnDelImageKey->hide();
-        btnAddPassword->hide();
-        btnEditPassword->hide();
-        btnDelPassword->hide();
+        btnAddImageKey->set_sensitive(false);
+        btnEditImageKey->set_sensitive(false);
+        btnDelImageKey->set_sensitive(false);
+        btnAddPassword->set_sensitive(false);
+        btnEditPassword->set_sensitive(false);
+        btnDelPassword->set_sensitive(false);
     }
     else{
         if(encryptImage.empty()){
-            btnAddImageKey->show();
-            btnEditImageKey->hide();
-            btnDelImageKey->hide();
+            btnAddImageKey->set_sensitive();
+            btnEditImageKey->set_sensitive(false);
+            btnDelImageKey->set_sensitive(false);
         }
         else{
-            btnAddImageKey->hide();
-            btnEditImageKey->show();
-            btnDelImageKey->show();
+            btnAddImageKey->set_sensitive(false);
+            btnEditImageKey->set_sensitive();
+            btnDelImageKey->set_sensitive();
         }
 
         if(encryptPassword.empty()){
-            btnAddPassword->show();
-            btnEditPassword->hide();
-            btnDelPassword->hide();
+            btnAddPassword->set_sensitive();
+            btnEditPassword->set_sensitive(false);
+            btnDelPassword->set_sensitive(false);
         }
         else{
-            btnAddPassword->hide();
-            btnEditPassword->show();
-            btnDelPassword->show();
+            btnAddPassword->set_sensitive(false);
+            btnEditPassword->set_sensitive();
+            btnDelPassword->set_sensitive();
         }
     }
 }

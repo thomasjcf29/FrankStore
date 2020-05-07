@@ -12,6 +12,10 @@
     border-radius: 60px;
 }
 
+.Form:disabled{
+    background-color: #000000;
+}
+
 .BottomMargin{
     margin-bottom: 5px;
 }

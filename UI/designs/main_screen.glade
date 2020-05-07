@@ -112,14 +112,14 @@
                 <property name="vexpand">True</property>
                 <property name="row_spacing">5</property>
                 <property name="column_spacing">2</property>
+                <property name="row_homogeneous">True</property>
                 <property name="column_homogeneous">True</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="valign">start</property>
-                    <property name="margin_bottom">5</property>
                     <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
                     <property name="label" translatable="yes">2. Please select encryption parameters</property>
                     <property name="xalign">0.10000000149011612</property>
                     <attributes>
@@ -138,6 +138,8 @@
                 <child>
                   <object class="GtkButton" id="btnDelImageKey">
                     <property name="label" translatable="yes">Remove Image Key</property>
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
@@ -145,6 +147,7 @@
                     <property name="always_show_image">True</property>
                     <style>
                       <class name="Form"/>
+                      <class name="Disabled"/>
                     </style>
                   </object>
                   <packing>
@@ -155,6 +158,8 @@
                 <child>
                   <object class="GtkButton" id="btnDelPassword">
                     <property name="label" translatable="yes">Remove Password</property>
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
@@ -162,6 +167,7 @@
                     <property name="always_show_image">True</property>
                     <style>
                       <class name="Form"/>
+                      <class name="Disabled"/>
                     </style>
                   </object>
                   <packing>
@@ -172,6 +178,8 @@
                 <child>
                   <object class="GtkButton" id="btnEditPassword">
                     <property name="label" translatable="yes">Edit Password</property>
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
@@ -179,6 +187,7 @@
                     <property name="always_show_image">True</property>
                     <style>
                       <class name="Form"/>
+                      <class name="Disabled"/>
                     </style>
                   </object>
                   <packing>
@@ -189,6 +198,7 @@
                 <child>
                   <object class="GtkButton" id="btnAddPassword">
                     <property name="label" translatable="yes">Add Password</property>
+                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
@@ -206,6 +216,8 @@
                 <child>
                   <object class="GtkButton" id="btnEditImageKey">
                     <property name="label" translatable="yes">Edit Image Key</property>
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
@@ -213,6 +225,7 @@
                     <property name="always_show_image">True</property>
                     <style>
                       <class name="Form"/>
+                      <class name="Disabled"/>
                     </style>
                   </object>
                   <packing>
@@ -223,6 +236,7 @@
                 <child>
                   <object class="GtkButton" id="btnAddImageKey">
                     <property name="label" translatable="yes">Add Image Key</property>
+                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
