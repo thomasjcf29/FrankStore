@@ -69,7 +69,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSwitch">
+                  <object class="GtkSwitch" id="switchEncryption">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                   </object>
@@ -91,8 +91,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkGrid">
-                <property name="visible">True</property>
+              <object class="GtkGrid" id="gridEncryption">
                 <property name="can_focus">False</property>
                 <property name="row_homogeneous">True</property>
                 <child>
@@ -116,7 +115,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="btnAddImageKey">
                     <property name="label" translatable="yes">Add Image Key</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -130,9 +129,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="btnEditImageKey">
                     <property name="label" translatable="yes">Edit Image Key</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="image_position">right</property>
@@ -144,7 +142,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="btnAddPssword">
                     <property name="label" translatable="yes">Add Password</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -158,9 +156,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="btnEditPassword">
                     <property name="label" translatable="yes">Edit Password</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="image_position">right</property>
@@ -172,9 +169,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="btnDeletePassword">
                     <property name="label" translatable="yes">Remove Password</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="image_position">right</property>
@@ -186,9 +182,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="btnDelImageKey">
                     <property name="label" translatable="yes">Remove Image Key</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="image_position">right</property>
