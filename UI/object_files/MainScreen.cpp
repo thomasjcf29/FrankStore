@@ -51,7 +51,7 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("btnDelPassword", btnDelPassword);
     refBuilder->get_widget("switchEncryption", switchEncryption);
 
-    if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword || !btnEditPassword || !btnDelPassword || !switchEncryption ||){
+    if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword || !btnEditPassword || !btnDelPassword || !switchEncryption){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
