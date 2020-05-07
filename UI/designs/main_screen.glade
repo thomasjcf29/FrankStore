@@ -7,13 +7,24 @@
     <property name="title" translatable="yes">FrankStoreUI</property>
     <property name="window_position">center</property>
     <property name="default_width">880</property>
-    <property name="default_height">880</property>
+    <property name="default_height">440</property>
     <property name="gravity">center</property>
     <child>
       <placeholder/>
     </child>
     <child>
-      <placeholder/>
+      <object class="GtkPaned">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="position">220</property>
+        <property name="position_set">True</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
     </child>
     <style>
       <class name="Background"/>
