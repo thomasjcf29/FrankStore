@@ -25,6 +25,13 @@ private:
     Gtk::CheckButton* chkEncryption = nullptr;
 
     void checkbox_encryption_toggled();
+    void btn_add_image();
+    void btn_edit_image();
+    void btn_del_image();
+    void btn_add_pwd();
+    void btn_edit_pwd();
+    void btn_del_pwd();
+
     void show_encryption_parts();
 public:
     MainScreen(std::string application);

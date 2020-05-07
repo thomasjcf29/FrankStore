@@ -58,6 +58,12 @@ MainScreen::MainScreen(string application){
     }
 
     chkEncryption->signal_toggled().connect(sigc::mem_fun(*this, &MainScreen::checkbox_encryption_toggled));
+    btnAddImageKey->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_add_image));
+    btnEditImageKey->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_edit_image));
+    btnDelImageKey->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_del_image));
+    btnAddPassword->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_add_pwd));
+    btnEditPassword->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_edit_pwd));
+    btnDelPassword->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_del_pwd));
 
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -93,6 +99,35 @@ void MainScreen::checkbox_encryption_toggled(){
     show_encryption_parts();
 }
 
+void MainScreen::btn_add_image(){
+    encryptImage = "hello";
+    show_encryption_parts();
+}
+
+void MainScreen::btn_edit_image(){
+    encryptImage = "you";
+    show_encryption_parts();
+}
+
+void MainScreen::btn_del_image(){
+    encryptImage.clear();
+    show_encryption_parts();
+}
+
+void MainScreen::btn_add_pwd(){
+    encryptPassword = "hello";
+    show_encryption_parts();
+}
+
+void MainScreen::btn_edit_pwd(){
+    encryptPassword = "you";
+    show_encryption_parts();
+}
+
+void MainScreen::btn_del_pwd(){
+    encryptPassword.clear();
+    show_encryption_parts();
+}
 
 void MainScreen::show_encryption_parts(){
     if(!encrypt){
