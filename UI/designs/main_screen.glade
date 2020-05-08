@@ -3,16 +3,27 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <!-- interface-css-provider-path application.css -->
-  <object class="GtkFileFilter" id="filefilter1">
-    <mime-types>
-      <mime-type>image/*</mime-type>
-    </mime-types>
+  <object class="GtkFileFilter" id="ImageFilter">
+    <patterns>
+      <pattern>*.jpg</pattern>
+      <pattern>*.png</pattern>
+      <pattern>*.jpeg</pattern>
+      <pattern>*.tiff</pattern>
+      <pattern>*.gif</pattern>
+      <pattern>*.bmp</pattern>
+      <pattern>*.png</pattern>
+      <pattern>*.ppm</pattern>
+      <pattern>*.pgm</pattern>
+      <pattern>*.pbm</pattern>
+      <pattern>*.pnm</pattern>
+      <pattern>*.heif</pattern>
+    </patterns>
   </object>
   <object class="GtkFileChooserDialog" id="encryptionImageChooser">
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="type_hint">normal</property>
-    <property name="filter">filefilter1</property>
+    <property name="filter">ImageFilter</property>
     <child>
       <placeholder/>
     </child>
