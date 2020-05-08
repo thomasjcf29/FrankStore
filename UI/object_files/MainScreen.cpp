@@ -159,7 +159,7 @@ void MainScreen::add_files(std::stringPath, std::string folder){
             else if(ent->d_type == DT_DIR)
                 cout << "Directory" << endl;
 
-            printf ("%s\n", (stringPath + "\" + ent->d_name));
+            printf ("%s\n", (stringPath + "/" + ent->d_name));
         }
         closedir(dir);
     }

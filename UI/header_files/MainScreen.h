@@ -71,7 +71,7 @@ private:
     void btn_folder_no();
     void btn_folder_yes();
 
-    void add_files(std::string folder);
+    void add_files(std::string path, std::string folder);
 public:
     MainScreen(std::string application);
     ~MainScreen();
