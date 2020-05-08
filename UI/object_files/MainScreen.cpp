@@ -370,6 +370,4 @@ void MainScreen::add_files_to_screen(){
 
         grids.push_back(grid);
     }
-
-    delete[] array;
 }
