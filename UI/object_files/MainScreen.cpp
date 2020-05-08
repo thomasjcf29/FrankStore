@@ -147,7 +147,7 @@ bool MainScreen::isValid(){
     return valid;
 }
 
-void MainScreen::add_files(std::stringPath, std::string folder){
+void MainScreen::add_files(std::string path, std::string folder){
     DIR *dir;
     struct dirent *ent;
     if((dir = opendir(folder.c_str())) != NULL){
