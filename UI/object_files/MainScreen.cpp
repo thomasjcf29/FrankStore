@@ -343,5 +343,5 @@ void MainScreen::btn_folder_yes(){
 
 void MainScreen::btn_del_files(){
     files.clear();
-    cout << "Size of files to hide: " < files.size() << endl;
+    cout << "Size of files to hide: " << files.size() << endl;
 }
