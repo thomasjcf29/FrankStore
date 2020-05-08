@@ -623,7 +623,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="btnDelFiles">
                     <property name="label" translatable="yes">Clear Current List Of Files</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>

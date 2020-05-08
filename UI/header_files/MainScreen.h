@@ -56,6 +56,9 @@ private:
     Gtk::Button* btnFolderYes = nullptr;
     Gtk::Button* btnAddFiles = nullptr;
 
+    //File Removal
+    Gtk::Button* btnDelFiles = nullptr;
+
     void checkbox_encryption_toggled();
     void btn_add_image();
     void btn_edit_image();
@@ -79,6 +82,8 @@ private:
 
     void add_files(std::string path, std::string folder);
     bool isDir(std::string location);
+
+    void btn_del_files();
 public:
     MainScreen(std::string application);
     ~MainScreen();

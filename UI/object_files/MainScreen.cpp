@@ -76,11 +76,15 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("btnFolderNo", btnFolderNo);
     refBuilder->get_widget("btnFolderYes", btnFolderYes);
 
+    //File Removal
+    refBuilder->get_widget("btnDelFiles", btnDelFiles);
+
     if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword ||
        !btnEditPassword || !btnDelPassword || !chkEncryption || !pneController ||
        !passwordDialog || !btnPasswordChosen || !passwordEntry || !errorLabel ||
        !encryptionImageChooser || !btnOpenEncryptionImage || !btnCoverImage || !confirmationDialog ||
-       !filesToHideChooser || !btnFilesChosen || !btnFolderNo || !btnFolderYes){
+       !filesToHideChooser || !btnFilesChosen || !btnFolderNo || !btnFolderYes ||
+       !btnDelFiles){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
@@ -103,6 +107,8 @@ MainScreen::MainScreen(string application){
     btnFilesChosen->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_file_choosen));
     btnFolderNo->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_folder_no));
     btnFolderYes->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_folder_yes));
+
+    btnDelFiles->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_del_files));
 
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -136,7 +142,7 @@ MainScreen::~MainScreen(){
     delete btnFolderNo;
     delete btnFolderYes;
     delete btnAddFiles;
-
+    delete btnDelFiles;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -297,6 +303,7 @@ void MainScreen::show_encryption_parts(){
 void MainScreen::show_file_chooser(){
     confirmFolder = false;
     filesToHideChooser->run();
+    cout << "Size of files to hide: " << files.size() << endl;
 }
 
 void MainScreen::btn_file_choosen(){
@@ -332,4 +339,9 @@ void MainScreen::btn_folder_no(){
 void MainScreen::btn_folder_yes(){
     confirmFolder = true;
     confirmationDialog->hide();
+}
+
+void MainScreen::btn_del_files(){
+    files.clear();
+    cout << "Size of files to hide: " < files.size() << endl;
 }
