@@ -17,6 +17,12 @@
     color: #000000;
 }
 
+.ScrolledWindow{
+    border-color: #F4A261;
+    border-style: dashed;
+    border-width: 3px;
+}
+
 .BottomMargin{
     margin-bottom: 5px;
 }

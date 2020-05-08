@@ -81,6 +81,7 @@
                     <property name="label" translatable="yes">Yes, encrypt my files.</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">5</property>
                     <property name="draw_indicator">True</property>
@@ -142,6 +143,7 @@
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <property name="image_position">right</property>
@@ -162,6 +164,7 @@
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <property name="image_position">right</property>
@@ -182,6 +185,7 @@
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <property name="image_position">right</property>
@@ -202,6 +206,7 @@
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <property name="image_position">right</property>
@@ -221,6 +226,7 @@
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <property name="image_position">right</property>
@@ -241,6 +247,7 @@
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <property name="image_position">right</property>
@@ -294,6 +301,7 @@
                     <property name="label" translatable="yes">Add Cover Image (Image To Hide With)</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <style>
@@ -345,6 +353,7 @@
                     <property name="label" translatable="yes">Encode My Files</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <style>
@@ -361,6 +370,7 @@
                     <property name="label" translatable="yes">Decode My Files</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <style>
@@ -412,6 +422,7 @@
                     <property name="label" translatable="yes">Add Files/Folders To Hide</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <style>
@@ -428,6 +439,7 @@
                     <property name="label" translatable="yes">Clear Current List Of Files</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="relief">none</property>
                     <style>
@@ -781,6 +793,9 @@
                     </child>
                   </object>
                 </child>
+                <style>
+                  <class name="ScrolledWindow"/>
+                </style>
               </object>
               <packing>
                 <property name="left_attach">0</property>
