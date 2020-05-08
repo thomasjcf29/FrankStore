@@ -1,6 +1,8 @@
 #include "../header_files/MainScreen.h"
 #include <iostream>
 #include <string>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -163,7 +165,20 @@ void MainScreen::btn_pwd_chosen(){
 }
 
 void MainScreen::btn_enc_image_chosen(){
-    cout << "Hello" << endl;
+    string fileName = encryptionImageChooser->get_filename();
+    struct stat info;
+
+    if(stat(fileName.c_str(), &info) != 0){
+        return;
+    }
+    else if(info.st_mode & S_IFDIR){
+        encryptionImageChooser->set_current_folder(fileName);
+        return;
+    }
+    else{
+        encryptImage = fileName;
+        pChooser->hide();
+    }
 }
 
 void MainScreen::show_encryption_parts(){
