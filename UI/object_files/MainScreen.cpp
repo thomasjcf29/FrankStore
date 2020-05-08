@@ -145,7 +145,7 @@ void MainScreen::btn_pwd_chosen(){
     }
     errorLabel->hide();
     encryptPassword = passwordEntry->get_text();
-    cout << "Password: " << encryptPassword << endl;
+    passwordEntry->set_text("");
     passwordDialog->hide();
 }
 
