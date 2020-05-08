@@ -162,7 +162,7 @@ void MainScreen::add_files(string path, string folder){
                 add_files(result, result);
             }
             else{
-                cout << "File:" << result << endl;
+                files.push_back(result);
             }
         }
         closedir(dir);
