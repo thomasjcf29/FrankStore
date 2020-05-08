@@ -15,6 +15,12 @@ private:
     bool confirmFolder = false;
     std::vector<std::string> files;
 
+    #ifdef WIN32
+        std::string separator = "\\";
+    #else
+        std::string separator = "/";
+    #endif
+
     //Windows / Dialogs
     Gtk::Window* pWindow = nullptr;
     Gtk::Grid* gridEncryption = nullptr;

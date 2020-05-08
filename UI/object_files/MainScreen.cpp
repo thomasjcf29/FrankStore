@@ -156,7 +156,7 @@ void MainScreen::add_files(string path, string folder){
                 continue;
             }
 
-            string result = path + "/" + ent->d_name;
+            string result = path + separator + ent->d_name;
 
             if(isDir(result)){
                 cout << "Directory" << endl;
@@ -164,7 +164,7 @@ void MainScreen::add_files(string path, string folder){
             else{
                 cout << "File" << endl;
             }
-            
+
             cout << "Item: " << result << endl;
         }
         closedir(dir);
