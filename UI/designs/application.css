@@ -12,7 +12,7 @@
     border-radius: 60px;
 }
 
-.Form:disabled{
+.Form:disabled, .Form:insensitive{
     background-color: #bdbdbd;
     color: #000000;
 }
