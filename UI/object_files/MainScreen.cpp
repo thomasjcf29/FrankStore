@@ -104,6 +104,8 @@ MainScreen::~MainScreen(){
     delete btnPasswordChosen;
     delete passwordEntry;
     delete errorLabel;
+    delete encryptionImageChooser;
+    delete btnOpenEncryptionImage;
 }
 
 Gtk::Window* MainScreen::getWindow(){
