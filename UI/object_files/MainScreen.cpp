@@ -150,13 +150,12 @@ bool MainScreen::isValid(){
 void MainScreen::add_files(std::string folder){
     DIR *dir;
     struct dirent *ent;
-    if((dir = opendir(folder)) != NULL){
+    if((dir = opendir(folder.c_str())) != NULL){
         while((ent = readdir (dir)) != NULL) {
             printf ("%s\n", ent->d_name);
         }
         closedir(dir);
     }
-    delete dir;
 }
 
 void MainScreen::checkbox_encryption_toggled(){
