@@ -285,7 +285,7 @@ void MainScreen::btn_file_choosen(){
         //Folder Show Dialog
         confirmationDialog->run();
         if(confirmFolder){
-            cout << "Adding Folder" << endl;
+            add_files(fileName);
             filesToHideChooser->hide();
         }
         else{
@@ -294,7 +294,7 @@ void MainScreen::btn_file_choosen(){
         }
     }
     else{
-        cout << "Adding File" << endl;
+        files.push_back(fileName);
         filesToHideChooser->hide();
     }
 }
