@@ -177,7 +177,7 @@ void MainScreen::btn_enc_image_chosen(){
     }
     else{
         encryptImage = fileName;
-        pChooser->hide();
+        encryptionImageChooser->hide();
     }
 }
 
