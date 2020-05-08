@@ -49,6 +49,7 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("encryptionImageChooser", encryptionImageChooser);
     refBuilder->get_widget("confirmationDialog", confirmationDialog);
     refBuilder->get_widget("filesToHideChooser", filesToHideChooser);
+    refBuilder->get_widget("boxOfFiles", boxOfFiles);
 
     //Encryption Section
     refBuilder->get_widget("btnAddImageKey", btnAddImageKey);
@@ -84,7 +85,7 @@ MainScreen::MainScreen(string application){
        !passwordDialog || !btnPasswordChosen || !passwordEntry || !errorLabel ||
        !encryptionImageChooser || !btnOpenEncryptionImage || !btnCoverImage || !confirmationDialog ||
        !filesToHideChooser || !btnFilesChosen || !btnFolderNo || !btnFolderYes ||
-       !btnDelFiles){
+       !btnDelFiles || !boxOfFiles){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
@@ -143,6 +144,7 @@ MainScreen::~MainScreen(){
     delete btnFolderYes;
     delete btnAddFiles;
     delete btnDelFiles;
+    delete boxOfFiles;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -304,6 +306,7 @@ void MainScreen::show_file_chooser(){
     confirmFolder = false;
     filesToHideChooser->run();
     cout << "Size of files to hide: " << files.size() << endl;
+    add_files_to_screen();
 }
 
 void MainScreen::btn_file_choosen(){
@@ -344,4 +347,26 @@ void MainScreen::btn_folder_yes(){
 void MainScreen::btn_del_files(){
     files.clear();
     cout << "Size of files to hide: " << files.size() << endl;
+}
+
+void MainScreen::add_files_to_screen(){
+
+    Gtk::Grid previousWidget;
+
+    for(int i = 0; i < files.size(); i++){
+        string elementName = files[i];
+        Gtk::Grid grid;
+        Gtk::Label label;
+        label.set_text(elementName);
+
+        grid.attach(label, 1, 0);
+        if(i == 0){
+            boxOfFiles->insert_child_at_start(grid);
+        }
+        else{
+            boxOfFiles->insert_child_after(grid, previousWidget);
+        }
+
+        previousWidget = grid;
+    }
 }

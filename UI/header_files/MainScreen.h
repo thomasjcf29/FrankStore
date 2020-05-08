@@ -29,6 +29,7 @@ private:
     Gtk::FileChooserDialog* encryptionImageChooser = nullptr;
     Gtk::Dialog* confirmationDialog = nullptr;
     Gtk::FileChooserDialog* filesToHideChooser = nullptr;
+    Gtk::Box* boxOfFiles = nullptr;
 
     //Encryption Section
     Gtk::Button* btnAddImageKey = nullptr;
@@ -84,6 +85,8 @@ private:
     bool isDir(std::string location);
 
     void btn_del_files();
+
+    void add_files_to_screen();
 public:
     MainScreen(std::string application);
     ~MainScreen();
