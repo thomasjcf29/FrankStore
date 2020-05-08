@@ -152,7 +152,7 @@ void MainScreen::add_files(string path, string folder){
     struct dirent *ent;
     if((dir = opendir(folder.c_str())) != NULL){
         while((ent = readdir (dir)) != NULL) {
-            if(ent->d_name == "." || ent->d_name == "..")
+            if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0)
                 continue;
             if(ent->d_type == DT_REG)
                 cout << "File" << endl;
