@@ -147,7 +147,7 @@ bool MainScreen::isValid(){
     return valid;
 }
 
-void MainScreen::add_files(std::string path, std::string folder){
+void MainScreen::add_files(string path, string folder){
     DIR *dir;
     struct dirent *ent;
     if((dir = opendir(folder.c_str())) != NULL){
@@ -159,7 +159,7 @@ void MainScreen::add_files(std::string path, std::string folder){
             else if(ent->d_type == DT_DIR)
                 cout << "Directory" << endl;
 
-            printf ("%s\n", (stringPath + "/" + ent->d_name));
+            printf ("%s\n", (path + "/" + ent->d_name));
         }
         closedir(dir);
     }
