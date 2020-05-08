@@ -13,7 +13,8 @@
 }
 
 .Form:disabled{
-    background-color: #000000;
+    background-color: #bdbdbd;
+    color: #000000;
 }
 
 .BottomMargin{
@@ -21,6 +22,7 @@
 }
 
 .Form:hover{
+    background-color: #bdbdbd;
     color: #000000;
 }
 
