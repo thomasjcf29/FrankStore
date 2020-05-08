@@ -3,6 +3,7 @@
 
 #include <gtkmm.h>
 #include <string>
+#include <vector>
 
 class MainScreen{
 private:
@@ -12,6 +13,7 @@ private:
     bool choosingEncryptImage = false;
     bool choosingCoverImage = false;
     bool confirmFolder = false;
+    vector<std::string> files;
 
     //Windows / Dialogs
     Gtk::Window* pWindow = nullptr;
@@ -68,6 +70,8 @@ private:
     void btn_file_choosen();
     void btn_folder_no();
     void btn_folder_yes();
+    
+    void add_files(std::string folder);
 public:
     MainScreen(std::string application);
     ~MainScreen();
