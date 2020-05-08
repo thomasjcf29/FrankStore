@@ -147,12 +147,19 @@ bool MainScreen::isValid(){
     return valid;
 }
 
-void MainScreen::add_files(std::string folder){
+void MainScreen::add_files(std::stringPath, std::string folder){
     DIR *dir;
     struct dirent *ent;
     if((dir = opendir(folder.c_str())) != NULL){
         while((ent = readdir (dir)) != NULL) {
-            printf ("%s\n", ent->d_name);
+            if(ent->d_name == "." || ent->d_name == "..")
+                continue;
+            if(ent->d_type == DT_REG)
+                cout << "File" << endl;
+            else if(ent->d_type == DT_DIR)
+                cout << "Directory" << endl;
+
+            printf ("%s\n", (stringPath + "\" + ent->d_name));
         }
         closedir(dir);
     }
@@ -285,7 +292,7 @@ void MainScreen::btn_file_choosen(){
         //Folder Show Dialog
         confirmationDialog->run();
         if(confirmFolder){
-            add_files(fileName);
+            add_files(fileName, fileName);
             filesToHideChooser->hide();
         }
         else{
