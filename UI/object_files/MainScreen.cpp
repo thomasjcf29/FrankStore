@@ -93,6 +93,10 @@ MainScreen::~MainScreen(){
     delete btnDelPassword;
     delete chkEncryption;
     delete pneController;
+    delete passwordDialog;
+    delete btnPasswordChosen;
+    delete passwordEntry;
+    delete errorLabel;
 }
 
 Gtk::Window* MainScreen::getWindow(){
