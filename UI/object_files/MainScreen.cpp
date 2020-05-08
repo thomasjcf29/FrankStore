@@ -46,6 +46,8 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("pneController", pneController);
     refBuilder->get_widget("passwordDialog", passwordDialog);
     refBuilder->get_widget("encryptionImageChooser", encryptionImageChooser);
+    refBuilder->get_widget("confirmationDialog", confirmationDialog);
+    refBuilder->get_widget("filesToHideChooser", filesToHideChooser);
 
     //Encryption Section
     refBuilder->get_widget("btnAddImageKey", btnAddImageKey);
@@ -67,10 +69,17 @@ MainScreen::MainScreen(string application){
     //Encryption Image Section
     refBuilder->get_widget("btnOpenEncryptionImage", btnOpenEncryptionImage);
 
+    //File Addition
+    refBuilder->get_width("btnAddFiles", btnAddFiles);
+    refBuilder->get_widget("btnFilesChosen", btnFilesChosen);
+    refBuilder->get_widget("btnFolderNo", btnFolderNo);
+    refBuilder->get_widget("btnFolderYes", btnFolderYes);
+
     if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword ||
        !btnEditPassword || !btnDelPassword || !chkEncryption || !pneController ||
        !passwordDialog || !btnPasswordChosen || !passwordEntry || !errorLabel ||
-       !encryptionImageChooser || !btnOpenEncryptionImage || !btnCoverImage){
+       !encryptionImageChooser || !btnOpenEncryptionImage || !btnCoverImage || !confirmationDialog ||
+       !filesToHideChooser || !btnFilesChosen || !btnFolderNo || !btnFolderYes){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
@@ -89,6 +98,11 @@ MainScreen::MainScreen(string application){
 
     btnCoverImage->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_sel_cover_image));
 
+    btnAddFiles->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::show_file_chooser));
+    btnFilesChosen->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_file_choosen));
+    btnFolderNo->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_folder_no));
+    btnFolderYes->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_folder_yes));
+
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         pWindow->set_size_request(900, 440);
@@ -99,6 +113,7 @@ MainScreen::MainScreen(string application){
 
 MainScreen::~MainScreen(){
     delete pWindow;
+    delete gridEncryption;
     delete btnAddImageKey;
     delete btnEditImageKey;
     delete btnDelImageKey;
@@ -114,6 +129,13 @@ MainScreen::~MainScreen(){
     delete encryptionImageChooser;
     delete btnOpenEncryptionImage;
     delete btnCoverImage;
+    delete confirmationDialog;
+    delete filesToHideChooser;
+    delete btnFilesChosen;
+    delete btnFolderNo;
+    delete btnFolderYes;
+    delete btnAddFiles;
+
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -175,7 +197,6 @@ void MainScreen::btn_pwd_chosen(){
 void MainScreen::btn_sel_cover_image(){
     choosingCoverImage = true;
     encryptionImageChooser->run();
-    cout << "Cover Image: " << coverImage << endl;
 }
 
 void MainScreen::btn_enc_image_chosen(){
@@ -234,4 +255,44 @@ void MainScreen::show_encryption_parts(){
             btnDelPassword->set_sensitive();
         }
     }
+}
+
+void MainScreen::show_file_chooser(){
+    confirmFolder = false;
+    filesToHideChooser->run();
+}
+
+void MainScreen::btn_file_choosen(){
+    string fileName = filesToHideChooser->get_filename();
+    struct stat info;
+
+    if(stat(fileName.c_str(), &info) != 0){
+        return;
+    }
+    else if(info.st_mode & S_IFDIR){
+        //Folder Show Dialog
+        confirmationDialog->run();
+        if(confirmFolder){
+            cout << "Adding Folder" << endl;
+            filesToHideChooser->hide();
+        }
+        else{
+            cout << "NOT Adding Folder" << endl;
+            return;
+        }
+    }
+    else{
+        cout << "Adding File" << endl;
+        filesToHideChooser->hide();
+    }
+}
+
+void MainScreen::btn_folder_no(){
+    confirmFolder = false;
+    confirmationDialog->hide();
+}
+
+void MainScreen::btn_folder_yes(){
+    confirmFolder = true;
+    confirmationDialog->hide();
 }
