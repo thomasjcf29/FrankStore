@@ -70,7 +70,7 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("btnOpenEncryptionImage", btnOpenEncryptionImage);
 
     //File Addition
-    refBuilder->get_width("btnAddFiles", btnAddFiles);
+    refBuilder->get_widget("btnAddFiles", btnAddFiles);
     refBuilder->get_widget("btnFilesChosen", btnFilesChosen);
     refBuilder->get_widget("btnFolderNo", btnFolderNo);
     refBuilder->get_widget("btnFolderYes", btnFolderYes);
