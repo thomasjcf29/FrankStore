@@ -351,10 +351,10 @@ void MainScreen::btn_del_files(){
 
 void MainScreen::add_files_to_screen(){
 
-    int size = files.size();
-    Gtk::Grid array = new Gtk::Grid[size]
+    size_t size = files.size();
+    Gtk::Grid* array = new Gtk::Grid[size];
 
-    for(int i = 0; i < files.size(); i++){
+    for(size_t i = 0; i < size; i++){
         string elementName = files[i];
         Gtk::Grid grid;
         Gtk::Label label;
