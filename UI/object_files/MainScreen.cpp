@@ -152,17 +152,36 @@ void MainScreen::add_files(string path, string folder){
     struct dirent *ent;
     if((dir = opendir(folder.c_str())) != NULL){
         while((ent = readdir (dir)) != NULL) {
-            if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0)
+            if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0){
                 continue;
-            if(ent->d_type == DT_REG)
-                cout << "File" << endl;
-            else if(ent->d_type == DT_DIR)
-                cout << "Directory" << endl;
+            }
 
             string result = path + "/" + ent->d_name;
+
+            if(isDir(result)){
+                cout << "Directory" << endl;
+            }
+            else{
+                cout << "File" << endl;
+            }
+            
             cout << "Item: " << result << endl;
         }
         closedir(dir);
+    }
+}
+
+bool MainScreen::isDir(string location){
+    struct stat info;
+
+    if(stat(location.c_str(), &info) != 0){
+        return false;
+    }
+    else if(info.st_mode & S_IFDIR){
+        return true;
+    }
+    else{
+        return false;
     }
 }
 

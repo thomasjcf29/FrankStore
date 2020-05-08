@@ -72,6 +72,7 @@ private:
     void btn_folder_yes();
 
     void add_files(std::string path, std::string folder);
+    bool isDir(std::string location);
 public:
     MainScreen(std::string application);
     ~MainScreen();
