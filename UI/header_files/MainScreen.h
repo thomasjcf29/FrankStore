@@ -9,6 +9,8 @@ private:
     std::string executableLocation, coverImage, encryptPassword, encryptImage;
     bool valid = false;
     bool encrypt = false;
+    bool choosingEncryptImage = false;
+    bool choosingCoverImage = false;
 
     //Windows / Dialogs
     Gtk::Window* pWindow = nullptr;
@@ -34,6 +36,9 @@ private:
     //Encryption Image Section
     Gtk::Button* btnOpenEncryptionImage = nullptr;
 
+    //Cover Image Selection
+    Gtk::Button* btnCoverImage = nullptr;
+
     void checkbox_encryption_toggled();
     void btn_add_image();
     void btn_edit_image();
@@ -45,6 +50,8 @@ private:
     void btn_pwd_chosen();
 
     void btn_enc_image_chosen();
+
+    void btn_sel_cover_image();
 
     void show_encryption_parts();
 public:

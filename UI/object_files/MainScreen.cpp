@@ -61,13 +61,16 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("passwordEntry", passwordEntry);
     refBuilder->get_widget("errorLabel", errorLabel);
 
+    //Cover Image Selection
+    refBuilder->get_widget("btnCoverImage", btnCoverImage);
+
     //Encryption Image Section
     refBuilder->get_widget("btnOpenEncryptionImage", btnOpenEncryptionImage);
 
     if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword ||
        !btnEditPassword || !btnDelPassword || !chkEncryption || !pneController ||
        !passwordDialog || !btnPasswordChosen || !passwordEntry || !errorLabel ||
-       !encryptionImageChooser || !btnOpenEncryptionImage){
+       !encryptionImageChooser || !btnOpenEncryptionImage || !btnCoverImage){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
@@ -83,6 +86,8 @@ MainScreen::MainScreen(string application){
     btnPasswordChosen->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_pwd_chosen));
 
     btnOpenEncryptionImage->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_enc_image_chosen));
+
+    btnCoverImage->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_sel_cover_image));
 
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -108,6 +113,7 @@ MainScreen::~MainScreen(){
     delete errorLabel;
     delete encryptionImageChooser;
     delete btnOpenEncryptionImage;
+    delete btnCoverImage;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -124,11 +130,13 @@ void MainScreen::checkbox_encryption_toggled(){
 }
 
 void MainScreen::btn_add_image(){
+    choosingEncryptImage = true;
     encryptionImageChooser->run();
     show_encryption_parts();
 }
 
 void MainScreen::btn_edit_image(){
+    choosingEncryptImage = true;
     encryptionImageChooser->run();
     show_encryption_parts();
 }
@@ -164,6 +172,12 @@ void MainScreen::btn_pwd_chosen(){
     passwordDialog->hide();
 }
 
+void MainScreen::btn_sel_cover_image(){
+    choosingCoverImage = true;
+    encryptionImageChooser->run();
+    cout << "Cover Image: " << coverImage << endl;
+}
+
 void MainScreen::btn_enc_image_chosen(){
     string fileName = encryptionImageChooser->get_filename();
     struct stat info;
@@ -176,7 +190,14 @@ void MainScreen::btn_enc_image_chosen(){
         return;
     }
     else{
-        encryptImage = fileName;
+        if(choosingCoverImage){
+            coverImage = fileName;
+        }
+        if(choosingEncryptImage){
+            encryptImage = fileName;
+        }
+        choosingCoverImage = false;
+        choosingEncryptImage = false;
         encryptionImageChooser->hide();
     }
 }
