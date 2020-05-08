@@ -5,7 +5,7 @@
   <!-- interface-css-provider-path application.css -->
   <object class="GtkFileFilter" id="filefilter1">
     <mime-types>
-      <mime-type>Image/*</mime-type>
+      <mime-type>image/*</mime-type>
     </mime-types>
   </object>
   <object class="GtkFileChooserDialog" id="encryptionImageChooser">
