@@ -42,6 +42,7 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("mainWindow", pWindow);
     refBuilder->get_widget("gridEncryption", gridEncryption);
     refBuilder->get_widget("pneController", pneController);
+    refBuilder->get_widget("passwordDialog", passwordDialog);
 
     //Encryption Section
     refBuilder->get_widget("btnAddImageKey", btnAddImageKey);
@@ -52,7 +53,14 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("btnDelPassword", btnDelPassword);
     refBuilder->get_widget("chkEncryption", chkEncryption);
 
-    if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword || !btnEditPassword || !btnDelPassword || !chkEncryption || !pneController){
+    //Password Section
+    refBuilder->get_widget("btnPasswordChosen", btnPasswordChosen);
+    refBuilder->get_widget("passwordEntry", passwordEntry);
+    refBuilder->get_widget("errorLabel", errorLabel);
+
+    if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword ||
+       !btnEditPassword || !btnDelPassword || !chkEncryption || !pneController ||
+       !passwordDialog || !btnPasswordChosen || !passwordEntry || !errorLabel){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
@@ -65,13 +73,14 @@ MainScreen::MainScreen(string application){
     btnEditPassword->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_edit_pwd));
     btnDelPassword->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_del_pwd));
 
+    btnPasswordChosen->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_pwd_chosen));
+
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         pWindow->set_size_request(900, 440);
         pneController->set_position(550);
         valid = true;
     }
-
 }
 
 MainScreen::~MainScreen(){
@@ -115,18 +124,29 @@ void MainScreen::btn_del_image(){
 }
 
 void MainScreen::btn_add_pwd(){
-    encryptPassword = "hello";
+    passwordDialog->run();
     show_encryption_parts();
 }
 
 void MainScreen::btn_edit_pwd(){
-    encryptPassword = "you";
+    passwordDialog->run();
     show_encryption_parts();
 }
 
 void MainScreen::btn_del_pwd(){
     encryptPassword.clear();
     show_encryption_parts();
+}
+
+void MainScreen::btn_pwd_chosen(){
+    if(passwordEntry->get_text_length() == 0){
+        errorLabel->show();
+        return;
+    }
+    errorLabel->hide();
+    encryptPassword = passwordEntry->get_text();
+    cout << "Password: " << encryptPassword << endl;
+    passwordDialog->hide();
 }
 
 void MainScreen::show_encryption_parts(){
