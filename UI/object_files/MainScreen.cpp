@@ -352,7 +352,7 @@ void MainScreen::btn_del_files(){
 void MainScreen::add_files_to_screen(){
 
     size_t size = files.size();
-    vector<Gtk::Grid> grids;
+    Gtk::Label oldLabel;
 
     for(size_t i = 0; i < size; i++){
         string elementName = files[i];
@@ -362,12 +362,10 @@ void MainScreen::add_files_to_screen(){
 
         grid.attach(label, 1, 0, 1, 1);
         if(i == 0){
-            boxOfFiles->insert_child_at_start(grid);
+            boxOfFiles->insert_child_at_start(label);
         }
         else{
-            boxOfFiles->insert_child_after(grid, grids[i-1]);
+            boxOfFiles->insert_child_after(label, oldLabel);
         }
-
-        grids.push_back(grid);
     }
 }
