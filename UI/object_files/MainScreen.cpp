@@ -115,7 +115,7 @@ MainScreen::MainScreen(string application){
 
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-        pWindow->set_size_request(900, 440);
+        pWindow->set_size_request(1000, 440);
         pneController->set_position(550);
         valid = true;
     }
