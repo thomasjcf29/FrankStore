@@ -138,6 +138,7 @@
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <property name="margin_left">15</property>
+                    <property name="margin_bottom">2</property>
                     <property name="label" translatable="yes">2. Please select encryption parameters (image, password, or both)</property>
                     <property name="xalign">0</property>
                     <attributes>
@@ -154,8 +155,8 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="btnDelImageKey">
-                    <property name="label" translatable="yes">Remove Image Key</property>
+                  <object class="GtkButton" id="btnAddPassword">
+                    <property name="label" translatable="yes">Add Password</property>
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
@@ -166,33 +167,11 @@
                     <property name="always_show_image">True</property>
                     <style>
                       <class name="Form"/>
-                      <class name="Disabled"/>
                     </style>
                   </object>
                   <packing>
-                    <property name="left_attach">2</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="btnDelPassword">
-                    <property name="label" translatable="yes">Remove Password</property>
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="focus_on_click">False</property>
-                    <property name="receives_default">True</property>
-                    <property name="relief">none</property>
-                    <property name="image_position">right</property>
-                    <property name="always_show_image">True</property>
-                    <style>
-                      <class name="Form"/>
-                      <class name="Disabled"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="left_attach">2</property>
-                    <property name="top_attach">2</property>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">3</property>
                   </packing>
                 </child>
                 <child>
@@ -213,12 +192,12 @@
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="top_attach">2</property>
+                    <property name="top_attach">3</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="btnAddPassword">
-                    <property name="label" translatable="yes">Add Password</property>
+                  <object class="GtkButton" id="btnDelPassword">
+                    <property name="label" translatable="yes">Remove Password</property>
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
@@ -229,10 +208,32 @@
                     <property name="always_show_image">True</property>
                     <style>
                       <class name="Form"/>
+                      <class name="Disabled"/>
                     </style>
                   </object>
                   <packing>
-                    <property name="left_attach">0</property>
+                    <property name="left_attach">2</property>
+                    <property name="top_attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btnDelImageKey">
+                    <property name="label" translatable="yes">Remove Image Key</property>
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <property name="image_position">right</property>
+                    <property name="always_show_image">True</property>
+                    <style>
+                      <class name="Form"/>
+                      <class name="Disabled"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">2</property>
                     <property name="top_attach">2</property>
                   </packing>
                 </child>
@@ -254,7 +255,7 @@
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="top_attach">1</property>
+                    <property name="top_attach">2</property>
                   </packing>
                 </child>
                 <child>
@@ -274,7 +275,25 @@
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">35</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="label" translatable="yes">You do not need to complete this section if you anwser to Section 1 was no.</property>
+                    <property name="xalign">0</property>
+                    <style>
+                      <class name="Titles"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
+                    <property name="width">3</property>
                   </packing>
                 </child>
               </object>
