@@ -13,6 +13,7 @@ private:
     bool choosingEncryptImage = false;
     bool choosingCoverImage = false;
     bool confirmFolder = false;
+    bool outputImage = false;
     std::vector<std::string> files;
     std::vector<std::string> shortFileName;
 
@@ -61,6 +62,13 @@ private:
     //File Removal
     Gtk::Button* btnDelFiles = nullptr;
 
+    //Output Image
+    Gtk::CheckButton* chkOutputImage = nullptr;
+
+    //Control Buttons
+    Gtk::Button* btnEncode = nullptr;
+    Gtk::Button* btnDecode = nullptr;
+
     void checkbox_encryption_toggled();
     void btn_add_image();
     void btn_edit_image();
@@ -88,6 +96,10 @@ private:
     void btn_del_files();
 
     void add_files_to_screen();
+
+    void checkbox_image_toggled();
+    void set_form_ready();
+    void disable_form(bool disable = true);
 public:
     MainScreen(std::string application);
     ~MainScreen();

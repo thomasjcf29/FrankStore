@@ -80,12 +80,20 @@ MainScreen::MainScreen(string application){
     //File Removal
     refBuilder->get_widget("btnDelFiles", btnDelFiles);
 
+    //Output Image
+    refBuilder->get_widget("chkOutputImage", chkOutputImage);
+
+    //Control Buttons
+    refBuilder->get_widget("btnEncode", btnEncode);
+    refBuilder->get_widget("btnDecode", btnDecode);
+
     if(!btnAddImageKey || !btnEditImageKey || !btnDelImageKey || !btnAddPassword ||
        !btnEditPassword || !btnDelPassword || !chkEncryption || !pneController ||
        !passwordDialog || !btnPasswordChosen || !passwordEntry || !errorLabel ||
        !encryptionImageChooser || !btnOpenEncryptionImage || !btnCoverImage || !confirmationDialog ||
        !filesToHideChooser || !btnFilesChosen || !btnFolderNo || !btnFolderYes ||
-       !btnDelFiles || !boxOfFiles){
+       !btnDelFiles || !boxOfFiles || !chkOutputImage || !btnEncode ||
+       !btnDecode){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
@@ -110,6 +118,8 @@ MainScreen::MainScreen(string application){
     btnFolderYes->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_folder_yes));
 
     btnDelFiles->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_del_files));
+
+    chkOutputImage->signal_toggled().connect(sigc::mem_fun(*this, &MainScreen::checkbox_image_toggled));
 
     Gtk::IconSize::register_new("file_icon_layout", 20, 20);
 
@@ -147,6 +157,9 @@ MainScreen::~MainScreen(){
     delete btnAddFiles;
     delete btnDelFiles;
     delete boxOfFiles;
+    delete chkOutputImage;
+    delete btnEncode;
+    delete btnDecode;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -197,38 +210,45 @@ bool MainScreen::isDir(string location){
 void MainScreen::checkbox_encryption_toggled(){
     encrypt = !encrypt;
     show_encryption_parts();
+    set_form_ready();
 }
 
 void MainScreen::btn_add_image(){
     choosingEncryptImage = true;
     encryptionImageChooser->run();
     show_encryption_parts();
+    set_form_ready();
 }
 
 void MainScreen::btn_edit_image(){
     choosingEncryptImage = true;
     encryptionImageChooser->run();
     show_encryption_parts();
+    set_form_ready();
 }
 
 void MainScreen::btn_del_image(){
     encryptImage.clear();
     show_encryption_parts();
+    set_form_ready();
 }
 
 void MainScreen::btn_add_pwd(){
     passwordDialog->run();
     show_encryption_parts();
+    set_form_ready();
 }
 
 void MainScreen::btn_edit_pwd(){
     passwordDialog->run();
     show_encryption_parts();
+    set_form_ready();
 }
 
 void MainScreen::btn_del_pwd(){
     encryptPassword.clear();
     show_encryption_parts();
+    set_form_ready();
 }
 
 void MainScreen::btn_pwd_chosen(){
@@ -245,6 +265,7 @@ void MainScreen::btn_pwd_chosen(){
 void MainScreen::btn_sel_cover_image(){
     choosingCoverImage = true;
     encryptionImageChooser->run();
+    set_form_ready();
 }
 
 void MainScreen::btn_enc_image_chosen(){
@@ -352,6 +373,7 @@ void MainScreen::btn_del_files(){
     files.clear();
     shortFileName.clear();
     add_files_to_screen();
+    set_form_ready();
 }
 
 void MainScreen::add_files_to_screen(){
@@ -404,4 +426,39 @@ void MainScreen::add_files_to_screen(){
             boxOfFiles->pack_start(*grid, false, false);
         }
     }
+}
+
+void MainScreen::checkbox_image_toggled(){
+    outputImage = !outputImage;
+    set_form_ready();
+}
+
+void MainScreen::set_form_ready(){
+
+    //Check Sections 1 & 2
+    if(encrypt){
+        if(encryptPassword.size() == 0 && encryptImage.size() == 0){
+            disable_form();
+            return;
+        }
+    }
+
+    //Check Sections 3
+    if(coverImage.size() == 0){
+        disable_form();
+        return;
+    }
+
+    //Check Sections 4
+    if(files.size() == 0 || shortFileName.size() == 0){
+        disable_form();
+        return;
+    }
+
+    disable_form(false);
+}
+
+void MainScreen::disable_form(bool disable = true){
+    btnDecode->set_sensitive(!disable);
+    btnEncode->set_sensitive(!disable);
 }
