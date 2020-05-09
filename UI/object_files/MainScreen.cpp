@@ -330,6 +330,7 @@ void MainScreen::show_file_chooser(){
     confirmFolder = false;
     filesToHideChooser->run();
     add_files_to_screen();
+    signal_toggled();
 }
 
 void MainScreen::btn_file_choosen(){
