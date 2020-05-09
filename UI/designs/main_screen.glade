@@ -349,75 +349,6 @@
                     <property name="valign">start</property>
                     <property name="margin_left">15</property>
                     <property name="margin_bottom">5</property>
-                    <property name="label" translatable="yes">5. Would you like to encode or decode?</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="size" value="12000"/>
-                    </attributes>
-                    <style>
-                      <class name="Titles"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                    <property name="width">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton">
-                    <property name="label" translatable="yes">Encode My Files</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="focus_on_click">False</property>
-                    <property name="receives_default">True</property>
-                    <property name="relief">none</property>
-                    <style>
-                      <class name="Form"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton">
-                    <property name="label" translatable="yes">Decode My Files</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="focus_on_click">False</property>
-                    <property name="receives_default">True</property>
-                    <property name="relief">none</property>
-                    <style>
-                      <class name="Form"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkGrid">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="vexpand">True</property>
-                <property name="column_homogeneous">True</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="valign">start</property>
-                    <property name="margin_left">15</property>
-                    <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">4. Select files/folders</property>
                     <property name="xalign">0</property>
                     <attributes>
@@ -471,6 +402,133 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="vexpand">True</property>
+                <property name="column_homogeneous">True</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
+                    <property name="margin_left">15</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="label" translatable="yes">6. Would you like to encode or decode?</property>
+                    <property name="xalign">0</property>
+                    <attributes>
+                      <attribute name="size" value="12000"/>
+                    </attributes>
+                    <style>
+                      <class name="Titles"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Encode My Files</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <style>
+                      <class name="Form"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Decode My Files</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="receives_default">True</property>
+                    <property name="relief">none</property>
+                    <style>
+                      <class name="Form"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">6</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="vexpand">True</property>
+                <property name="column_homogeneous">True</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="valign">start</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="label" translatable="yes">5. Would you like the encoded result to be an image?</property>
+                    <property name="single_line_mode">True</property>
+                    <property name="xalign">0</property>
+                    <attributes>
+                      <attribute name="size" value="12000"/>
+                    </attributes>
+                    <style>
+                      <class name="Titles"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chkOutputImage">
+                    <property name="label" translatable="yes">Yes, make them an image</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                    <style>
+                      <class name="CheckBoxForm"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">5</property>
               </packing>
             </child>
           </object>
@@ -538,7 +596,7 @@ Please complete step 4.</property>
                 <property name="halign">start</property>
                 <property name="margin_left">15</property>
                 <property name="hexpand">True</property>
-                <property name="label" translatable="yes">6. File status</property>
+                <property name="label" translatable="yes">7. File status</property>
                 <property name="single_line_mode">True</property>
                 <property name="xalign">0.10000000149011612</property>
                 <attributes>
