@@ -111,6 +111,8 @@ MainScreen::MainScreen(string application){
 
     btnDelFiles->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_del_files));
 
+    Gtk::IconSize::register_new("file_icon_layout", 20, 20);
+
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         pWindow->set_size_request(900, 440);
@@ -372,11 +374,34 @@ void MainScreen::add_files_to_screen(){
     else{
         for(size_t i = 0; i < size; i++){
             Gtk::Grid* grid = new Gtk::Grid();
-            Gtk::Label* label = new Gtk::Label(shortFileName[i]);
-            grid->attach(*label, 0, 0, 1, 1);
+            grid->set_halign(Gtk::Align::ALIGN_FILL);
+            grid->set_column_spacing(5);
+            grid->set_border_width(5);
+
+            //Image Status (Pending)
+            Gtk::Image* image = new Gtk::Image();
+            image->set_from_icon_name("media-playback-pause", Gtk::IconSize::from_name("file_icon_layout"));
+            image->show();
+
+            //Label For File Status
+            Gtk::Label* statusLabel = new Gtk::Label("Pending");
+            statusLabel->show();
+
+            //Label For File Name
+            Gtk::Label* fileLabel = new Gtk::Label(shortFileName[i]);
+            fileLabel->set_alignment(0.95, 0.5);
+            fileLabel->set_justify(Gtk::Justification::JUSTIFY_CENTER);
+            fileLabel->set_hexpand(true);
+            fileLabel->set_line_wrap_mode(Pango::WRAP_WORD_CHAR);
+            fileLabel->set_line_wrap(true);
+            fileLabel->show();
+
+            grid->attach(*image, 0, 0, 1, 1);
+            grid->attach(*statusLabel, 1, 0, 1, 1);
+            grid->attach(*fileLabel, 2, 0, 1, 1);
             grid->show();
-            label->show();
-            boxOfFiles->pack_start(*grid, false, true);
+
+            boxOfFiles->pack_start(*grid, false, false);
         }
     }
 }
