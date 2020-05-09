@@ -14,6 +14,7 @@ private:
     bool choosingCoverImage = false;
     bool confirmFolder = false;
     std::vector<std::string> files;
+    std::vector<std::string> shortFileName;
 
     #ifdef WIN32
         std::string separator = "\\";

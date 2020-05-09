@@ -171,6 +171,7 @@ void MainScreen::add_files(string path, string folder){
             }
             else{
                 files.push_back(result);
+                shortFileName.push_back(ent->d_name);
             }
         }
         closedir(dir);
@@ -305,7 +306,6 @@ void MainScreen::show_encryption_parts(){
 void MainScreen::show_file_chooser(){
     confirmFolder = false;
     filesToHideChooser->run();
-    cout << "Size of files to hide: " << files.size() << endl;
     add_files_to_screen();
 }
 
@@ -324,12 +324,14 @@ void MainScreen::btn_file_choosen(){
             filesToHideChooser->hide();
         }
         else{
-            cout << "NOT Adding Folder" << endl;
             return;
         }
     }
     else{
+        size_t lastPosition = fileName.find_last_of(separator);
+        string sFileName = fileName.substr(lastPosition+1);
         files.push_back(fileName);
+        shortFileName.push_back(sFileName);
         filesToHideChooser->hide();
     }
 }
@@ -346,26 +348,35 @@ void MainScreen::btn_folder_yes(){
 
 void MainScreen::btn_del_files(){
     files.clear();
-    cout << "Size of files to hide: " << files.size() << endl;
+    shortFileName.clear();
+    add_files_to_screen();
 }
 
 void MainScreen::add_files_to_screen(){
 
-    size_t size = files.size();
-    Gtk::Label oldLabel;
+    vector<Gtk::Widget*> children = boxOfFiles->get_children();
+    size_t oldFiles = children.size();
+    size_t size = shortFileName.size();
 
-    for(size_t i = 0; i < size; i++){
-        string elementName = files[i];
-        Gtk::Grid grid;
-        Gtk::Label label;
-        label.set_text(elementName);
+    for(size_t i = 0; i < oldFiles; i++){
+        delete children[i];
+    }
 
-        grid.attach(label, 1, 0, 1, 1);
-        if(i == 0){
-            boxOfFiles->insert_child_at_start(label);
-        }
-        else{
-            boxOfFiles->insert_child_after(label, oldLabel);
+    if(size == 0){
+        Gtk::Label* label = new Gtk::Label("Currently there are no files selected.\nPlease complete step 4.");
+        label->set_justify(Gtk::Justification::JUSTIFY_CENTER);
+        label->show();
+        boxOfFiles->pack_start(*label, false, true);
+    }
+
+    else{
+        for(size_t i = 0; i < size; i++){
+            Gtk::Grid* grid = new Gtk::Grid();
+            Gtk::Label* label = new Gtk::Label(shortFileName[i]);
+            grid->attach(*label, 0, 0, 1, 1);
+            grid->show();
+            label->show();
+            boxOfFiles->pack_start(*grid, false, true);
         }
     }
 }
