@@ -485,6 +485,7 @@
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
                     <property name="valign">start</property>
+                    <property name="margin_left">15</property>
                     <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">5. Would you like the encoded result to be an image?</property>
                     <property name="single_line_mode">True</property>
