@@ -138,7 +138,7 @@
                     <property name="halign">start</property>
                     <property name="valign">start</property>
                     <property name="margin_left">15</property>
-                    <property name="label" translatable="yes">2. Please select encryption parameters</property>
+                    <property name="label" translatable="yes">2. Please select encryption parameters (image, password, or both)</property>
                     <property name="xalign">0</property>
                     <attributes>
                       <attribute name="size" value="12000"/>
