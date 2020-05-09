@@ -21,13 +21,13 @@
   </object>
   <object class="GtkWindow" id="mainWindow">
     <property name="width_request">900</property>
-    <property name="height_request">540</property>
+    <property name="height_request">510</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">FrankStoreUI</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <property name="default_width">900</property>
-    <property name="default_height">540</property>
+    <property name="default_height">510</property>
     <property name="gravity">center</property>
     <child>
       <placeholder/>
@@ -284,7 +284,7 @@
                     <property name="can_focus">False</property>
                     <property name="margin_left">35</property>
                     <property name="margin_bottom">5</property>
-                    <property name="label" translatable="yes">You do not need to complete this section if you anwser to Section 1 was no.</property>
+                    <property name="label" translatable="yes">You do not need to complete this section if you anwser to section 1 was no.</property>
                     <property name="xalign">0</property>
                     <style>
                       <class name="Titles"/>
