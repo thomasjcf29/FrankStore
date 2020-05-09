@@ -99,7 +99,7 @@ private:
 
     void checkbox_image_toggled();
     void set_form_ready();
-    void disable_form(bool disable);
+    void disable_form(bool disable = true);
 public:
     MainScreen(std::string application);
     ~MainScreen();

@@ -458,7 +458,7 @@ void MainScreen::set_form_ready(){
     disable_form(false);
 }
 
-void MainScreen::disable_form(bool disable = true){
+void MainScreen::disable_form(bool disable){
     btnDecode->set_sensitive(!disable);
     btnEncode->set_sensitive(!disable);
 }
