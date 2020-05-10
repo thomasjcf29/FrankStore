@@ -1,21 +1,67 @@
 #ifndef FRANKSTOREUI_MAINSCREEN_H
 #define FRANKSTOREUI_MAINSCREEN_H
 
+#include "FrankThreader.h"
 #include <gtkmm.h>
 #include <string>
 #include <vector>
+#include <thread>
+#include <mutex>
+
+
+#ifndef FRANKSTOREUI_UPDATEMESSAGE_ENUM
+#define FRANKSTOREUI_UPDATEMESSAGE_ENUM
+
+enum UpdateMessage {Error, InProgress, Success};
+
+#endif //FRANKSTOREUI_UPDATEMESSAGE_ENUM
+
+#ifndef FRANKSTOREUI_STAGE_ENUM
+#define FRANKSTOREUI_STAGE_ENUM
+
+enum FileStage {NotStarted, Encrypted, Encoded, Decoded, Decrypted};
+
+#endif //FRANKSTOREUI_STAGE_ENUM
+
+#ifndef FRANKSTOREUI_ACTION_ENUM
+#define FRANKSTOREUI_ACTION_ENUM
+
+enum FileAction {FileEncode, FileEncryptAndEncode, FileDecode, FileDecodeAndDecrypt};
+
+#endif //FRANKSTOREUI_ACTION_ENUM
+
+#ifndef FRANKSTOREUI_JOBSTRUCT
+#define FRANKSTOREUI_JOBSTRUCT
+
+struct JobStruct{
+    std::string fileName, sourceFile, destFile, imageCover, imageEncrypt, passwordEncrypt;
+    int childNumber;
+    bool outputImage;
+    FileStage stageAt;
+    FileAction action;
+};
+
+#endif //FRANKSTOREUI_JOBSTRUCT
+
+class FrankThreader;
 
 class MainScreen{
 private:
     std::string executableLocation, coverImage, encryptPassword, encryptImage;
     bool valid = false;
-    bool encrypt = false;
+    FileAction actionToDo = FileEncode;
     bool choosingEncryptImage = false;
     bool choosingCoverImage = false;
     bool confirmFolder = false;
     bool outputImage = false;
+    bool encrypt = false;
     std::vector<std::string> files;
     std::vector<std::string> shortFileName;
+
+    std::mutex fileLock; //Prevent UI and Thread accesssing files
+
+    //MultiThread Manager
+    FrankThreader *threadManager = nullptr;
 
     #ifdef WIN32
         std::string separator = "\\";
@@ -100,11 +146,17 @@ private:
     void checkbox_image_toggled();
     void set_form_ready();
     void disable_form(bool disable = true);
+
+    void btn_encode_pressed();
+    void btn_decode_pressed();
+
+    void calcuate_jobs();
 public:
     MainScreen(std::string application);
     ~MainScreen();
     Gtk::Window* getWindow();
     bool isValid();
+    void updateUIProgress(int childNumber, UpdateMessage uM);
 };
 
 #endif //FRANKSTOREUI_MAINSCREEN_H

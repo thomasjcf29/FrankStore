@@ -8,6 +8,7 @@ private:
     StaticFunctions();
 public:
     static std::string commandExec(const char* cmd);
+    static int commandExecResult(const char* cmd);
 };
 
 #endif //FRANKSTOREUI_STATICFUNCTIONS_H

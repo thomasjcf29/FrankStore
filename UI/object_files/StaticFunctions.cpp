@@ -20,3 +20,15 @@ string StaticFunctions::commandExec(const char* cmd) {
     }
     return result;
 }
+
+int StaticFunctions::commandExecResult(const char* cmd) {
+    auto pipe = popen(cmd, "r"); // get rid of shared_ptr
+    auto rc = pclose(pipe);
+
+    if(rc == EXIT_SUCCESS){ // == 0
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}

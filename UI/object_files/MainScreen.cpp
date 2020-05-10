@@ -1,14 +1,18 @@
 #include "../header_files/MainScreen.h"
+#include "../header_files/FrankThreader.h"
+#include "../header_files/StaticFunctions.h"
 #include <iostream>
 #include <string>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <sstream>
 
 using namespace std;
 
 MainScreen::MainScreen(string application){
     executableLocation = application;
+    threadManager = new FrankThreader(this);
 
     auto refBuilder = Gtk::Builder::create();
 
@@ -121,6 +125,9 @@ MainScreen::MainScreen(string application){
 
     chkOutputImage->signal_toggled().connect(sigc::mem_fun(*this, &MainScreen::checkbox_image_toggled));
 
+    btnEncode->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_encode_pressed));
+    btnDecode->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_decode_pressed));
+
     Gtk::IconSize::register_new("file_icon_layout", 20, 20);
 
     if(pWindow){
@@ -160,6 +167,7 @@ MainScreen::~MainScreen(){
     delete chkOutputImage;
     delete btnEncode;
     delete btnDecode;
+    delete threadManager;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -344,7 +352,10 @@ void MainScreen::btn_file_choosen(){
         //Folder Show Dialog
         confirmationDialog->run();
         if(confirmFolder){
-            add_files(fileName, fileName);
+            {
+                unique_lock<mutex> lock(fileLock);
+                add_files(fileName, fileName);
+            }
             filesToHideChooser->hide();
         }
         else{
@@ -354,8 +365,11 @@ void MainScreen::btn_file_choosen(){
     else{
         size_t lastPosition = fileName.find_last_of(separator);
         string sFileName = fileName.substr(lastPosition+1);
-        files.push_back(fileName);
-        shortFileName.push_back(sFileName);
+        {
+            unique_lock<mutex> lock(fileLock);
+            files.push_back(fileName);
+            shortFileName.push_back(sFileName);
+        }
         filesToHideChooser->hide();
     }
 }
@@ -371,60 +385,66 @@ void MainScreen::btn_folder_yes(){
 }
 
 void MainScreen::btn_del_files(){
-    files.clear();
-    shortFileName.clear();
+    {
+        unique_lock<mutex> lock(fileLock);
+        files.clear();
+        shortFileName.clear();
+    }
     add_files_to_screen();
     set_form_ready();
 }
 
 void MainScreen::add_files_to_screen(){
+    {
+        unique_lock<mutex> lock(fileLock);
 
-    vector<Gtk::Widget*> children = boxOfFiles->get_children();
-    size_t oldFiles = children.size();
-    size_t size = shortFileName.size();
+        vector<Gtk::Widget*> children = boxOfFiles->get_children();
+        size_t oldFiles = children.size();
+        size_t size = shortFileName.size();
 
-    for(size_t i = 0; i < oldFiles; i++){
-        delete children[i];
-    }
+        for(size_t i = 0; i < oldFiles; i++){
+            delete children[i];
+        }
 
-    if(size == 0){
-        Gtk::Label* label = new Gtk::Label("Currently there are no files selected.\nPlease complete step 4.");
-        label->set_justify(Gtk::Justification::JUSTIFY_CENTER);
-        label->show();
-        boxOfFiles->pack_start(*label, false, true);
-    }
+        if(size == 0){
+            Gtk::Label* label = new Gtk::Label("Currently there are no files selected.\nPlease complete step 4.");
+            label->set_justify(Gtk::Justification::JUSTIFY_CENTER);
+            label->show();
+            boxOfFiles->pack_start(*label, false, true);
+        }
 
-    else{
-        for(size_t i = 0; i < size; i++){
-            Gtk::Grid* grid = new Gtk::Grid();
-            grid->set_halign(Gtk::Align::ALIGN_FILL);
-            grid->set_column_spacing(5);
-            grid->set_border_width(5);
+        else{
+            for(size_t i = 0; i < size; i++){
+                Gtk::Grid* grid = new Gtk::Grid();
+                grid->set_halign(Gtk::Align::ALIGN_FILL);
+                grid->set_column_spacing(5);
+                grid->set_border_width(5);
 
-            //Image Status (Pending)
-            Gtk::Image* image = new Gtk::Image();
-            image->set_from_icon_name("media-playback-pause", Gtk::IconSize::from_name("file_icon_layout"));
-            image->show();
+                //Image Status (Pending)
+                Gtk::Image* image = new Gtk::Image();
+                image->set_from_icon_name("media-playback-pause", Gtk::IconSize::from_name("file_icon_layout"));
+                image->show();
 
-            //Label For File Status
-            Gtk::Label* statusLabel = new Gtk::Label("Pending");
-            statusLabel->show();
+                //Label For File Status
+                Gtk::Label* statusLabel = new Gtk::Label("Pending");
+                statusLabel->show();
 
-            //Label For File Name
-            Gtk::Label* fileLabel = new Gtk::Label(shortFileName[i]);
-            fileLabel->set_alignment(0.95, 0.5);
-            fileLabel->set_justify(Gtk::Justification::JUSTIFY_CENTER);
-            fileLabel->set_hexpand(true);
-            fileLabel->set_line_wrap_mode(Pango::WRAP_WORD_CHAR);
-            fileLabel->set_line_wrap(true);
-            fileLabel->show();
+                //Label For File Name
+                Gtk::Label* fileLabel = new Gtk::Label(shortFileName[i]);
+                fileLabel->set_alignment(0.95, 0.5);
+                fileLabel->set_justify(Gtk::Justification::JUSTIFY_CENTER);
+                fileLabel->set_hexpand(true);
+                fileLabel->set_line_wrap_mode(Pango::WRAP_WORD_CHAR);
+                fileLabel->set_line_wrap(true);
+                fileLabel->show();
 
-            grid->attach(*image, 0, 0, 1, 1);
-            grid->attach(*statusLabel, 1, 0, 1, 1);
-            grid->attach(*fileLabel, 2, 0, 1, 1);
-            grid->show();
+                grid->attach(*image, 0, 0, 1, 1);
+                grid->attach(*statusLabel, 1, 0, 1, 1);
+                grid->attach(*fileLabel, 2, 0, 1, 1);
+                grid->show();
 
-            boxOfFiles->pack_start(*grid, false, false);
+                boxOfFiles->pack_start(*grid, false, false);
+            }
         }
     }
 }
@@ -451,9 +471,12 @@ void MainScreen::set_form_ready(){
     }
 
     //Check Sections 4
-    if(files.size() == 0 || shortFileName.size() == 0){
-        disable_form();
-        return;
+    {
+        unique_lock<mutex> lock(fileLock);
+        if(files.size() == 0 || shortFileName.size() == 0){
+            disable_form();
+            return;
+        }
     }
 
     disable_form(false);
@@ -462,4 +485,67 @@ void MainScreen::set_form_ready(){
 void MainScreen::disable_form(bool disable){
     btnDecode->set_sensitive(!disable);
     btnEncode->set_sensitive(!disable);
+}
+
+void MainScreen::btn_encode_pressed(){
+    if(encrypt){
+        actionToDo = FileEncryptAndEncode;
+    }
+    else{
+        actionToDo = FileEncode;
+    }
+
+    thread fileJob = thread(&MainScreen::calcuate_jobs, this);
+    fileJob.detach();
+}
+
+void MainScreen::btn_decode_pressed(){
+    if(encrypt){
+        actionToDo = FileDecodeAndDecrypt;
+    }
+    else{
+        actionToDo = FileDecode;
+    }
+
+    thread fileJob = thread(&MainScreen::calcuate_jobs, this);
+    fileJob.detach();
+}
+
+void MainScreen::calcuate_jobs(){
+    {
+        unique_lock<mutex> lock(fileLock);
+        for(int i = 0; i < files.size(); i++){
+            JobStruct job;
+            job.fileName = executableLocation;
+            job.sourceFile = files[i];
+            job.imageCover = coverImage;
+            job.imageEncrypt = encryptImage;
+            job.passwordEncrypt = encryptPassword;
+            job.outputImage = outputImage;
+            job.childNumber = i;
+            job.action = actionToDo;
+            job.stageAt = NotStarted;
+            threadManager->addJob(job);
+        }
+    }
+}
+
+void MainScreen::updateUIProgress(int childNumber, UpdateMessage uM){
+    unique_lock<mutex> lock(fileLock);
+    auto grid = (Gtk::Grid*) boxOfFiles->get_children()[childNumber];
+    Gtk::Image* icon = (Gtk::Image*) grid->get_child_at(0, 0);
+    Gtk::Label* label = (Gtk::Label*) grid->get_child_at(1, 0);
+
+    if(uM == Error){
+        icon->set_from_icon_name("dialog-error", Gtk::IconSize::from_name("file_icon_layout"));
+        label->set_label("Failed");
+    }
+    else if(uM == InProgress){
+        icon->set_from_icon_name("system-run", Gtk::IconSize::from_name("file_icon_layout"));
+        label->set_label("In Progress");
+    }
+    else if(uM == Success){
+        icon->set_from_icon_name("emblem-default", Gtk::IconSize::from_name("file_icon_layout"));
+        label->set_label("Completed");
+    }
 }
