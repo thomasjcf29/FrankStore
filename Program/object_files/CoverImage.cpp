@@ -118,7 +118,7 @@ size_t * CoverImage::getNextLocation(){
         curY++;
     }
 
-    if(curY > getHeight()){
+    if(curY >= getHeight()){
         curY = 0;
         failedAttempts++;
     }

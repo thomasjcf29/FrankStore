@@ -74,6 +74,9 @@ FrankEncode::FrankEncode(char **argv, bool isImage){
 
 	for(int i = 0; i < image.getWidth(); i++){
 		pixelsUsed[i] = new bool[image.getHeight()];
+		for(int y = 0; y < image.getHeight(); y++){
+			pixelsUsed[i][y] = false;
+		}
 	}
 
 	getPixels(1000);
