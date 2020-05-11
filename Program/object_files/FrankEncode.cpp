@@ -252,7 +252,7 @@ void FrankEncode::writeImage(){
 
 	cout << "[INFO]: File read." << endl;
 
-	outputFileImage.updatePixel(Magick::ColorRGB(256, 256, 256));
+	outputFileImage.updatePixel(Magick::ColorRGB(1.0, 1.0, 1.0));
 
 	while(!outputFileImage.isWritten()){
 		//Needs to be 16777215 so that it cannot generate #FFFFFF (used to determine stopping pixel).
