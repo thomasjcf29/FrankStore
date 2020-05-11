@@ -48,7 +48,7 @@ ImageToRead::ImageToRead(string name){
             int g = (int) (col.green() * 255);
             int b = (int) (col.blue() * 255);
 
-            if(r == 255 && g == 255 && b == 255){
+            if(r >= 254 && g >= 254 && b >= 254){
                 paddingPixel = (y * width) + i;
                 goto stop;
             }
