@@ -125,8 +125,10 @@ string FrankThreader::calculateCommand(JobStruct job){
     }
 
     else{
-        command << "\"";
-        displayExtraQuotes = true;
+        #ifdef WIN32
+            command << "\"";
+            displayExtraQuotes = true;
+        #endif
         command << "\"" << job.fileName << "\" ";
     }
 
