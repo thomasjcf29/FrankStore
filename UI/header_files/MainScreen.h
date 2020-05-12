@@ -57,8 +57,11 @@ private:
     bool encrypt = false;
     std::vector<std::string> files;
     std::vector<std::string> shortFileName;
-    
+
     bool jobsAdded = false;
+
+    int highChildPos = 0; //Used To Calculate Scroll
+    double highHeight = 0; //Used To Calculate Scroll
 
     std::mutex fileLock; //Prevent UI and Thread accesssing files
 
@@ -87,6 +90,7 @@ private:
     Gtk::FileChooserDialog* filesToHideChooser = nullptr;
     Gtk::Box* boxOfFiles = nullptr;
     Gtk::Dialog* actionInProgress = nullptr;
+    Gtk::ScrolledWindow* scrollingWindow = nullptr;
 
     //Encryption Section
     Gtk::Button* btnAddImageKey = nullptr;

@@ -55,6 +55,7 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("filesToHideChooser", filesToHideChooser);
     refBuilder->get_widget("boxOfFiles", boxOfFiles);
     refBuilder->get_widget("actionInProgress", actionInProgress);
+    refBuilder->get_widget("scrollingWindow", scrollingWindow);
 
     //Encryption Section
     refBuilder->get_widget("btnAddImageKey", btnAddImageKey);
@@ -98,7 +99,7 @@ MainScreen::MainScreen(string application){
        !encryptionImageChooser || !btnOpenEncryptionImage || !btnCoverImage || !confirmationDialog ||
        !filesToHideChooser || !btnFilesChosen || !btnFolderNo || !btnFolderYes ||
        !btnDelFiles || !boxOfFiles || !chkOutputImage || !btnEncode ||
-       !btnDecode){
+       !btnDecode || !actionInProgress || !scrollingWindow){
         cout << "Invalid glade file!" << endl;
         exit(1);
     }
@@ -131,8 +132,6 @@ MainScreen::MainScreen(string application){
 
     dispatcher.connect(sigc::mem_fun(*this, &MainScreen::displayUIProgress));
     dispatcherUIClose.connect(sigc::mem_fun(*this, &MainScreen::hideUIPopup));
-
-    Gtk::IconSize::register_new("file_icon_layout", 20, 20);
 
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -173,6 +172,7 @@ MainScreen::~MainScreen(){
     delete btnDecode;
     delete threadManager;
     delete actionInProgress;
+    delete scrollingWindow;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -493,6 +493,9 @@ void MainScreen::disable_form(bool disable){
 }
 
 void MainScreen::btn_encode_pressed(){
+    highChildPos = 0; //Reset For Next Run
+    highHeight = 0; //Reset For Next Run
+
     if(encrypt){
         actionToDo = FileEncryptAndEncode;
     }
@@ -506,6 +509,9 @@ void MainScreen::btn_encode_pressed(){
 }
 
 void MainScreen::btn_decode_pressed(){
+    highChildPos = 0; //Reset For Next Run
+    highHeight = 0; //Reset For Next Run
+
     if(encrypt){
         actionToDo = FileDecodeAndDecrypt;
     }
@@ -550,29 +556,48 @@ void MainScreen::updateUIProgress(int cN, UpdateMessage uM){
 
 void MainScreen::displayUIProgress(){
     {
-        unique_lock<mutex> lock(fileLock);
-        for(int i = 0; i < childToUpdate.size(); i++){
-            auto grid = (Gtk::Grid*) boxOfFiles->get_children()[childToUpdate[i]];
-            Gtk::Image* icon = (Gtk::Image*) grid->get_child_at(0, 0);
-            Gtk::Label* label = (Gtk::Label*) grid->get_child_at(1, 0);
+        {
+            unique_lock<mutex> lock(fileLock);
 
-            UpdateMessage updateMessage = childToUpdateMessage[i];
+            for(int i = 0; i < childToUpdate.size(); i++){
+                int number = childToUpdate[i];
+                if(number > highChildPos){
+                    highChildPos = number;
+                }
 
-            if(updateMessage == Error){
-                icon->set_from_resource("/images/designs/error.png");
-                label->set_label("Failed");
+                auto grid = (Gtk::Grid*) boxOfFiles->get_children()[number];
+
+                int height = boxOfFiles->get_children()[number]->get_allocated_height();
+
+                if(height > highHeight){
+                    highHeight = height;
+                }
+
+                Gtk::Image* icon = (Gtk::Image*) grid->get_child_at(0, 0);
+                Gtk::Label* label = (Gtk::Label*) grid->get_child_at(1, 0);
+
+                UpdateMessage updateMessage = childToUpdateMessage[i];
+
+                if(updateMessage == Error){
+                    icon->set_from_resource("/images/designs/error.png");
+                    label->set_label("Failed");
+                }
+                else if(updateMessage == InProgress){
+                    icon->set_from_resource("/images/designs/inprogress.png");
+                    label->set_label("In Progress");
+                }
+                else if(updateMessage == Success){
+                    icon->set_from_resource("/images/designs/success.png");
+                    label->set_label("Completed");
+                }
             }
-            else if(updateMessage == InProgress){
-                icon->set_from_resource("/images/designs/inprogress.png");
-                label->set_label("In Progress");
-            }
-            else if(updateMessage == Success){
-                icon->set_from_resource("/images/designs/success.png");
-                label->set_label("Completed");
-            }
+            childToUpdate.clear();
+            childToUpdateMessage.clear();
         }
-        childToUpdate.clear();
-        childToUpdateMessage.clear();
+
+        auto adj = scrollingWindow->get_vadjustment();
+        double scrollSize = (highHeight + 10) * (highChildPos - 6); //10 for spacing, 6 to allow previous files shown
+        adj->set_value(scrollSize);
     }
 }
 

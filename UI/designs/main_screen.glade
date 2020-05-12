@@ -566,7 +566,7 @@
             <property name="can_focus">False</property>
             <property name="row_homogeneous">True</property>
             <child>
-              <object class="GtkScrolledWindow">
+              <object class="GtkScrolledWindow" id="scrollingWindow">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hscrollbar_policy">never</property>
