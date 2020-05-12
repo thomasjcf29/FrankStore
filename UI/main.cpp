@@ -13,7 +13,7 @@ int main(int argc, char **argv){
     string applicationLocation;
 
     if(!loadingScreen.isValid()){
-        cout << "Invalid application startup." << endl;
+        cout << "[ERROR]: Invalid application startup." << endl;
         return 1;
     }
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv){
     MainScreen mainScreen(applicationLocation);
 
     if(!mainScreen.isValid()){
-        cout << "Invalid main application startup." << endl;
+        cout << "[ERROR]: Invalid main application startup." << endl;
         return 1;
     }
 

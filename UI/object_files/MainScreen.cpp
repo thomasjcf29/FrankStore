@@ -100,7 +100,7 @@ MainScreen::MainScreen(string application){
        !filesToHideChooser || !btnFilesChosen || !btnFolderNo || !btnFolderYes ||
        !btnDelFiles || !boxOfFiles || !chkOutputImage || !btnEncode ||
        !btnDecode || !actionInProgress || !scrollingWindow){
-        cout << "Invalid glade file!" << endl;
+        cout << "[ERROR]: Invalid glade file!" << endl;
         exit(1);
     }
 
