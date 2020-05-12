@@ -26,7 +26,7 @@ ImageToRead::ImageToRead(string name){
     fileName = name;
     try{
         image.read(fileName);
-        cout << "File read." << endl;
+        cout << "[INFO]: File read." << endl;
         width = image.columns();
         height = image.rows();
         totalPixels = image.columns() * image.rows();
@@ -34,12 +34,12 @@ ImageToRead::ImageToRead(string name){
     }
     catch( exception &error_ )
     {
-        cout << "Problem opening file: " << "Does the file exist?" << endl;
+        cout << "[ERROR]: Problem opening file: " << "Does the file exist?" << endl;
         valid = false;
         return;
     }
 
-    cout << "Removing padding.....";
+    cout << "[INFO]: Removing padding.....";
 
     for(size_t i = 0; i < width; i++){
         for(size_t y = 0; y < height; y++){
@@ -60,9 +60,9 @@ ImageToRead::ImageToRead(string name){
     readablePixels = paddingPixel;
 
     if(readablePixels % 3 != 0){
-        cout << "Total Pixels: " << totalPixels << endl;
-        cout << "Padding Pixels: " << paddingPixel << endl;
-        cout << "Readable Pixels: " << readablePixels << endl;
+        cout << "[INFO]: Total Pixels: " << totalPixels << endl;
+        cout << "[INFO]: Padding Pixels: " << paddingPixel << endl;
+        cout << "[INFO]: Readable Pixels: " << readablePixels << endl;
         cout << "[ERROR] Problem with decode image, invalid sizes!" << endl;
         valid = false;
     }

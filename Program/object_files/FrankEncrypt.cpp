@@ -167,7 +167,7 @@ void FrankEncrypt::encrypt(){
     encryptManager.generateIV();
 
     if(!encryptManager.isValid()){
-        cout << "Cannot encrypt... exiting." << endl;
+        cout << "[ERROR]: Cannot encrypt... exiting." << endl;
         exit(55);
     }
 

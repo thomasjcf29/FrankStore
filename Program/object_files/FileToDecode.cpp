@@ -33,7 +33,7 @@ FileToDecode::FileToDecode(string name){
     inputFile.seekg( 0, ios::end);
     totalBytes = inputFile.tellg();
 
-    cout << "Total length of file to encode (in bytes): " << totalBytes << endl;
+    cout << "[INFO]: Total length of file to encode (in bytes): " << totalBytes << endl;
 
     if((totalBytes % 2) != 0){
         cout << "[ERROR]: Invalid decode file!" << endl;

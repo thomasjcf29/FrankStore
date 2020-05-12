@@ -30,7 +30,7 @@ FileToEncode::FileToEncode(string file){
     inputFile.seekg( 0, ios::end);
     totalLength = inputFile.tellg();
 
-    cout << "Total length of file to encode (in bytes): " << totalLength << endl;
+    cout << "[INFO]: Total length of file to encode (in bytes): " << totalLength << endl;
 
     inputFile.seekg(0, ios::beg);
 }
