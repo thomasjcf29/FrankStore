@@ -133,6 +133,8 @@ MainScreen::MainScreen(string application){
     dispatcher.connect(sigc::mem_fun(*this, &MainScreen::displayUIProgress));
     dispatcherUIClose.connect(sigc::mem_fun(*this, &MainScreen::hideUIPopup));
 
+    boxOfFiles->set_homogeneous(true);
+
     if(pWindow){
         Gtk::StyleContext::add_provider_for_screen(Gdk::Screen::get_default(), css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
         pWindow->set_size_request(1000, 510);
