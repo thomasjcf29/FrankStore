@@ -138,7 +138,7 @@ void FrankEncode::replacePixel(int location){
     }
 
     if(image.getPixelsLeft() < 1){
-        cout << "[INFO]: You are running low on pixels!" << endl;
+        cout << "[WARN]: You are running low on pixels!" << endl;
         pixels.erase(pixels.begin() + location);
         pixels.shrink_to_fit();
         return;
