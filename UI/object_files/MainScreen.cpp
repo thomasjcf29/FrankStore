@@ -577,11 +577,13 @@ void MainScreen::displayUIProgress(){
 }
 
 void MainScreen::hideUIPopup(){
-    if(jobsAdded){
-        actionInProgress->hide();
-    }
+    actionInProgress->hide();
 }
 
 void MainScreen::closeUIPopup(){
-    dispatcherUIClose.emit();
+    unique_lock<mutex> lock(fileLock);
+    if(jobsAdded){
+        cout << "Hiding?" << endl;
+        dispatcherUIClose.emit();
+    }
 }

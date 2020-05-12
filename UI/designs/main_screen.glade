@@ -28,6 +28,7 @@
     <property name="window_position">center</property>
     <property name="default_width">1000</property>
     <property name="default_height">510</property>
+    <property name="icon">frankLogo.png</property>
     <property name="gravity">center</property>
     <child>
       <placeholder/>
@@ -651,6 +652,7 @@ Please complete step 4.</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
     <property name="window_position">center</property>
+    <property name="icon">frankLogo.png</property>
     <property name="type_hint">normal</property>
     <property name="deletable">False</property>
     <property name="gravity">center</property>
@@ -741,6 +743,7 @@ Your requested action is in progress</property>
     <property name="title" translatable="yes">Choose your image</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
+    <property name="icon">frankLogo.png</property>
     <property name="type_hint">normal</property>
     <property name="gravity">center</property>
     <property name="transient_for">mainWindow</property>
@@ -794,6 +797,7 @@ Your requested action is in progress</property>
     <property name="title" translatable="yes">Choose your files to hide</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
+    <property name="icon">frankLogo.png</property>
     <property name="type_hint">normal</property>
     <property name="gravity">center</property>
     <property name="transient_for">mainWindow</property>
@@ -846,6 +850,7 @@ Your requested action is in progress</property>
     <property name="title" translatable="yes">Confirm you want to a click a folder</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
+    <property name="icon">frankLogo.png</property>
     <property name="type_hint">normal</property>
     <property name="deletable">False</property>
     <property name="gravity">center</property>
@@ -966,6 +971,7 @@ Your requested action is in progress</property>
     <property name="title" translatable="yes">Choose your password</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
+    <property name="icon">frankLogo.png</property>
     <property name="type_hint">normal</property>
     <property name="gravity">center</property>
     <property name="transient_for">mainWindow</property>

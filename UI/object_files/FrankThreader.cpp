@@ -35,9 +35,13 @@ void FrankThreader::loopFunction(){
 
             job = queueJobs.front();
             queueJobs.pop();
-            empty = queueJobs.empty();
         }
         runJob(job);
+
+        {
+            unique_lock<mutex> lock(queueLock);
+            empty = queueJobs.empty();
+        }
 
         if(empty){
             uiManager->closeUIPopup();
