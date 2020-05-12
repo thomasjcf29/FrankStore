@@ -54,6 +54,7 @@ MainScreen::MainScreen(string application){
     refBuilder->get_widget("confirmationDialog", confirmationDialog);
     refBuilder->get_widget("filesToHideChooser", filesToHideChooser);
     refBuilder->get_widget("boxOfFiles", boxOfFiles);
+    refBuilder->get_widget("actionInProgress", actionInProgress);
 
     //Encryption Section
     refBuilder->get_widget("btnAddImageKey", btnAddImageKey);
@@ -128,6 +129,9 @@ MainScreen::MainScreen(string application){
     btnEncode->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_encode_pressed));
     btnDecode->signal_clicked().connect(sigc::mem_fun(*this, &MainScreen::btn_decode_pressed));
 
+    dispatcher.connect(sigc::mem_fun(*this, &MainScreen::displayUIProgress));
+    dispatcherUIClose.connect(sigc::mem_fun(*this, &MainScreen::hideUIPopup));
+
     Gtk::IconSize::register_new("file_icon_layout", 20, 20);
 
     if(pWindow){
@@ -168,6 +172,7 @@ MainScreen::~MainScreen(){
     delete btnEncode;
     delete btnDecode;
     delete threadManager;
+    delete actionInProgress;
 }
 
 Gtk::Window* MainScreen::getWindow(){
@@ -495,6 +500,7 @@ void MainScreen::btn_encode_pressed(){
         actionToDo = FileEncode;
     }
 
+    actionInProgress->show();
     thread fileJob = thread(&MainScreen::calcuate_jobs, this);
     fileJob.detach();
 }
@@ -507,6 +513,7 @@ void MainScreen::btn_decode_pressed(){
         actionToDo = FileDecode;
     }
 
+    actionInProgress->show();
     thread fileJob = thread(&MainScreen::calcuate_jobs, this);
     fileJob.detach();
 }
@@ -530,22 +537,47 @@ void MainScreen::calcuate_jobs(){
     }
 }
 
-void MainScreen::updateUIProgress(int childNumber, UpdateMessage uM){
-    unique_lock<mutex> lock(fileLock);
-    auto grid = (Gtk::Grid*) boxOfFiles->get_children()[childNumber];
-    Gtk::Image* icon = (Gtk::Image*) grid->get_child_at(0, 0);
-    Gtk::Label* label = (Gtk::Label*) grid->get_child_at(1, 0);
+void MainScreen::updateUIProgress(int cN, UpdateMessage uM){
+    {
+        unique_lock<mutex> lock(fileLock);
+        childToUpdate.push_back(cN);
+        childToUpdateMessage.push_back(uM);
+        dispatcher.emit();
+    }
+}
 
-    if(uM == Error){
-        icon->set_from_icon_name("dialog-error", Gtk::IconSize::from_name("file_icon_layout"));
-        label->set_label("Failed");
+void MainScreen::displayUIProgress(){
+    {
+        unique_lock<mutex> lock(fileLock);
+        for(int i = 0; i < childToUpdate.size(); i++){
+            auto grid = (Gtk::Grid*) boxOfFiles->get_children()[childToUpdate[i]];
+            Gtk::Image* icon = (Gtk::Image*) grid->get_child_at(0, 0);
+            Gtk::Label* label = (Gtk::Label*) grid->get_child_at(1, 0);
+
+            UpdateMessage updateMessage = childToUpdateMessage[i];
+
+            if(updateMessage == Error){
+                icon->set_from_icon_name("dialog-error", Gtk::IconSize::from_name("file_icon_layout"));
+                label->set_label("Failed");
+            }
+            else if(updateMessage == InProgress){
+                icon->set_from_icon_name("system-run", Gtk::IconSize::from_name("file_icon_layout"));
+                label->set_label("In Progress");
+            }
+            else if(updateMessage == Success){
+                icon->set_from_icon_name("emblem-default", Gtk::IconSize::from_name("file_icon_layout"));
+                label->set_label("Completed");
+            }
+        }
+        childToUpdate.clear();
+        childToUpdateMessage.clear();
     }
-    else if(uM == InProgress){
-        icon->set_from_icon_name("system-run", Gtk::IconSize::from_name("file_icon_layout"));
-        label->set_label("In Progress");
-    }
-    else if(uM == Success){
-        icon->set_from_icon_name("emblem-default", Gtk::IconSize::from_name("file_icon_layout"));
-        label->set_label("Completed");
-    }
+}
+
+void MainScreen::hideUIPopup(){
+    actionInProgress->hide();
+}
+
+void MainScreen::closeUIPopup(){
+    dispatcherUIClose.emit();
 }

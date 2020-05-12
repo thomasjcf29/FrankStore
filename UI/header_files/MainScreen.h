@@ -60,6 +60,9 @@ private:
 
     std::mutex fileLock; //Prevent UI and Thread accesssing files
 
+    std::vector<int> childToUpdate;
+    std::vector<UpdateMessage> childToUpdateMessage;
+
     //MultiThread Manager
     FrankThreader *threadManager = nullptr;
 
@@ -68,6 +71,9 @@ private:
     #else
         std::string separator = "/";
     #endif
+
+    Glib::Dispatcher dispatcher;
+    Glib::Dispatcher dispatcherUIClose;
 
     //Windows / Dialogs
     Gtk::Window* pWindow = nullptr;
@@ -78,6 +84,7 @@ private:
     Gtk::Dialog* confirmationDialog = nullptr;
     Gtk::FileChooserDialog* filesToHideChooser = nullptr;
     Gtk::Box* boxOfFiles = nullptr;
+    Gtk::Dialog* actionInProgress = nullptr;
 
     //Encryption Section
     Gtk::Button* btnAddImageKey = nullptr;
@@ -151,12 +158,15 @@ private:
     void btn_decode_pressed();
 
     void calcuate_jobs();
+    void displayUIProgress();
+    void hideUIPopup();
 public:
     MainScreen(std::string application);
     ~MainScreen();
     Gtk::Window* getWindow();
     bool isValid();
     void updateUIProgress(int childNumber, UpdateMessage uM);
+    void closeUIPopup();
 };
 
 #endif //FRANKSTOREUI_MAINSCREEN_H

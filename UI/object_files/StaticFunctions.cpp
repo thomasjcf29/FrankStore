@@ -22,10 +22,9 @@ string StaticFunctions::commandExec(const char* cmd) {
 }
 
 int StaticFunctions::commandExecResult(const char* cmd) {
-    auto pipe = popen(cmd, "r"); // get rid of shared_ptr
-    auto rc = pclose(pipe);
+    int result = system(cmd);
 
-    if(rc == EXIT_SUCCESS){ // == 0
+    if(result == 0){ // == 0
         return 0;
     }
     else{

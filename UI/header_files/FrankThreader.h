@@ -48,8 +48,7 @@ class MainScreen;
 class FrankThreader{
 private:
     MainScreen *uiManager = nullptr;
-    //int numThreads = std::thread::hardware_concurrency();
-    int numThreads = 1;
+    int numThreads = std::thread::hardware_concurrency();
     std::vector<std::thread> pool;
     std::mutex queueLock;
     std::condition_variable condition;

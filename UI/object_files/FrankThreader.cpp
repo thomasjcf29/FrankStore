@@ -23,6 +23,7 @@ void FrankThreader::loopFunction(){
     while(true)
     {
         JobStruct job;
+        bool empty = false;
         {
             unique_lock<mutex> lock(queueLock);
 
@@ -34,8 +35,13 @@ void FrankThreader::loopFunction(){
 
             job = queueJobs.front();
             queueJobs.pop();
+            empty = queueJobs.empty();
         }
         runJob(job);
+
+        if(empty){
+            uiManager->closeUIPopup();
+        }
     }
 };
 
@@ -61,7 +67,6 @@ void FrankThreader::runJob(JobStruct job){
     int result = 1;
     job.destFile = calculateFinalName(job);
     string overallCommand = calculateCommand(job);
-    cout << overallCommand << endl;
     result = StaticFunctions::commandExecResult(overallCommand.c_str());
 
     if(job.action == FileEncryptAndEncode && result == 0){
@@ -69,7 +74,6 @@ void FrankThreader::runJob(JobStruct job){
         job.sourceFile = job.destFile;
         job.destFile = calculateFinalName(job);
         overallCommand = calculateCommand(job);
-        cout << overallCommand << endl;
         result = StaticFunctions::commandExecResult(overallCommand.c_str());
 
     }
@@ -78,7 +82,6 @@ void FrankThreader::runJob(JobStruct job){
         job.sourceFile = job.destFile;
         job.destFile = calculateFinalName(job);
         overallCommand = calculateCommand(job);
-        cout << overallCommand << endl;
         result = StaticFunctions::commandExecResult(overallCommand.c_str());
     }
 
@@ -180,6 +183,8 @@ string FrankThreader::calculateCommand(JobStruct job){
             }
         }
     }
+
+    command << " >> \"" << job.destFile << ".output\"";
 
     if(displayExtraQuotes){
         command << "\"";
