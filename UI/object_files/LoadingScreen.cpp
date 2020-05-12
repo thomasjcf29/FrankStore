@@ -65,10 +65,6 @@ LoadingScreen::LoadingScreen(){
 
 LoadingScreen::~LoadingScreen(){
     delete pWindow;
-    delete pChooser;
-    delete pDialog;
-    delete dialogButton;
-    delete fileButton;
 }
 
 Gtk::Window* LoadingScreen::getWindow(){

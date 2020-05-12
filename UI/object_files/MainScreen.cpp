@@ -145,36 +145,6 @@ MainScreen::MainScreen(string application){
 
 MainScreen::~MainScreen(){
     delete pWindow;
-    delete gridEncryption;
-    delete btnAddImageKey;
-    delete btnEditImageKey;
-    delete btnDelImageKey;
-    delete btnAddPassword;
-    delete btnEditPassword;
-    delete btnDelPassword;
-    delete chkEncryption;
-    delete pneController;
-    delete passwordDialog;
-    delete btnPasswordChosen;
-    delete passwordEntry;
-    delete errorLabel;
-    delete encryptionImageChooser;
-    delete btnOpenEncryptionImage;
-    delete btnCoverImage;
-    delete confirmationDialog;
-    delete filesToHideChooser;
-    delete btnFilesChosen;
-    delete btnFolderNo;
-    delete btnFolderYes;
-    delete btnAddFiles;
-    delete btnDelFiles;
-    delete boxOfFiles;
-    delete chkOutputImage;
-    delete btnEncode;
-    delete btnDecode;
-    delete threadManager;
-    delete actionInProgress;
-    delete scrollingWindow;
 }
 
 Gtk::Window* MainScreen::getWindow(){
