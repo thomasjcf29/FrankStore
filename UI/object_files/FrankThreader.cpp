@@ -184,7 +184,7 @@ string FrankThreader::calculateCommand(JobStruct job){
         }
     }
 
-    command << " >> \"" << job.destFile << ".output\"";
+    command << " > \"" << job.destFile << ".output\"";
 
     if(displayExtraQuotes){
         command << "\"";
