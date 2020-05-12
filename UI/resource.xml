@@ -10,4 +10,10 @@
     <file>designs/application.css</file>
     <file>designs/frankLogo.png</file>
   </gresource>
+  <gresource prefix="/images">
+    <file>designs/error.png</file>
+    <file>designs/pending.png</file>
+    <file>designs/success.png</file>
+    <file>designs/inprogress.png</file>
+  </gresource>
 </gresources>

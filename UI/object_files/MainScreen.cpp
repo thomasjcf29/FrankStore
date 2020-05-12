@@ -427,7 +427,7 @@ void MainScreen::add_files_to_screen(){
 
                 //Image Status (Pending)
                 Gtk::Image* image = new Gtk::Image();
-                image->set_from_icon_name("media-playback-pause", Gtk::IconSize::from_name("file_icon_layout"));
+                image->set_from_resource("/images/designs/pending.png");
                 image->show();
 
                 //Label For File Status
@@ -559,15 +559,15 @@ void MainScreen::displayUIProgress(){
             UpdateMessage updateMessage = childToUpdateMessage[i];
 
             if(updateMessage == Error){
-                icon->set_from_icon_name("dialog-error", Gtk::IconSize::from_name("file_icon_layout"));
+                icon->set_from_resource("/images/designs/error.png");
                 label->set_label("Failed");
             }
             else if(updateMessage == InProgress){
-                icon->set_from_icon_name("system-run", Gtk::IconSize::from_name("file_icon_layout"));
+                icon->set_from_resource("/images/designs/inprogress.png");
                 label->set_label("In Progress");
             }
             else if(updateMessage == Success){
-                icon->set_from_icon_name("emblem-default", Gtk::IconSize::from_name("file_icon_layout"));
+                icon->set_from_resource("/images/designs/success.png");
                 label->set_label("Completed");
             }
         }
