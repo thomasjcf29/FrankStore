@@ -57,6 +57,8 @@ private:
     bool encrypt = false;
     std::vector<std::string> files;
     std::vector<std::string> shortFileName;
+    
+    bool jobsAdded = false;
 
     std::mutex fileLock; //Prevent UI and Thread accesssing files
 

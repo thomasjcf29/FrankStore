@@ -521,6 +521,7 @@ void MainScreen::btn_decode_pressed(){
 void MainScreen::calcuate_jobs(){
     {
         unique_lock<mutex> lock(fileLock);
+        jobsAdded = false;
         for(int i = 0; i < files.size(); i++){
             JobStruct job;
             job.fileName = executableLocation;
@@ -534,6 +535,7 @@ void MainScreen::calcuate_jobs(){
             job.stageAt = NotStarted;
             threadManager->addJob(job);
         }
+        jobsAdded = true;
     }
 }
 
@@ -575,7 +577,9 @@ void MainScreen::displayUIProgress(){
 }
 
 void MainScreen::hideUIPopup(){
-    actionInProgress->hide();
+    if(jobsAdded){
+        actionInProgress->hide();
+    }
 }
 
 void MainScreen::closeUIPopup(){
