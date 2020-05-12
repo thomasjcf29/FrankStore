@@ -583,7 +583,6 @@ void MainScreen::hideUIPopup(){
 void MainScreen::closeUIPopup(){
     unique_lock<mutex> lock(fileLock);
     if(jobsAdded){
-        cout << "Hiding?" << endl;
         dispatcherUIClose.emit();
     }
 }
