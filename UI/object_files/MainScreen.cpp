@@ -553,7 +553,7 @@ Function to disable the form currently on the screen.
 Default if no param is to disable it.
 @param bool disable: disable form (true) or enable form (false).
 */
-void MainScreen::disable_form(bool disable = true){
+void MainScreen::disable_form(bool disable){
     btnDecode->set_sensitive(!disable);
     btnEncode->set_sensitive(!disable);
 }
