@@ -7,6 +7,12 @@
 
 using namespace std;
 
+/**
+Constructor for FrankThreader (Thread Manager). It automatically creates
+max amount of threads allowed for the system and places them into hold.
+When you add jobs via addJob() the threads are one by one kicked off.
+@param MainScreen *mainScreen: The parent GUI manager, used to update GUI progress.
+*/
 FrankThreader::FrankThreader(MainScreen *mainScreen){
     for(int i = 0; i < numThreads; i++){
         pool.push_back(thread(&FrankThreader::loopFunction, this));
@@ -15,10 +21,17 @@ FrankThreader::FrankThreader(MainScreen *mainScreen){
     uiManager = mainScreen;
 }
 
+/**
+Destructor for the thread manager, safely terminates all threads.
+*/
 FrankThreader::~FrankThreader(){
     terminateAllThreads();
 }
 
+/**
+Threads internal loop system, thread will continually loop until quit (when terminateAll) is called.
+If no jobs thread will pause until told to run.
+*/
 void FrankThreader::loopFunction(){
     while(true)
     {
@@ -49,6 +62,9 @@ void FrankThreader::loopFunction(){
     }
 };
 
+/**
+Safely terminates all threads within the thread manager.
+*/
 void FrankThreader::terminateAllThreads(){
     {
         unique_lock<mutex> lock(queueLock);
@@ -57,6 +73,10 @@ void FrankThreader::terminateAllThreads(){
     condition.notify_all();
 }
 
+/**
+Publically add job to the list of jobs waiting to run.
+@param JobStruct job: The job you would like to run.
+*/
 void FrankThreader::addJob(JobStruct job){
     {
         unique_lock<mutex> lock(queueLock);
@@ -65,6 +85,10 @@ void FrankThreader::addJob(JobStruct job){
     condition.notify_one();
 }
 
+/**
+Internal to thread, take the JobStruct, work out the necessary command and process as required.
+@param JobStruct job: The job to process.
+*/
 void FrankThreader::runJob(JobStruct job){
 
     uiManager->updateUIProgress(job.childNumber, InProgress);
@@ -97,6 +121,11 @@ void FrankThreader::runJob(JobStruct job){
     }
 }
 
+/**
+Calcalate the destination fileName for the job.
+@param JobStruct job: The job to calculate the name for.
+@return string: The final fileName.
+*/
 string FrankThreader::calculateFinalName(JobStruct job){
 
     //It's decrypt so just remove the extension
@@ -118,11 +147,21 @@ string FrankThreader::calculateFinalName(JobStruct job){
     return "";
 }
 
+/**
+Remove the final extension from the file (decoding).
+@param string: The fileName to remove the extension from.
+@return string: The file with final extension removed.
+*/
 string FrankThreader::removeFinalExtension(string fileName){
     size_t location = fileName.find_last_of(".");
     return fileName.substr(0, location);
 }
 
+/**
+Calculate the command for the Job, depending on the command and passed in params determines the commnad on the command line.
+@param JobStruct job: The job to calculate the command for.
+@return string the command to run in the executor.
+*/
 string FrankThreader::calculateCommand(JobStruct job){
     stringstream command;
     bool displayExtraQuotes = false;

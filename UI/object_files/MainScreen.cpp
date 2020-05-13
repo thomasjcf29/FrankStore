@@ -10,6 +10,11 @@
 
 using namespace std;
 
+/**
+Constructor for the main screen, openings the resource files and gathers all
+relevant objects from the GUI. Do not use if isValid() is false. Also sets up
+button listeners etc.
+*/
 MainScreen::MainScreen(string application){
     executableLocation = application;
     threadManager = new FrankThreader(this);
@@ -141,18 +146,33 @@ MainScreen::MainScreen(string application){
     }
 }
 
+/**
+Destructor for main screen, used to delete any resources created by itself.
+*/
 MainScreen::~MainScreen(){
     delete pWindow;
 }
 
+/**
+@return the pWindow object which can be displayed by the Application.
+*/
 Gtk::Window* MainScreen::getWindow(){
     return pWindow;
 }
 
+/**
+@return if the object is ok to use (true if ok, false if not).
+*/
 bool MainScreen::isValid(){
     return valid;
 }
 
+/**
+Loop through files and add them to the vector of files to be encoded / decoded.
+This function calls itself if the child item is a subdirectory.
+@param string path: Path of the current folder to check.
+@param string folder: Path of the parent folder.
+*/
 void MainScreen::add_files(string path, string folder){
     DIR *dir;
     struct dirent *ent;
@@ -176,6 +196,11 @@ void MainScreen::add_files(string path, string folder){
     }
 }
 
+/**
+Return true if the if the item passed in is a folder.
+@param string location: Location of file / folder to check.
+@return true if folder, false if not.
+*/
 bool MainScreen::isDir(string location){
     struct stat info;
 
@@ -190,12 +215,18 @@ bool MainScreen::isDir(string location){
     }
 }
 
+/**
+Function called when the check for encryption is toggled.
+*/
 void MainScreen::checkbox_encryption_toggled(){
     encrypt = !encrypt;
     show_encryption_parts();
     set_form_ready();
 }
 
+/**
+Function called when the button to add an image as the encryption key is pressed.
+*/
 void MainScreen::btn_add_image(){
     choosingEncryptImage = true;
     encryptionImageChooser->run();
@@ -203,6 +234,9 @@ void MainScreen::btn_add_image(){
     set_form_ready();
 }
 
+/**
+Function called for when the button to edit the previous encryption key is pressed.
+*/
 void MainScreen::btn_edit_image(){
     choosingEncryptImage = true;
     encryptionImageChooser->run();
@@ -210,30 +244,46 @@ void MainScreen::btn_edit_image(){
     set_form_ready();
 }
 
+/**
+Function called for when the button to delete the encryption key is pressed.
+*/
 void MainScreen::btn_del_image(){
     encryptImage.clear();
     show_encryption_parts();
     set_form_ready();
 }
 
+/**
+Function called for when the button to add an encrypted password is pressed.
+*/
 void MainScreen::btn_add_pwd(){
     passwordDialog->run();
     show_encryption_parts();
     set_form_ready();
 }
 
+/**
+Function called for when the button to edit an encrypted password is pressed.
+*/
 void MainScreen::btn_edit_pwd(){
     passwordDialog->run();
     show_encryption_parts();
     set_form_ready();
 }
 
+/**
+Function called for when the button to delete an encrypted password is pressed.
+*/
 void MainScreen::btn_del_pwd(){
     encryptPassword.clear();
     show_encryption_parts();
     set_form_ready();
 }
 
+/**
+Function called for when the button to submit chosen password is pressed.
+(On the password entry dialog.)
+*/
 void MainScreen::btn_pwd_chosen(){
     if(passwordEntry->get_text_length() == 0){
         errorLabel->show();
@@ -245,12 +295,20 @@ void MainScreen::btn_pwd_chosen(){
     passwordDialog->hide();
 }
 
+/**
+Function called for when the button to submit chosen image is pressed.
+(On the image chooser dialog.)
+*/
 void MainScreen::btn_sel_cover_image(){
     choosingCoverImage = true;
     encryptionImageChooser->run();
     set_form_ready();
 }
 
+/**
+Function called for when the button to submit chosen image is pressed.
+(On the image chooser dialog.)
+*/
 void MainScreen::btn_enc_image_chosen(){
     string fileName = encryptionImageChooser->get_filename();
     struct stat info;
@@ -275,6 +333,10 @@ void MainScreen::btn_enc_image_chosen(){
     }
 }
 
+/**
+Function called interally to hide / show the relevant parts of the encryption section.
+(Section 2).
+*/
 void MainScreen::show_encryption_parts(){
     if(!encrypt){
         btnAddImageKey->set_sensitive(false);
@@ -309,6 +371,9 @@ void MainScreen::show_encryption_parts(){
     }
 }
 
+/**
+Function called when the button to add files to the program has been pressed.
+*/
 void MainScreen::show_file_chooser(){
     confirmFolder = false;
     filesToHideChooser->run();
@@ -316,6 +381,10 @@ void MainScreen::show_file_chooser(){
     set_form_ready();
 }
 
+/**
+Function called when the select file / folder is pressed on the choose your files
+dialog.
+*/
 void MainScreen::btn_file_choosen(){
     string fileName = filesToHideChooser->get_filename();
     struct stat info;
@@ -349,16 +418,26 @@ void MainScreen::btn_file_choosen(){
     }
 }
 
+/**
+Function called if user chooses not to add a folder (on the folder choose dialog).
+*/
 void MainScreen::btn_folder_no(){
     confirmFolder = false;
     confirmationDialog->hide();
 }
 
+/**
+Function called if user chooses to hide folder (on the folder chooser dialog).
+*/
 void MainScreen::btn_folder_yes(){
     confirmFolder = true;
     confirmationDialog->hide();
 }
 
+/**
+Function to clear the current list of files to add.
+Called by the clear files button on the UI.
+*/
 void MainScreen::btn_del_files(){
     {
         unique_lock<mutex> lock(fileLock);
@@ -369,6 +448,10 @@ void MainScreen::btn_del_files(){
     set_form_ready();
 }
 
+/**
+Displays the current list of files in the vector on the screen.
+If there are no files in the screen, then it tells the user to select some.
+*/
 void MainScreen::add_files_to_screen(){
     {
         unique_lock<mutex> lock(fileLock);
@@ -424,11 +507,19 @@ void MainScreen::add_files_to_screen(){
     }
 }
 
+/**
+Function called when the checkbox to choose to hide via image is toggled.
+*/
 void MainScreen::checkbox_image_toggled(){
     outputImage = !outputImage;
     set_form_ready();
 }
 
+/**
+Function called each time a UI button is pressed. If the form is ready to go
+(all required options) are inputted, the form is enabled for the user and they
+can click encode or decode.
+*/
 void MainScreen::set_form_ready(){
 
     //Check Sections 1 & 2
@@ -457,11 +548,19 @@ void MainScreen::set_form_ready(){
     disable_form(false);
 }
 
-void MainScreen::disable_form(bool disable){
+/**
+Function to disable the form currently on the screen.
+Default if no param is to disable it.
+@param bool disable: disable form (true) or enable form (false).
+*/
+void MainScreen::disable_form(bool disable = true){
     btnDecode->set_sensitive(!disable);
     btnEncode->set_sensitive(!disable);
 }
 
+/**
+Function called when the encode button is pressed.
+*/
 void MainScreen::btn_encode_pressed(){
     highChildPos = 0; //Reset For Next Run
     highHeight = 0; //Reset For Next Run
@@ -478,6 +577,9 @@ void MainScreen::btn_encode_pressed(){
     fileJob.detach();
 }
 
+/**
+Function called when the decode button is pressed.
+*/
 void MainScreen::btn_decode_pressed(){
     highChildPos = 0; //Reset For Next Run
     highHeight = 0; //Reset For Next Run
@@ -494,6 +596,11 @@ void MainScreen::btn_decode_pressed(){
     fileJob.detach();
 }
 
+/**
+Calculates all jobs which need to be created, based on the files vector and then
+packs the jobs into a JobStructure ready to be handed to the Thread Manager.
+This function should be called asynchronously as it may take a while.
+*/
 void MainScreen::calcuate_jobs(){
     {
         unique_lock<mutex> lock(fileLock);
@@ -515,6 +622,13 @@ void MainScreen::calcuate_jobs(){
     }
 }
 
+/**
+Inform the UI to update the progress of this child row with the relevant update message.
+This function does not directly update the UI, rather it calls a dispatcher and
+asks it do be done on the GUI thread.
+@param int cN: The child number of the Gtk::Box to update.
+@param UpdateMessage uM: The message you have for that box.
+*/
 void MainScreen::updateUIProgress(int cN, UpdateMessage uM){
     {
         unique_lock<mutex> lock(fileLock);
@@ -524,6 +638,11 @@ void MainScreen::updateUIProgress(int cN, UpdateMessage uM){
     }
 }
 
+/**
+Update UI progress from the vector list containing all updates waiting to be displayed.
+Function automatically scrolls down to the last row to have been used, although tries
+to keep the last file in the middle of the list where possible.
+*/
 void MainScreen::displayUIProgress(){
     {
         {
@@ -571,10 +690,18 @@ void MainScreen::displayUIProgress(){
     }
 }
 
+/**
+Hide the in progress blocker, preventing the user from doing any work.
+*/
 void MainScreen::hideUIPopup(){
     actionInProgress->hide();
 }
 
+/**
+Public call from an ASync thread to say you can hide the UI in progress blocker.
+It dispatches an event to the GUI thread to ask it to close if all files have finished adding.
+jobsAdded set by calculate_jobs();
+*/
 void MainScreen::closeUIPopup(){
     unique_lock<mutex> lock(fileLock);
     if(jobsAdded){

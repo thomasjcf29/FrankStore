@@ -6,6 +6,11 @@
 
 using namespace std;
 
+/**
+Entrance point to the program, called by the user.
+Creates the loading screen and then creates the main screen.
+Returns exit code of 0 (success) or 1 (failed).
+*/
 int main(int argc, char **argv){
     auto app = Gtk::Application::create(argc, argv, "uk.co.thomasfranklin.frankstoreui.loadingScreen");
 

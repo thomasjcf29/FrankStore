@@ -6,6 +6,11 @@
 
 using namespace std;
 
+/**
+Constructor for the loading screen, openings the resource files and gathers all
+relevant objects from the GUI. Do not use if isValid() is false. Also sets up
+button listeners etc.
+*/
 LoadingScreen::LoadingScreen(){
     auto refBuilder = Gtk::Builder::create();
 
@@ -63,24 +68,39 @@ LoadingScreen::LoadingScreen(){
     }
 }
 
+/**
+Destructor for loading screen, used to delete any resources created by itself.
+*/
 LoadingScreen::~LoadingScreen(){
     delete pWindow;
 }
 
+/**
+@return the pWindow object which can be displayed by the Application.
+*/
 Gtk::Window* LoadingScreen::getWindow(){
     return pWindow;
 }
 
+/**
+@return if the object is ok to use (true if ok, false if not).
+*/
 bool LoadingScreen::isValid(){
     return valid;
 }
 
+/**
+@return the string executable location as selected in the file chooser.
+*/
 string LoadingScreen::getExecutable(){
     return fileName;
 }
 
+/**
+Called by the 5 second timer to check if location exists and display dialog etc.
+@return false to prevent being called again.
+*/
 bool LoadingScreen::readyUp(){
-    string result = StaticFunctions::commandExec("echo %cd%");
 
     if(!foundFrankstore()){
         pDialog->run();
@@ -92,10 +112,16 @@ bool LoadingScreen::readyUp(){
     return false;
 }
 
+/**
+Function called when ok button is pressed in dialog.
+*/
 void LoadingScreen::on_dialog_ok(){
     pDialog->hide();
 }
 
+/**
+Function called when open button is pressed in window chooser.
+*/
 void LoadingScreen::on_file_ok(){
     fileName = pChooser->get_filename();
     struct stat info;
@@ -112,6 +138,9 @@ void LoadingScreen::on_file_ok(){
     }
 }
 
+/**
+@return if FrankStore could be found in the system environment.
+*/
 bool LoadingScreen::foundFrankstore(){
 
     #ifdef WIN32
