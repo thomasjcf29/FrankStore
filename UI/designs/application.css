@@ -1,0 +1,47 @@
+.LoadingTitle, .AuthorTitle, .Titles, .CheckBoxForm{
+    color: #F4A261;
+}
+
+.ErrorLabel{
+    color: #E76F51;
+}
+
+.Form{
+    color: #F4A261;
+    background-color: #3A5D63;
+    border-radius: 60px;
+}
+
+.Form:disabled{
+    background-color: #bdbdbd;
+    color: #000000;
+}
+
+.InputBox{
+    border-radius: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.ScrolledWindow{
+    border-color: #F4A261;
+    border-style: dashed;
+    border-width: 3px;
+}
+
+.BottomMargin{
+    margin-bottom: 5px;
+}
+
+.Form:hover{
+    background-color: #bdbdbd;
+    color: #000000;
+}
+
+.LoadingSpinner{
+    color: #E9C46A;
+}
+
+.Background{
+    background-color: #264653;
+}

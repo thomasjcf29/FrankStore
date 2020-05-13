@@ -29,7 +29,7 @@ FrankDecode::FrankDecode(char **argv, bool isImage){
         inputImage = ImageToRead(argv[3]);
 
         if(!inputImage.isValid()){
-            cout << "Could not read input image, exiting!" << endl;
+            cout << "[ERROR]: Could not read input image, exiting!" << endl;
             exit(3);
         }
     }
@@ -38,13 +38,13 @@ FrankDecode::FrankDecode(char **argv, bool isImage){
         inputFile = FileToDecode(argv[3]);
 
         if(!inputFile.isValid()){
-            cout << "Could not read input file, exiting!" << endl;
+            cout << "[ERROR]: Could not read input file, exiting!" << endl;
             exit(3);
         }
     }
 
     if(!image.isValid()){
-        cout << "Could not read cover file, closing program." << endl;
+        cout << "[ERROR]: Could not read cover file, closing program." << endl;
         exit(3);
     }
 

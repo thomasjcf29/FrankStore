@@ -34,13 +34,13 @@ FrankEncode::FrankEncode(char **argv, bool isImage){
     randombytes_buf(myString, 32);
 
     if(!image.isValid()){
-        cout << "Could not read cover file, closing program." << endl;
+        cout << "[ERROR]: Could not read cover file, closing program." << endl;
         exit(3);
     }
 
     if(image.getMaxPixels() < 1000){
-        cout << "[ERROR] The image you have chosen is too small." << endl;
-        cout << "You need at least 1000 pixels in an image." << endl;
+        cout << "[ERROR]: The image you have chosen is too small." << endl;
+        cout << "[ERROR]: You need at least 1000 pixels in an image." << endl;
         exit(4);
     }
 
@@ -74,6 +74,9 @@ FrankEncode::FrankEncode(char **argv, bool isImage){
 
 	for(int i = 0; i < image.getWidth(); i++){
 		pixelsUsed[i] = new bool[image.getHeight()];
+		for(int y = 0; y < image.getHeight(); y++){
+			pixelsUsed[i][y] = false;
+		}
 	}
 
 	getPixels(1000);
@@ -135,7 +138,7 @@ void FrankEncode::replacePixel(int location){
     }
 
     if(image.getPixelsLeft() < 1){
-        cout << "[INFO]: You are running low on pixels!" << endl;
+        cout << "[WARN]: You are running low on pixels!" << endl;
         pixels.erase(pixels.begin() + location);
         pixels.shrink_to_fit();
         return;
@@ -239,17 +242,17 @@ void FrankEncode::writeImage(){
 
 		if(counter == 10000){
 			counter = 0;
-			cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
-			cout << "Flushing output file made so far" << endl;
+			cout << "[INFO]: Read So Far: " << plainFile.getReadSoFar() << endl;
+			cout << "[INFO]: Flushing output file made so far" << endl;
 		 	outputFileImage.write();
-			cout << "Output file flushed, continuing." << endl;
+			cout << "[INFO]: Output file flushed, continuing." << endl;
 		}
 
 	} while(moreToRead);
 
 	cout << "[INFO]: File read." << endl;
 
-	outputFileImage.updatePixel(Magick::ColorRGB(255, 255, 255));
+	outputFileImage.updatePixel(Magick::ColorRGB(1.0, 1.0, 1.0));
 
 	while(!outputFileImage.isWritten()){
 		//Needs to be 16777215 so that it cannot generate #FFFFFF (used to determine stopping pixel).
@@ -297,10 +300,10 @@ void FrankEncode::writeFile(){
 
 		if(counter == 10000){
 			counter = 0;
-			cout << "Read So Far: " << plainFile.getReadSoFar() << endl;
-			cout << "Flushing output file made so far" << endl;
+			cout << "[INFO]: Read So Far: " << plainFile.getReadSoFar() << endl;
+			cout << "[INFO]: Flushing output file made so far" << endl;
 			outputFileFile.flush();
-			cout << "Output file flushed, continuing." << endl;
+			cout << "[INFO]: Output file flushed, continuing." << endl;
 		}
 
 	} while(moreToRead);

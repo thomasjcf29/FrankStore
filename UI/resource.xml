@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/loading_screen">
+    <file>designs/loading_screen.glade</file>
+    <file>designs/application.css</file>
+    <file>designs/frankLogo.png</file>
+  </gresource>
+  <gresource prefix="/main_screen">
+    <file>designs/main_screen.glade</file>
+    <file>designs/application.css</file>
+    <file>designs/frankLogo.png</file>
+  </gresource>
+  <gresource prefix="/images">
+    <file>designs/error.png</file>
+    <file>designs/pending.png</file>
+    <file>designs/success.png</file>
+    <file>designs/inprogress.png</file>
+  </gresource>
+</gresources>

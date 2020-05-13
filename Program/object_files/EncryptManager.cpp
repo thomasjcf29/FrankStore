@@ -63,7 +63,7 @@ void EncryptManager::generateIV(){
     cout << "[INFO]: Generating IV..." << endl;
     if(!RAND_bytes(iv, 16)){
         valid = false;
-        cout << "[EROR]: Generating IV, program cannot continue." << endl;
+        cout << "[ERROR]: Generating IV, program cannot continue." << endl;
     }
     else{
         cout << "[INFO]: IV Generated." << endl;
