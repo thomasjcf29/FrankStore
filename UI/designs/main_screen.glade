@@ -509,7 +509,7 @@
                     <property name="valign">start</property>
                     <property name="margin_left">15</property>
                     <property name="margin_bottom">5</property>
-                    <property name="label" translatable="yes">5. Would you like the encoded result to be an image?</property>
+                    <property name="label" translatable="yes">5. Would you like to encode / decode from an image?</property>
                     <property name="single_line_mode">True</property>
                     <property name="xalign">0</property>
                     <attributes>
@@ -527,7 +527,7 @@
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="chkOutputImage">
-                    <property name="label" translatable="yes">Yes, make them an image</property>
+                    <property name="label" translatable="yes">Yes, I'm dealing with images</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="focus_on_click">False</property>
