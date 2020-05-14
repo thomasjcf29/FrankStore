@@ -9,3 +9,4 @@ Program/CMakeCache.txt
 Program/cmake_install.cmake
 .remote-sync.json
 UI/designs/*.*~
+docs/_build/*
