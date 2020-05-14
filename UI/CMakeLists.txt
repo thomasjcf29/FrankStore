@@ -10,15 +10,25 @@ link_directories(${GTKMM_LIBRARY_DIRS})
 include_directories(${GTKMM_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
+if(UNIX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -mwindows")
+endif()
 
 file(GLOB FrankStoreUI_SRC
         "object_files/*.cpp"
         "header_files/*.h"
         "*.cpp"
-        "resources.c"
+        "*.c"
 )
 
 add_executable(FrankStoreUI ${FrankStoreUI_SRC})
 
 target_link_libraries(FrankStoreUI ${GTKMM_LIBRARIES})
+
+if(WIN32)
+    SET(FrankStoreUI_LINKFLAGS project.res)
+    SET_TARGET_PROPERTIES(FrankStoreUI PROPERTIES LINK_FLAGS ${FrankStoreUI_LINKFLAGS})
+endif()

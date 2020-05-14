@@ -32,11 +32,20 @@ endif(WIN32)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
-file(GLOB FrankStore_SRC
-        "object_files/*.cpp"
-        "header_files/*.h"
-        "*.cpp"
-)
+if(UNIX)
+	file(GLOB FrankStore_SRC
+	        "object_files/*.cpp"
+	        "header_files/*.h"
+	        "*.cpp"
+	)
+else()
+	file(GLOB FrankStore_SRC
+			"object_files/*.cpp"
+			"header_files/*.h"
+			"*.cpp"
+			"project.rc"
+	)
+endif()
 
 add_executable(FrankStore ${FrankStore_SRC})
 
