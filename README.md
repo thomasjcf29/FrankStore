@@ -20,7 +20,7 @@ Backwards compatibility with any future versions of FrankStore is not required, 
 
 ## License
 FrankStore, with the exceptions of below, is licensed under GPLv3 or later license, the short-code is GPL-3.0-or-later.
-You may view the full license in the LICENSE.md or COPYING file.
+You may view the full license in the COPYING file [available here.](https://github.com/thomasjcf29/FrankStore/blob/master/COPYING)
 
 GTK, GTKMM, Exiv2 is licensed under GPLv2 and is [available here.](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 
