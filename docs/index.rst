@@ -8,6 +8,10 @@ Both the CLI and GUI can run on the three major platforms, Windows (x64), Linux 
 
 For Linux it has been tested (and documentation provided for) Ubuntu, however, we expect it to work on all major distros.
 
+If you would like a test image to play around with for encryption (with EXIF data) / encoding please visit the reposity `here`_, the images are under a folder called example_images.
+
+.. _here: https://github.com/thomasjcf29/FrankStore
+
 Requirements
 ------------
 
