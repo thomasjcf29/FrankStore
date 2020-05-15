@@ -31,7 +31,7 @@ OpenSSL is licensed under an Apache 2 License and is [available here.](https://w
 Part of this source code (specifically the SHA Algorith file) - available under Program/(object_files | header_files)/sha512.(h/cpp) is licensed by Oliver Gay he has requested a link to his website, [available here.](http://www.ouah.org/ogay/sha2/)
 
 ## Documentation
-Documentation to build / install FrankStore on all major platforms (MacOS, Linux, and Windows) is available at {INSERTURL}
+Documentation to build / install FrankStore on all major platforms (MacOS, Linux, and Windows) is [available here.](https://frankstore.readthedocs.io)
 
 ## Enquiries
-If you would like to get in touch with the developers of FrankStore please contact us at frankstore-enquiries(at)thomasfranklin(dot)co(dot)uk
+If you would like to get in touch with the developers of FrankStore please contact us at frankstore-enquiries@thomasfranklin.co.uk
